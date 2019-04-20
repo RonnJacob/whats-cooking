@@ -1,9 +1,9 @@
-const FETCH_URL = 'localhost:4200/api/';
+const FETCH_URL = 'http://localhost:4200/api/';
 
 export default class RegularUserServices{
     registerRegularUser= (regularUser) => {
         // console.log(regularUser);
-        return fetch('http://localhost:4200/api/registerUser', {
+        return fetch(FETCH_URL + 'registerUser', {
             method : 'post',
             body : JSON.stringify(regularUser),
             headers : {

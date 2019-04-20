@@ -4,9 +4,14 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import './RegisterPage.css'
 import '../../assets/css/main.css'
 import Select from 'react-select'
+import UserServices from '../../services/UserServices'
 import RegularUserServices from '../../services/RegularUserServices'
 import ChefServices from '../../services/ChefServices'
 import NutritionistServices from '../../services/NutritionistServices'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faExclamation } from '@fortawesome/free-solid-svg-icons'
+
 
 const options = [
     { value: 'REGULAR', label: 'Foodie' },
@@ -48,9 +53,10 @@ class RegisterPage extends React.Component{
         super(props);
         this.state = {
             selectedRole: null,
-            error: null,
+            errors: [],
             user: {}
-        }
+        };
+        this.userServices = new UserServices();
         this.regularUserServices = new RegularUserServices();
         this.chefServices = new ChefServices();
         this.nutritionistServices = new NutritionistServices();
@@ -61,30 +67,66 @@ class RegisterPage extends React.Component{
         this.setState({selectedRole: selectedRole});
     };
 
-    registerUser = () => {
-        this.state.user['username'] = document.getElementById('register_username').value;
-        this.state.user['firstName'] = document.getElementById('register_firstname').value;
-        this.state.user['lastName'] = document.getElementById('register_lastname').value;
-        this.state.user['password'] = document.getElementById('register_password').value;
-        this.state.user['password'] = document.getElementById('register_verify_password').value;
-        this.state.user['role'] = this.state.selectedRole ? this.state.selectedRole.value : 'no';
-        if(this.state.user['role']=== 'CHEF'){
-            this.state.user['blogPost'] = document.getElementById('register_chefblog').value;
-            console.log(this.state.user);
-            this.chefServices.registerChef(this.state.user);
+    validateUser = () => {
+        const errorsReg = [];
+        if(document.getElementById('register_username').value.length===0){
+            errorsReg.push('Username cannot be empty.');
         }
-        if(this.state.user['role']==='NUTRITIONIST'){
-            this.state.user['appointmentLink'] = document.getElementById('register_nutritionistsite').value;
-            this.nutritionistServices.registerNutritionist(this.state.user);
-        }
-        if(this.state.user['role']==='REGULAR'){
-            this.regularUserServices.registerRegularUser(this.state.user);
+        else if(document.getElementById('register_firstname').value.length===0){
+            errorsReg.push('First name cannot be empty.');
         }
 
+        if(document.getElementById('register_password').value.length < 6){
+            errorsReg.push('Password must be greater than 6 characters');
+        }
+        else if(document.getElementById('register_verify_password').value
+            !== document.getElementById('register_password').value){
+            errorsReg.push('Passwords do not match');
+        }
+
+        else if(this.state.selectedRole===null){
+            errorsReg.push('Please select a role.');
+        }
+        return errorsReg;
+    };
+
+    registerUser = () => {
+        this.setState({errors: this.validateUser()});
+        this.state.user['username'] = document.getElementById('register_username').value;
+        this.userServices.checkUserNameValidity(this.state.user['username']).then(res=>{
+            if(res.length!==0){
+                // var errors = this.validateUser();
+                // Needn't show other errors if username is already taken.
+                var errors = [];
+                errors.push('Username has been taken.');
+                this.setState({errors: errors});
+            }
+            else{
+                this.state.user['firstName'] = document.getElementById('register_firstname').value;
+                this.state.user['lastName'] = document.getElementById('register_lastname').value;
+                this.state.user['password'] = document.getElementById('register_password').value;
+                this.state.user['password'] = document.getElementById('register_verify_password').value;
+                this.state.user['role'] = this.state.selectedRole ? this.state.selectedRole.value : 'no';
+
+                if(this.state.user['role']=== 'CHEF'){
+                    this.state.user['blogPost'] = document.getElementById('register_chefblog').value;
+                    this.chefServices.registerChef(this.state.user);
+                }
+                if(this.state.user['role']==='NUTRITIONIST'){
+                    this.state.user['appointmentLink'] = document.getElementById('register_nutritionistsite')
+                        .value;
+                    this.nutritionistServices.registerNutritionist(this.state.user);
+                }
+                if(this.state.user['role']==='REGULAR'){
+                    this.regularUserServices.registerRegularUser(this.state.user);
+                }
+            }
+        });
     };
 
     render(){
         const { selectedOption } = this.state;
+        library.add(faExclamation);
         return(
             <div id="register-page">
                 <section className="reservation-area section-gap relative">
@@ -111,7 +153,12 @@ class RegisterPage extends React.Component{
                             <div className="col-lg-5 reservation-right">
                                 <form className="form-wrap">
                                     <h2 className="mb-3">Register</h2>
-                                    {this.state.error!=null && <p>Error: {this.state.error}</p>}
+                                    {this.state.errors.map(error => (
+                                        <p className="form-errors" key={error}>
+                                            <FontAwesomeIcon className="form-error-icons" icon="exclamation"/>
+                                            &nbsp;&nbsp;{error}
+                                        </p>
+                                    ))}
                                     <input type="text" className="form-control"
                                            placeholder="Your Username"
                                            required
