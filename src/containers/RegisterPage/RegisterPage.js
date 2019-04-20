@@ -5,6 +5,8 @@ import './RegisterPage.css'
 import '../../assets/css/main.css'
 import Select from 'react-select'
 import RegularUserServices from '../../services/RegularUserServices'
+import ChefServices from '../../services/ChefServices'
+import NutritionistServices from '../../services/NutritionistServices'
 
 const options = [
     { value: 'REGULAR', label: 'Foodie' },
@@ -50,11 +52,13 @@ class RegisterPage extends React.Component{
             user: {}
         }
         this.regularUserServices = new RegularUserServices();
+        this.chefServices = new ChefServices();
+        this.nutritionistServices = new NutritionistServices();
     }
 
 
     handleChange = (selectedRole) => {
-        this.setState({ selectedRole });
+        this.setState({selectedRole: selectedRole});
     };
 
     registerUser = () => {
@@ -66,9 +70,12 @@ class RegisterPage extends React.Component{
         this.state.user['role'] = this.state.selectedRole ? this.state.selectedRole.value : 'no';
         if(this.state.user['role']=== 'CHEF'){
             this.state.user['blogPost'] = document.getElementById('register_chefblog').value;
+            console.log(this.state.user);
+            this.chefServices.registerChef(this.state.user);
         }
         if(this.state.user['role']==='NUTRITIONIST'){
-            this.state.user['nutritionist'] = document.getElementById('register_nutritionistsite').value;
+            this.state.user['appointmentLink'] = document.getElementById('register_nutritionistsite').value;
+            this.nutritionistServices.registerNutritionist(this.state.user);
         }
         if(this.state.user['role']==='REGULAR'){
             this.regularUserServices.registerRegularUser(this.state.user);
@@ -150,12 +157,12 @@ class RegisterPage extends React.Component{
                                         placeholder={'Who Are You'}
                                         styles={customStyles}
                                         value={selectedOption}
-                                        onChange={this.handleChange}
+                                        onChange = {this.handleChange}
                                         options={options}
                                     />
 
                                     {
-                                        this.state.selectedRole != null && this.state.selectedRole.value==='chef'
+                                        this.state.selectedRole != null && this.state.selectedRole.value==='CHEF'
                                         &&
                                         <input type="text" className="form-control"
                                                placeholder="Your Blog Page"
@@ -167,14 +174,14 @@ class RegisterPage extends React.Component{
                                     }
 
                                     {
-                                        this.state.selectedRole != null && this.state.selectedRole.value==='nutritionist'
+                                        this.state.selectedRole != null && this.state.selectedRole.value==='NUTRITIONIST'
                                         &&
                                         <input type="text" className="form-control"
-                                               placeholder="Your Site"
+                                               placeholder="Your Appointment Link"
                                                required
                                                id="register_nutritionistsite"
                                                onFocus={()=>{this.placeholder = ''}}
-                                               onBlur={()=>{this.placeholder = 'Your Site'}}>
+                                               onBlur={()=>{this.placeholder = 'Your Appointment Link'}}>
                                         </input>
                                     }
                                     <a className="primary-btn text-uppercase mt-20" style={{color: 'white'}}
