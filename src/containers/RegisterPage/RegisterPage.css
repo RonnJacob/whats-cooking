@@ -1,3 +1,6 @@
+#register-page{
+    height:100%;
+}
 .reservation-area {
     background: url(../../assets/img/reservation-bg.jpg) no-repeat center/cover;
 }
@@ -62,9 +65,14 @@
 
 .section-gap {
     padding: 120px 0;
+    /*height:100%;*/
 }
 
 
 .intro-text {
     font-size: 17px;
+}
+
+.Select-placeholder {
+    font-size: smaller;
 }
