@@ -5,4 +5,10 @@ export default class UserServices{
             .then(res=> {return res.json();}
             );
     };
+
+    getProfile = () => {
+        return fetch(FETCH_URL + 'profile')
+            .then(res=> {return res.json();}
+            );
+    };
 }

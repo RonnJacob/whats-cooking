@@ -11,6 +11,7 @@ import NutritionistServices from '../../services/NutritionistServices'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamation } from '@fortawesome/free-solid-svg-icons'
+import {Redirect} from 'react-router-dom'
 
 
 const options = [
@@ -54,7 +55,8 @@ class RegisterPage extends React.Component{
         this.state = {
             selectedRole: null,
             errors: [],
-            user: {}
+            user: {},
+            toHome: false
         };
         this.userServices = new UserServices();
         this.regularUserServices = new RegularUserServices();
@@ -110,21 +112,29 @@ class RegisterPage extends React.Component{
 
                 if(this.state.user['role']=== 'CHEF'){
                     this.state.user['blogPost'] = document.getElementById('register_chefblog').value;
-                    this.chefServices.registerChef(this.state.user);
+                    this.chefServices.registerChef(this.state.user)
+                        .then(()=>this.setState({toHome: true}));
                 }
                 if(this.state.user['role']==='NUTRITIONIST'){
                     this.state.user['appointmentLink'] = document.getElementById('register_nutritionistsite')
                         .value;
-                    this.nutritionistServices.registerNutritionist(this.state.user);
+                    this.nutritionistServices.registerNutritionist(this.state.user)
+                        .then(()=>this.setState({toHome: true}));
                 }
                 if(this.state.user['role']==='REGULAR'){
-                    this.regularUserServices.registerRegularUser(this.state.user);
+                    this.regularUserServices.registerRegularUser(this.state.user)
+                        .then(()=>this.setState({toHome: true}));
                 }
             }
         });
     };
 
     render(){
+
+        if(this.state.toHome === true){
+            return <Redirect to={{pathname: '/home', state: { user: this.state.user}}}/>
+        }
+
         const { selectedOption } = this.state;
         library.add(faExclamation);
         return(

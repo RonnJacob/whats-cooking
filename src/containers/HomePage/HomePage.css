@@ -1,3 +1,7 @@
+#home-page {
+    height:100%;
+}
+
 .header-top {
     padding: 20px 0px;
 }
@@ -381,25 +385,27 @@ body.mobile-nav-active #mobile-nav-toggle {
 /*-------- Start Banner Area ------------*/
 .banner-area {
     background: url(../../assets/img/hero-bg.jpg) center center/cover;
-    background-size: cover;
+    background-size: auto;
+    height:inherit;
 }
 @media (max-width: 767px) {
     .banner-area {
-        height: 767px !important;
+        height: 900px !important;
+        /*height:inherit;*/
     }
 }
 
 .banner-content {
-    margin-top: 100px;
+    margin-top: 170px;
 }
 @media (max-width: 1024px) {
     .banner-content {
-        margin-top: 100px;
+        margin-top: 190px;
     }
 }
 @media (max-width: 736px) and (min-width: 415px) {
     .banner-content {
-        margin-top: 240px;
+        margin-top: 190px;
     }
 }
 .banner-content h6 {
