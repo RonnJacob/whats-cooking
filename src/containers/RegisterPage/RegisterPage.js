@@ -1,6 +1,6 @@
 import React from 'react'
-import '../../../node_modules/font-awesome.css'
-import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
+// import '../../../node_modules/font-awesome.css'
+// import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import './RegisterPage.css'
 import '../../assets/css/main.css'
 import Select from 'react-select'
