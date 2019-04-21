@@ -9,8 +9,7 @@ import IngredientServices from "../services/IngredientServices";
 class MainApp extends React.Component {
     constructor() {
         super();
-        this.ingredientService = new IngredientServices()
-
+        this.ingredientService = new IngredientServices();
         this.state = {
             userId: 1,
             ingredients: [],
