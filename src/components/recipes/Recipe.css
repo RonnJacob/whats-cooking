@@ -1,15 +1,3 @@
-.actions-theader {
-    width: 100px;
-    height: 50px;
-    overflow-x: hidden
-}
-
-.name-theader {
-    width: 100px;
-    height: 50px;
-    overflow-x: hidden
-}
-
 .middle-div {
     margin-left: auto;
     margin-right: auto;
@@ -24,4 +12,3 @@
     border-width: 0px;
     color: red
 }
-
