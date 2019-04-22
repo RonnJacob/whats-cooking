@@ -67,7 +67,12 @@ class RecipeDetails extends Component {
 
     componentDidMount() {
         document.title = "What's Cooking?";
-        let currentRecipe;
+        this.renderAllFields('', '', 'd-none');
+
+    }
+
+    renderAllFields = (updateValue, detail, updatedFieldVisibility) => {
+        let currentRecipe = {};
         let currentUser = {};
         let currentUserName = '';
         let endorsedByChef = [];
@@ -77,45 +82,32 @@ class RecipeDetails extends Component {
                     let ingredients = recipe.ingredients.join(',');
                     recipe.ingredients = ingredients;
                     currentRecipe = recipe
-                    // if (recipe.endorsedByChef) {
-                    //     let chefNames = [];
-                    //     alert('array inside map: ' + recipe.endorsedByChef.length)
-                    //     recipe.endorsedByChef.map(e => {
-                    //         this.userServices.findById(e)
-                    //             .then(user => {
-                    //                 chefNames.push(user.firstName)
-                    //             })
-                    //     })
-                    //     alert('chef names length: ' + chefNames.length)
-                    //     endorsedByChef = [...new Set(chefNames)]
-                    //
-                    // }
-                    if (recipe.endorsedByChef) {
-                        let chefNames = [];
-                        recipe.endorsedByChef.map(e => {
-                            this.userServices.findById(e)
-                                .then(user => {
-                                    // this.state.chefIds.push(user._id)
-                                    // this.state.endorsedByChef.push(user.firstName)
-                                    this.state.endorsedByChef.push(user)
-                                })
-                        })
-                        // endorsedByChef = [...new Set(chefNames)]
-                    }
-                    if (recipe.endorsedByNutritionist) {
-                        let nutritionistNames = [];
-                        recipe.endorsedByNutritionist.map(e => {
-                            this.userServices.findById(e)
-                                .then(user => {
-                                    // this.state.nutritionistIds.push(user._id)
-                                    // this.state.endorsedByNutritionist.push(user.firstName)
-                                    this.state.endorsedByNutritionist.push(user)
-                                })
-                        })
-                        // endorsedByNutritionist = [...new Set(nutritionistNames)]
-                    }
                 }
             )
+            .then(() => {
+                if (currentRecipe.endorsedByChef) {
+                    let chefNames = [];
+                    currentRecipe.endorsedByChef.map(e => {
+                        this.userServices.findById(e)
+                            .then(user => {
+                                // this.state.chefIds.push(user._id)
+                                // this.state.endorsedByChef.push(user.firstName)
+                                this.state.endorsedByChef.push(user)
+                            })
+                    })
+                }
+                if (currentRecipe.endorsedByNutritionist) {
+                    let nutritionistNames = [];
+                    currentRecipe.endorsedByNutritionist.map(e => {
+                        this.userServices.findById(e)
+                            .then(user => {
+                                // this.state.nutritionistIds.push(user._id)
+                                // this.state.endorsedByNutritionist.push(user.firstName)
+                                this.state.endorsedByNutritionist.push(user)
+                            })
+                    })
+                }
+            })
             .then(() => this.userServices.findById(currentRecipe.ownedBy))
             .then(user => {
                 // alert('$$$$$' + user)
@@ -123,85 +115,83 @@ class RecipeDetails extends Component {
                     currentUser = user;
                     currentUserName = user.firstName
                 }
-                // let chefIds = [...new Set(this.state.chefIds)]
-                // let nutritionistIds = [...new Set(this.state.nutritionistIds)]
-                // let chefNames = [...new Set(this.state.endorsedByChef)]
-                // let nutritionistNames = [...new Set(this.state.endorsedByNutritionist)]
-                //
-
-                let x = this.state.endorsedByChef.filter((thing, index) => {
+            })
+            .then(() => {
+                endorsedByChef = this.state.endorsedByChef.filter((thing, index) => {
                     return index === this.state.endorsedByChef.findIndex(obj => {
                         return JSON.stringify(obj) === JSON.stringify(thing);
                     });
-                });
-                let y = this.state.endorsedByNutritionist.filter((thing, index) => {
+                })
+            })
+            .then(() => {
+                endorsedByNutritionist = this.state.endorsedByNutritionist.filter((thing, index) => {
                     return index === this.state.endorsedByNutritionist.findIndex(obj => {
                         return JSON.stringify(obj) === JSON.stringify(thing);
                     });
                 });
-                this.setState({
-                    recipe: currentRecipe,
-                    owner: currentUser,
-                    ownerName: currentUserName,
-                    endorsedByChef: x,
-                    endorsedByNutritionist: y
-                })
             })
+            .then(() => this.setState({
+                recipe: currentRecipe,
+                owner: currentUser,
+                ownerName: currentUserName,
+                endorsedByChef: endorsedByChef,
+                endorsedByNutritionist: endorsedByNutritionist,
+                updateValue: updateValue,
+                detail: detail,
+                updatedFieldVisibility: updatedFieldVisibility
+            }))
     }
 
     valueChanged = (event) => {
-        this.setState(
-            {
-                updateValue: event.target.value
-            });
+        this.renderAllFields(event.target.value, this.state.detail, 'd-block')
     }
 
     toggleAction = () => {
         if (this.state.userType === 'REGULAR') {
             if (!this.state.isActioned)
                 this.regularUserServices.favoriteRecipe(this.state.userId, this.state.recipeId)
-                    .then(() => alert("Added to your Favorites successfully!"))
                     .then(() => this.setState({
                         defaultButtonIcon: ['fas', 'heart'],
                         isActioned: true
-                    }));
+                    }))
+                    .then(() => alert("Added to your Favorites successfully!"));
             else
                 this.regularUserServices.removeFavorite(this.state.userId, this.state.recipeId)
-                    .then(() => alert("Removed from your Favorites successfully!"))
                     .then(() => this.setState({
                         defaultButtonIcon: ['far', 'heart'],
                         isActioned: false
-                    }));
+                    }))
+                    .then(() => alert("Removed from your Favorites successfully!"));
         } else if (this.state.userType === 'CHEF') {
             if (!this.state.isActioned)
                 this.chefServices.endorseRecipe(this.state.userId, this.state.recipeId)
-                    .then(() => alert("Added to your Endorsed successfully!"))
                     .then(() => this.setState({
                         defaultButtonIcon: ['fas', 'thumbs-up'],
                         isActioned: true
-                    }));
+                    }))
+                    .then(() => alert("Added to your Endorsed successfully!"));
             else
                 this.chefServices.removeEndorsed(this.state.userId, this.state.recipeId)
-                    .then(() => alert("Removed from your Endorsed successfully!"))
                     .then(() => this.setState({
                         defaultButtonIcon: ['far', 'thumbs-up'],
                         isActioned: false
-                    }));
+                    }))
+                    .then(() => alert("Removed from your Endorsed successfully!"));
         } else {
             if (!this.state.isActioned)
                 this.nutritionistServices.endorseRecipe(this.state.userId, this.state.recipeId)
-                    .then(() => alert("Added to your Endorsed successfully!"))
                     .then(() => this.setState({
                         defaultButtonIcon: ['fas', 'thumbs-up'],
                         isActioned: true
-                    }));
+                    }))
+                    .then(() => alert("Added to your Endorsed successfully!"));
             else
                 this.nutritionistServices.removeEndorsed(this.state.userId, this.state.recipeId)
-                    .then(() => alert("Removed from your Endorsed successfully!"))
                     .then(() => this.setState({
                         defaultButtonIcon: ['far', 'thumbs-up'],
                         isActioned: false
-                    }));
+                    }))
+                    .then(() => alert("Removed from your Endorsed successfully!"));
         }
 
     }
@@ -215,51 +205,20 @@ class RecipeDetails extends Component {
         else
             recipe[`${this.state.detail}`] = this.state.updateValue;
         this.recipeService.updateRecipe(this.state.recipeId, recipe)
-            .then(() => this.recipeService.findRecipeById(this.state.recipeId))
-            .then(recipe => {
-                let ingredients = recipe.ingredients.join(',');
-                recipe.ingredients = ingredients;
-                return this.setState({
-                    recipe: recipe,
-                    updateValue: '',
-                    detail: '',
-                    updatedFieldVisibility: 'd-none'
-                })
-            })
+            .then(() => this.renderAllFields('', '', 'd-none'))
             .then(() => alert('Recipe Updated Successfully!'))
     }
 
-    selectNameForUpdate = (recipeName) => {
-        this.setState({
-            updateValue: recipeName,
-            detail: 'name',
-            updatedFieldVisibility: 'd-block'
-        })
-    }
+    selectNameForUpdate = (recipeName) => this.renderAllFields(recipeName, 'name', 'd-block')
 
-    selectIngredientsForUpdate = (recipeIngredients) => {
-        this.setState({
-            updateValue: recipeIngredients,
-            detail: 'ingredients',
-            updatedFieldVisibility: 'd-block'
-        })
-    }
 
-    selectStepsForUpdate = (recipeSteps) => {
-        this.setState({
-            updateValue: recipeSteps,
-            detail: 'steps',
-            updatedFieldVisibility: 'd-block'
-        })
-    }
+    selectIngredientsForUpdate = (recipeIngredients) =>
+        this.renderAllFields(recipeIngredients, 'ingredients', 'd-block')
 
-    selectImageForUpdate = (recipeImage) => {
-        this.setState({
-            updateValue: recipeImage,
-            detail: 'image',
-            updatedFieldVisibility: 'd-block'
-        })
-    }
+
+    selectStepsForUpdate = (recipeSteps) => this.renderAllFields(recipeSteps, 'steps', 'd-block')
+
+    selectImageForUpdate = (recipeImage) => this.renderAllFields(recipeImage, 'image', 'd-block')
 
     render() {
         let updatedValue;
