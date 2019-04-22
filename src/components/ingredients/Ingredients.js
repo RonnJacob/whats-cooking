@@ -28,19 +28,9 @@ class Ingredients extends Component {
         }
     }
 
-    // componentDidMount() {
-    //     document.title = "What's Cooking?";
-    //     // this.ingredientService.findIngredientsByUser()
-    //     //     .then(ingredients => this.setState({
-    //     //         ingredients: ingredients
-    //     //     }))
-    //
-    //     this.ingredientService.findIngredientsByUser(this.state.userId)
-    //         .then(ingredients => this.setState({
-    //             ingredients: ingredients
-    //         }))
-    //
-    // }
+    componentDidMount() {
+        document.title = "What's Cooking?";
+    }
 
     // addIngredient = ingredient => {
     //     alert('in call')
