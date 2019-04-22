@@ -1610,7 +1610,48 @@
 
 //--------- End Price Range Area noUiSlider ----------//
 
-
+//-----------Pagination sort-------------------//
+.pagination {
+	.head {
+		line-height: 40px;
+		background: $primary-color3 !important;;
+		padding: 0 30px;
+		font-size: 16px;
+		font-weight: 400;
+		color: $primary-color3 ;
+	}
+	.main-categories {
+		padding: 0 20px;
+		background: $white;
+		box-shadow: 0 10px 10px rgba(153, 153, 153, 0.1);
+	}
+	.main-nav-list {
+		a {
+			font-size:14px;
+			display: block;
+			line-height: 50px;
+			padding-left: 10px;
+			border-bottom: 1px solid #eee;
+			color: $primary-color3 !important;;
+			&:hover {
+				color: $primary-color;
+			}
+			.number {
+				color: #cccccc;
+				margin-left: 10px;
+			}
+			.lnr {
+				margin-right: 10px;
+				display: none;
+			}
+		}
+		&.child {
+			a {
+				padding-left: 32px;
+			}
+		}
+	}
+}
 
 
 
