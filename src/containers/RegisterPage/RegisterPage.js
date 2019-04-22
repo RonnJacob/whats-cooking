@@ -5,13 +5,13 @@ import './RegisterPage.css'
 import '../../assets/css/main.css'
 import Select from 'react-select'
 import UserServices from '../../services/UserServices'
-import RegularUserServices from '../../services/RegularUserServices'
 import ChefServices from '../../services/ChefServices'
 import NutritionistServices from '../../services/NutritionistServices'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamation } from '@fortawesome/free-solid-svg-icons'
 import {Redirect} from 'react-router-dom'
+import {setInStorage} from "../../utils/storage";
 
 
 const options = [
@@ -56,10 +56,11 @@ class RegisterPage extends React.Component{
             selectedRole: null,
             errors: [],
             user: {},
-            toHome: false
+            toHome: false,
+            token: '',
+            signInError: ''
         };
         this.userServices = new UserServices();
-        this.regularUserServices = new RegularUserServices();
         this.chefServices = new ChefServices();
         this.nutritionistServices = new NutritionistServices();
     }
@@ -112,18 +113,69 @@ class RegisterPage extends React.Component{
 
                 if(this.state.user['role']=== 'CHEF'){
                     this.state.user['blogPost'] = document.getElementById('register_chefblog').value;
+                    // this.chefServices.registerChef(this.state.user)
+                    //     .then(()=>this.setState({toHome: true}));
                     this.chefServices.registerChef(this.state.user)
-                        .then(()=>this.setState({toHome: true}));
+                        .then(this.userServices.loginUser(this.state.user.username, this.state.user.password)
+                            .then(json => {
+                            if (json.success) {
+                                setInStorage('project_april', { token: json.token , user: json.user});
+                                this.setState({
+                                    token: json.token,
+                                    user: json.user[0],
+                                    toHome: true
+                                });
+                            } else {
+                                this.setState({
+                                    toHome: false
+                                });
+                            }
+                        })
+                    );
                 }
                 if(this.state.user['role']==='NUTRITIONIST'){
                     this.state.user['appointmentLink'] = document.getElementById('register_nutritionistsite')
                         .value;
+                    // this.nutritionistServices.registerNutritionist(this.state.user)
+                    //     .then(()=>this.setState({toHome: true}));
                     this.nutritionistServices.registerNutritionist(this.state.user)
-                        .then(()=>this.setState({toHome: true}));
+                        .then(this.userServices.loginUser(this.state.user.username, this.state.user.password)
+                            .then(json => {
+                                if (json.success) {
+                                    setInStorage('project_april', { token: json.token , user: json.user});
+                                    this.setState({
+                                        token: json.token,
+                                        user: json.user[0],
+                                        toHome: true
+                                    });
+                                } else {
+                                    this.setState({
+                                        toHome: false
+                                    });
+                                }
+                            })
+                        );
                 }
                 if(this.state.user['role']==='REGULAR'){
-                    this.regularUserServices.registerRegularUser(this.state.user)
-                        .then(()=>this.setState({toHome: true}));
+                    // this.regularUserServices.registerRegularUser(this.state.user)
+                    //     .then(()=>this.setState({toHome: true}));
+                    this.nutritionistServices.registerNutritionist(this.state.user)
+                        .then(this.userServices.loginUser(this.state.user.username, this.state.user.password)
+                            .then(json => {
+                                if (json.success) {
+                                    setInStorage('project_april', { token: json.token , user: json.user});
+                                    this.setState({
+                                        token: json.token,
+                                        user: json.user[0],
+                                        toHome: true
+                                    });
+                                } else {
+                                    this.setState({
+                                        toHome: false
+                                    });
+                                }
+                            })
+                        );
                 }
             }
         });
