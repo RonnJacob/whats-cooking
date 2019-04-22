@@ -246,7 +246,7 @@ class RegisterPage extends React.Component{
                                     </a>
 
                                     <p className="mt-3">Already A Member?
-                                        <a href="index.html"
+                                        <a href="/login"
                                            className="sign-in">Sign In
                                         </a>
                                     </p>
