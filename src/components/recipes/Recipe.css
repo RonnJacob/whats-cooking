@@ -1,0 +1,14 @@
+.middle-div {
+    margin-left: auto;
+    margin-right: auto;
+    overflow-x: hidden
+}
+
+.full-width {
+    width: 100%;
+}
+
+.no-input-border {
+    border-width: 0px;
+    color: red
+}
