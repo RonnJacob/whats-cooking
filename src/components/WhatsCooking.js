@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import RegisterPage from "./RegisterPage/RegisterPage";
-
+import MainApp from './MainApp'
 import LandingPage from "./LandingPage/LandingPage";
 import ExploreRecipes from "./Explore/ExploreRecipes";
 
@@ -28,6 +28,7 @@ class WhatsCooking extends Component{
                     </Route>
                     </Switch>
                 </Router>
+                <MainApp/>
             </div>
         )
     }
