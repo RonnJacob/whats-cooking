@@ -9,4 +9,24 @@ export default class RecipeServices {
             'content-type': 'application/json'
         }
     }).then(response => response.json());
+
+    deleteRecipe = recipeId => fetch(FETCH_URL + '/recipes/' + recipeId, {
+        method: 'delete',
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+
+    updateRecipe = (recipeId, recipe) => fetch(FETCH_URL + '/recipes/' + recipeId, {
+        method: 'put',
+        body: JSON.stringify(recipe),
+        headers: {
+            'content-type': 'application/json'
+        }
+    });
+
+    findRecipeById = recipeId =>
+        fetch(FETCH_URL + '/recipes/' + recipeId).then(response => response.json());
+
+
 }
