@@ -5,11 +5,14 @@ import '../../assets/css/nice-select.css'
 import '../../assets/css/animate.min.css'
 import '../../assets/css/main.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ReactTooltip from 'react-tooltip'
 import {
     faPlus,
     faTimes,
     faPencilAlt,
     faCheck,
+    faUtensils,
+    faMedkit,
     faHeart as solidHeart,
     faThumbsUp as solidThumbsUp
 } from "@fortawesome/free-solid-svg-icons";
@@ -23,7 +26,7 @@ import RegularUserServices from "../../services/RegularUserServices";
 import NutritionistServices from "../../services/NutritionistServices";
 import ChefServices from "../../services/ChefServices";
 
-library.add(faPlus, faTimes, faPencilAlt, faCheck, emptyHeart, solidHeart, solidThumbsUp, emptyThumbsUp);
+library.add(faPlus, faTimes, faPencilAlt, faCheck, emptyHeart, solidHeart, solidThumbsUp, emptyThumbsUp, faUtensils, faMedkit);
 
 class RecipeDetails extends Component {
     constructor(props) {
@@ -53,6 +56,8 @@ class RecipeDetails extends Component {
             detail: '',
             owner: {},
             ownerName: '',
+            endorsedByChef: [],
+            endorsedByNutritionist: [],
             updatedFieldVisibility: 'd-none',
             defaultButtonIcon: defaultButtonIcon,
             defaultActionTooltip: defaultTooltip,
@@ -65,12 +70,37 @@ class RecipeDetails extends Component {
         let currentRecipe;
         let currentUser = {};
         let currentUserName = '';
+        let endorsedByChef = [];
+        let endorsedByNutritionist = [];
         this.recipeService.findRecipeById(this.state.recipeId)
             .then(recipe => {
-                let ingredients = recipe.ingredients.join(',');
-                recipe.ingredients = ingredients;
-                currentRecipe = recipe
-            })
+                    let ingredients = recipe.ingredients.join(',');
+                    recipe.ingredients = ingredients;
+                    currentRecipe = recipe
+                    if (recipe.endorsedByChef) {
+                        // let chefNames = [];
+                        // recipe.endorsedByChef.map(e => {
+                        //     this.userServices.findById(e)
+                        //         .then(user => chefNames.push(user.firstName))
+                        // })
+
+                        this.getPromiseOfMap(recipe.endorsedByChef)
+                            .then((chefNames) => {
+                                alert('chefnames length: ' + chefNames.length)
+                                endorsedByChef = [...new Set(chefNames)]
+                            })
+
+                    }
+                    // if (recipe.endorsedByNutritionist) {
+                    //     let nutritionistNames = [];
+                    //     recipe.endorsedByNutritionist.map(e => {
+                    //         this.userServices.findById(e)
+                    //             .then(user => nutritionistNames.push(user.firstName))
+                    //     })
+                    //         .then(() => endorsedByNutritionist = [...new Set(nutritionistNames)])
+                    // }
+                }
+            )
             .then(() => this.userServices.findById(currentRecipe.ownedBy))
             .then(user => {
                 // alert('$$$$$' + user)
@@ -78,14 +108,28 @@ class RecipeDetails extends Component {
                     currentUser = user;
                     currentUserName = user.firstName
                 }
-
                 this.setState({
                     recipe: currentRecipe,
                     owner: currentUser,
-                    ownerName: currentUserName
+                    ownerName: currentUserName,
+                    endorsedByChef: endorsedByChef,
+                    endorsedByNutritionist: endorsedByNutritionist
                 })
             })
     }
+
+    getPromiseOfMap = array => new Promise(() => {
+        alert('array inside map: ' + array.length)
+        let names=[];
+        array.map(e => {
+            this.userServices.findById(e)
+                .then(user => {
+                    alert(user.firstName)
+                    names.push(user.firstName)
+                })
+        })
+        return names;
+    })
 
     valueChanged = (event) => {
         this.setState(
@@ -230,7 +274,7 @@ class RecipeDetails extends Component {
                     <div className="container">
                         <h1 className="mb-5 text-center">Recipe Details
                             <span>&nbsp;&nbsp;<a className='hand-cursor'
-                                onClick={this.toggleAction} title='Hello'>
+                                                 onClick={this.toggleAction} data-tip={this.state.defaultActionTooltip}>
                                 {this.state.userType === 'REGULAR' && <FontAwesomeIcon
                                     icon={this.state.defaultButtonIcon}/>
                                 || (this.state.userType === 'CHEF' || this.state.userType === 'NUTRITIONIST') &&
@@ -292,12 +336,51 @@ class RecipeDetails extends Component {
                                                     className="fas"/></a></span>
                                             </td>
                                         </tr>
+
+                                        {this.state.ownerName &&
                                         <tr>
                                             <td className="name-theader">Owned By</td>
                                             <td className="name-theader">{this.state.ownerName}</td>
                                             <td className="actions-theader">
                                             </td>
+                                        </tr> ||
+                                        (this.state.endorsedByChef.length != 0
+                                            || this.state.endorsedByNutritionist.length != 0)
+                                        &&
+                                        <tr>
+                                            <td className="name-theader">Endorsed By</td>
+                                            <td className="">
+
+                                                {this.state.endorsedByChef.length != 0 &&
+                                                <div>
+                                                    <div className='row endorsed-theader'>
+                                                        <FontAwesomeIcon
+                                                            icon={faUtensils}
+                                                            className="fas" data-tip='Chefs'/>
+                                                    </div>
+                                                    {this.state.endorsedByChef.map(e => <div
+                                                        className='row endorsed-theader'>{e}</div>)
+                                                    }
+                                                </div>
+                                                }
+                                                {this.state.endorsedByNutritionist.length != 0 &&
+                                                <div>
+                                                    <div className='row endorsed-theader'>
+                                                        <FontAwesomeIcon
+                                                            icon={faMedkit}
+                                                            className="fas"/>
+                                                    </div>
+                                                    {this.state.endorsedByNutritionist.map(e => <div
+                                                        className='row endorsed-theader'>{e}</div>)
+                                                    }
+                                                </div>
+                                                }
+                                            </td>
+                                            <td className="actions-theader">
+                                            </td>
                                         </tr>
+                                        }
+
                                         <tr className="full-width red-border">
                                             <td>
                                                 <div className={`${this.state.updatedFieldVisibility}`}>
@@ -346,6 +429,7 @@ class RecipeDetails extends Component {
                         </div>
                     </div>
                 </footer>
+                <ReactTooltip/>
             </div>
         );
     }

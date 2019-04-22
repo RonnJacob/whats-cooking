@@ -108,12 +108,12 @@ class MainApp extends React.Component {
                                component={(props) =>
                                    <RecipeDetails
                                        // Regular
-                                       // userId={`5cb94983e587896bea89fefd`}
+                                       userId={`5cb94983e587896bea89fefd`}
                                        //Chef
-                                       userId={`5cbd7841e9ee3e368d4db140`}
+                                       // userId={`5cbd7841e9ee3e368d4db140`}
                                        //Nutritionist
-                                       userId={`5cbd79efe9ee3e368d4db142`}
-                                       userType='NUTRITIONIST'
+                                       // userId={`5cbd79efe9ee3e368d4db142`}
+                                       userType='REGULAR'
                                        {...props}/>}/>
                     </div>
                 </Router>

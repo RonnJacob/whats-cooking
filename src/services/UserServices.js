@@ -40,12 +40,6 @@ export default class UserServices {
             .then(res => res.json());
     }
 
-    findById = userID => {
-        let url = FETCH_URL + 'user/' + userID;
-        fetch(url)
-            .then(response => {
-                // alert('response from service: ' + response)
-                return response.json()
-            });
-    }
+    findById = userID => fetch(FETCH_URL + 'user/' + userID)
+        .then(response => response.json());
 }
