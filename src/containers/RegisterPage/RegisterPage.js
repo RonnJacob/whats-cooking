@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faExclamation } from '@fortawesome/free-solid-svg-icons'
 import {Redirect} from 'react-router-dom'
 import {setInStorage} from "../../utils/storage";
+import RegularUserServices from "../../services/RegularUserServices";
 
 
 const options = [
@@ -61,6 +62,7 @@ class RegisterPage extends React.Component{
             signInError: ''
         };
         this.userServices = new UserServices();
+        this.regularUserServices = new RegularUserServices();
         this.chefServices = new ChefServices();
         this.nutritionistServices = new NutritionistServices();
     }
@@ -159,7 +161,7 @@ class RegisterPage extends React.Component{
                 if(this.state.user['role']==='REGULAR'){
                     // this.regularUserServices.registerRegularUser(this.state.user)
                     //     .then(()=>this.setState({toHome: true}));
-                    this.nutritionistServices.registerNutritionist(this.state.user)
+                    this.regularUserServices.registerRegularUser(this.state.user)
                         .then(this.userServices.loginUser(this.state.user.username, this.state.user.password)
                             .then(json => {
                                 if (json.success) {
