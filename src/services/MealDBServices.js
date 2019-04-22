@@ -1,8 +1,49 @@
 export default class mealDBServices{
-    testFood= () => {
-        return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata')
-            .then(res => {
-                return res.json();});
-    };
 
+
+    findAllRecipes = () =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+            .then(res => {return res.json();});
+    }
+
+    findPopularRecipes = () =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i=chicken_breast')
+            .then(function(response){
+                             return response.json();
+                         });
+    }
+    findRecipeByName =(recipeName) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s='+recipeName)
+            .then(function(response){
+                return response.json();
+            });
+    }
+
+    findRecipesByCategory =(category) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c='+category)
+            .then(function(response){
+                return response.json();
+            });
+    }
+
+    findRecipesByCuisines =(cuisine) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/list.php?a='+cuisine)
+            .then(function(response){
+                return response.json();
+            });
+    }
+    findAllCategories() {
+        return fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=')
+            .then(function(response){
+                return response.json();
+            });
+    }
+    findAllCuisines(){
+        return fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=')
+            .then(function(response){
+                return response.json();
+            });
+    }
 }
+
+

@@ -1,5 +1,6 @@
 const FETCH_URL = 'http://localhost:4200/api/';
 
+
 export default class NutritionistServices {
     registerNutritionist = (nutritionist) => {
         return fetch(FETCH_URL + 'registerNutritionist', {
@@ -31,5 +32,7 @@ export default class NutritionistServices {
                 'Content-Type': 'application/json'
             },
         })
+
+
     };
 }
