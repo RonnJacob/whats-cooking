@@ -44,7 +44,7 @@ export default class UserServices {
         let url = FETCH_URL + 'user/' + userID;
         fetch(url)
             .then(response => {
-                alert('response from service: ' + response)
+                // alert('response from service: ' + response)
                 return response.json()
             });
     }

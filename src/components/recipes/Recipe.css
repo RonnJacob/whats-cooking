@@ -12,3 +12,7 @@
     border-width: 0px;
     color: red
 }
+
+.hand-cursor{
+    cursor: pointer;
+}

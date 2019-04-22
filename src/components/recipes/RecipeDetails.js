@@ -5,29 +5,58 @@ import '../../assets/css/nice-select.css'
 import '../../assets/css/animate.min.css'
 import '../../assets/css/main.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
+import {
+    faPlus,
+    faTimes,
+    faPencilAlt,
+    faCheck,
+    faHeart as solidHeart,
+    faThumbsUp as solidThumbsUp
+} from "@fortawesome/free-solid-svg-icons";
+import {faHeart as emptyHeart, faThumbsUp as emptyThumbsUp} from "@fortawesome/free-regular-svg-icons";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import HomePageNav from '../HomePageNav'
 import RecipeServices from "../../services/RecipeServices";
 import UserServices from "../../services/UserServices";
+import RegularUserServices from "../../services/RegularUserServices";
+import NutritionistServices from "../../services/NutritionistServices";
+import ChefServices from "../../services/ChefServices";
 
-library.add(faPlus, faTimes, faPencilAlt, faCheck);
+library.add(faPlus, faTimes, faPencilAlt, faCheck, emptyHeart, solidHeart, solidThumbsUp, emptyThumbsUp);
 
 class RecipeDetails extends Component {
     constructor(props) {
         super(props);
         this.recipeService = new RecipeServices();
         this.userServices = new UserServices();
+        this.regularUserServices = new RegularUserServices();
+        this.nutritionistServices = new NutritionistServices();
+        this.chefServices = new ChefServices();
         const recipeId = props.match.params['recipeId'];
+        let defaultTooltip = '';
+        let defaultButtonIcon = [];
+        if (this.props.userType === 'REGULAR') {
+            defaultButtonIcon = ['far', 'heart'];
+            defaultTooltip = 'Favorite this Recipe!'
+        } else {
+            defaultButtonIcon = ['far', 'thumbs-up'];
+            defaultTooltip = 'Endorse this Recipe!'
+        }
+
         this.state = {
+            userId: this.props.userId,
+            userType: this.props.userType,
             recipeId: recipeId,
             recipe: {},
             updateValue: '',
             detail: '',
             owner: {},
             ownerName: '',
-            updatedFieldVisibility: 'd-none'
+            updatedFieldVisibility: 'd-none',
+            defaultButtonIcon: defaultButtonIcon,
+            defaultActionTooltip: defaultTooltip,
+            isActioned: false
         }
     }
 
@@ -44,7 +73,7 @@ class RecipeDetails extends Component {
             })
             .then(() => this.userServices.findById(currentRecipe.ownedBy))
             .then(user => {
-                alert('$$$$$' + user)
+                // alert('$$$$$' + user)
                 if (user) {
                     currentUser = user;
                     currentUserName = user.firstName
@@ -63,6 +92,56 @@ class RecipeDetails extends Component {
             {
                 updateValue: event.target.value
             });
+    }
+
+    toggleAction = () => {
+        if (this.state.userType === 'REGULAR') {
+            if (!this.state.isActioned)
+                this.regularUserServices.favoriteRecipe(this.state.userId, this.state.recipeId)
+                    .then(() => alert("Added to your Favorites successfully!"))
+                    .then(() => this.setState({
+                        defaultButtonIcon: ['fas', 'heart'],
+                        isActioned: true
+                    }));
+            else
+                this.regularUserServices.removeFavorite(this.state.userId, this.state.recipeId)
+                    .then(() => alert("Removed from your Favorites successfully!"))
+                    .then(() => this.setState({
+                        defaultButtonIcon: ['far', 'heart'],
+                        isActioned: false
+                    }));
+        } else if (this.state.userType === 'CHEF') {
+            if (!this.state.isActioned)
+                this.chefServices.endorseRecipe(this.state.userId, this.state.recipeId)
+                    .then(() => alert("Added to your Endorsed successfully!"))
+                    .then(() => this.setState({
+                        defaultButtonIcon: ['fas', 'thumbs-up'],
+                        isActioned: true
+                    }));
+            else
+                this.chefServices.removeEndorsed(this.state.userId, this.state.recipeId)
+                    .then(() => alert("Removed from your Endorsed successfully!"))
+                    .then(() => this.setState({
+                        defaultButtonIcon: ['far', 'thumbs-up'],
+                        isActioned: false
+                    }));
+        } else {
+            if (!this.state.isActioned)
+                this.nutritionistServices.endorseRecipe(this.state.userId, this.state.recipeId)
+                    .then(() => alert("Added to your Endorsed successfully!"))
+                    .then(() => this.setState({
+                        defaultButtonIcon: ['fas', 'thumbs-up'],
+                        isActioned: true
+                    }));
+            else
+                this.nutritionistServices.removeEndorsed(this.state.userId, this.state.recipeId)
+                    .then(() => alert("Removed from your Endorsed successfully!"))
+                    .then(() => this.setState({
+                        defaultButtonIcon: ['far', 'thumbs-up'],
+                        isActioned: false
+                    }));
+        }
+
     }
 
     updateIngredient = () => {
@@ -149,7 +228,16 @@ class RecipeDetails extends Component {
                 </section>
                 <section className="home-about-area section-gap">
                     <div className="container">
-                        <h1 className="mb-5 text-center">Recipe Details</h1>
+                        <h1 className="mb-5 text-center">Recipe Details
+                            <span>&nbsp;&nbsp;<a className='hand-cursor'
+                                onClick={this.toggleAction} title='Hello'>
+                                {this.state.userType === 'REGULAR' && <FontAwesomeIcon
+                                    icon={this.state.defaultButtonIcon}/>
+                                || (this.state.userType === 'CHEF' || this.state.userType === 'NUTRITIONIST') &&
+                                <FontAwesomeIcon
+                                    icon={this.state.defaultButtonIcon}/>
+                                }</a></span>
+                        </h1>
                         <div className="row">
                             <div className="col-lg-7 home-about-left">
                                 <div className="table-responsive">

@@ -107,6 +107,13 @@ class MainApp extends React.Component {
                         <Route path="/recipes/:recipeId"
                                component={(props) =>
                                    <RecipeDetails
+                                       // Regular
+                                       // userId={`5cb94983e587896bea89fefd`}
+                                       //Chef
+                                       userId={`5cbd7841e9ee3e368d4db140`}
+                                       //Nutritionist
+                                       userId={`5cbd79efe9ee3e368d4db142`}
+                                       userType='NUTRITIONIST'
                                        {...props}/>}/>
                     </div>
                 </Router>
