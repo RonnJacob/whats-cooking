@@ -19,10 +19,11 @@ class LandingPage extends Component {
                 <Router>
                         {/*<Link to="/home">Go To Home Page</Link>*/}
                         {/*<Link to="/register">Go To Registration Page</Link>*/}
+                        <Route path='/' exact render={() => <RegisterPage/>}/>
                         <Route path='/home' component={HomePage}/>
                         <Route path="/register" exact component={RegisterPage}/>
                         <Route path="/login" exact component={LoginPage}/>
-                    <MainApp/>
+                    {/*<MainApp/>*/}
                 </Router>
             </div>
         )
