@@ -5,6 +5,7 @@ import RecipeCard from "../LandingPage/RecipeCard";
 import GuestNav from "../LandingPage/GuestNav";
 import '../../assets/landingpage/css/sidebar.css'
 import FilterRecipes from "./FilterRecipes";
+import './Explore.css'
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
@@ -16,8 +17,9 @@ class ExploreRecipes extends React.Component {
             searchRecipe: '',
             popularRecipes: [],
             filterCategory: [],
-            sorted:0
-
+            sorted: 0,
+            currentPage: 1,
+            recipesPerPage: 6
         };
         this.searchRecipe = this.searchRecipe.bind(this);
 
@@ -46,8 +48,15 @@ class ExploreRecipes extends React.Component {
                 this.setState
                 ({
 
-                    unsortedRecipes: recipes.meals})
+                    unsortedRecipes: recipes.meals
+                })
             });
+    }
+
+    handleClick = event => {
+        return this.setState({
+            currentPage: Number(event.target.id)
+        })
     }
 
     findAllCuisines = () => {
@@ -70,8 +79,10 @@ class ExploreRecipes extends React.Component {
         this.mealDBServices.findRecipesByCategory(category)
             .then(recipes => {
                 this.setState
-                ({recipes: recipes.meals,
-                    unsortedRecipes:recipes.meals})
+                ({
+                    recipes: recipes.meals,
+                    unsortedRecipes: recipes.meals
+                })
             });
     }
 
@@ -124,6 +135,7 @@ class ExploreRecipes extends React.Component {
         }
         return comparison;
     }
+
     compareDesc(a, b) {
         // Use toUpperCase() to ignore character casing
         const recipeA = a.strMeal.toUpperCase();
@@ -135,53 +147,59 @@ class ExploreRecipes extends React.Component {
         } else if (recipeA < recipeB) {
             comparison = -1;
         }
-        return comparison*-1;
+        return comparison * -1;
     }
 
     sortAscend = () => {
-        var unsortedRecipes=this.state.recipes;
-        const sortedRecipes=unsortedRecipes.sort(this.compareAsc);
+        var unsortedRecipes = this.state.recipes;
+        const sortedRecipes = unsortedRecipes.sort(this.compareAsc);
 
-            this.setState
-            ({recipes: sortedRecipes,
-                sorted:1})
+        this.setState
+        ({
+            recipes: sortedRecipes,
+            sorted: 1
+        })
         this.mealDBServices.findAllRecipes()
             .then(recipes => {
                 this.setState
                 ({
 
-                    unsortedRecipes: recipes.meals})
+                    unsortedRecipes: recipes.meals
+                })
             });
 
     };
 
     sortDescend = () => {
-        var dummy=this.state.recipes;
+        var dummy = this.state.recipes;
         // const unsortedRecipes=this.state.recipes;
         console.log()
-        const sortedRecipes=dummy.sort(this.compareDesc);
+        const sortedRecipes = dummy.sort(this.compareDesc);
 
-            this.setState
-            ({recipes: sortedRecipes,
-                    sorted: 1})
+        this.setState
+        ({
+            recipes: sortedRecipes,
+            sorted: 1
+        })
         this.mealDBServices.findAllRecipes()
             .then(recipes => {
                 this.setState
                 ({
 
-                    unsortedRecipes: recipes.meals})
+                    unsortedRecipes: recipes.meals
+                })
             });
 
 
     };
 
-    resetSort=()=>{
-        const unsortedRecipes= this.state.unsortedRecipes;
-        if(this.state.sorted===1){
+    resetSort = () => {
+        const unsortedRecipes = this.state.unsortedRecipes;
+        if (this.state.sorted === 1) {
             this.setState({
                 recipes: unsortedRecipes,
                 unsortedRecipes: unsortedRecipes,
-                sorted:0
+                sorted: 0
             })
         }
 
@@ -196,6 +214,34 @@ class ExploreRecipes extends React.Component {
     };
 
     render() {
+        const {recipes, currentPage, recipesPerPage} = this.state;
+
+        // Logic for displaying todos
+        const indexOfLastRecipe = currentPage * recipesPerPage;
+        const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+        const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+
+        const renderRecipes = currentRecipes.map(recipe => {
+            return <RecipeCard popularRecipe={recipe}/>
+        });
+
+        // Logic for displaying page numbers
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(recipes.length / recipesPerPage); i++) {
+            pageNumbers.push(i);
+        }
+
+        const renderPageNumbers = pageNumbers.map(number => {
+            return (
+                <li className='horizontal-li'
+                    key={number}
+                    id={number}
+                    onClick={this.handleClick}>
+                    &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
+                </li>
+            );
+        });
+
         return (
 
             <div>
@@ -238,8 +284,8 @@ class ExploreRecipes extends React.Component {
                 </div>
 
                 <section className="header">
-                    <div className={"row"}>
-                        <div className="split left">
+                    <div className="row wrap">
+                        <div className="fleft">
                             <div className={"side-menu"}>
 
                                 <div className="">
@@ -261,7 +307,27 @@ class ExploreRecipes extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="split right">
+                        <div className="fright">
+                            {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
+                            {/*<div className="sorting">*/}
+
+                            {/*</div>*/}
+                            {/*<div className="sorting mr-auto">*/}
+
+                            {/*</div>*/}
+                            {/*<div className="pagination">*/}
+                            {/*<a href="#" className="prev-arrow head" onClick={this.sortAscend}><i*/}
+                            {/*className="fa fa-sort-alpha-asc"*/}
+                            {/*aria-hidden="true"></i></a>*/}
+                            {/*<a href="#" className="next-arrow head" onClick={this.sortDescend}><i*/}
+                            {/*className="fa fa-sort-alpha-desc"*/}
+                            {/*aria-hidden="true"></i></a>*/}
+
+                            {/*<a href="#" onClick={this.resetSort}>reset</a>*/}
+
+                            {/*</div>*/}
+                            {/*</div>*/}
+
                             <div className="filter-bar d-flex flex-wrap align-items-center">
                                 <div className="sorting">
 
@@ -269,28 +335,41 @@ class ExploreRecipes extends React.Component {
                                 <div className="sorting mr-auto">
 
                                 </div>
+
                                 <div className="pagination">
-                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
-                                                                          aria-hidden="true"></i></a>
-                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
-                                                                          aria-hidden="true"></i></a>
+                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
+                                        className="fa fa-sort-alpha-asc"
+                                        aria-hidden="true"></i></a>
+                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
+                                        className="fa fa-sort-alpha-desc"
+                                        aria-hidden="true"></i></a>
 
                                     <a href="#" onClick={this.resetSort}>reset</a>
 
                                 </div>
+                                <div className="pagination">
+                                    <a href="#" className="prev-arrow"><i className="fa fa-long-arrow-left"
+                                                                          aria-hidden="true"></i></a>
+                                    <a href="#" className="active">1</a>
+                                    <a href="#">2</a>
+                                    <a href="#">3</a>
+                                    <a href="#" className="dot-dot"><i className="fa fa-ellipsis-h"
+                                                                       aria-hidden="true"></i></a>
+                                    <a href="#">6</a>
+                                    <a href="#" className="next-arrow"><i className="fa fa-long-arrow-right"
+                                                                          aria-hidden="true"></i></a>
+                                </div>
                             </div>
+
+
                             <div className="food-area " id={"food-area"}>
 
                                 <div className="container">
                                     <div className="row">
-
-
-                                        {
-                                            this.state.recipes &&
-                                            this.state.recipes.map(recipe =>
-                                                <RecipeCard popularRecipe={recipe}/>
-                                            )
-                                        }
+                                        {this.state.recipes && renderRecipes}
+                                        <ul id="page-numbers" className="page-numbers">
+                                            {renderPageNumbers}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

@@ -505,14 +505,14 @@ input:focus, textarea:focus {
 }
 
 .food-area {
-    background-image: url("../images/food-bg.png");
     background-repeat: no-repeat;
     background-position: top right;
     position: relative
 }
 #food-area{
     width: 85%;
-    margin-left: 15%;
+    margin-left: 30px;
+    margin: 20px;
     padding: 0 10px;
 }
 @media (min-width: 768px) and (max-width: 991.98px) {
