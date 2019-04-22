@@ -4,14 +4,15 @@ import HomePage from "./HomePage/HomePage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 import './LandingPage.css'
 import LoginPage from "./LoginPage/LoginPage";
+import MainApp from "../components/MainApp";
 
-class LandingPage extends Component{
-    constructor(props){
+class LandingPage extends Component {
+    constructor(props) {
         super(props);
     }
 
 
-    render(){
+    render() {
 
         return (
             <div id="landing-page">
@@ -21,7 +22,7 @@ class LandingPage extends Component{
                         <Route path='/home' component={HomePage}/>
                         <Route path="/register" exact component={RegisterPage}/>
                         <Route path="/login" exact component={LoginPage}/>
-
+                    <MainApp/>
                 </Router>
             </div>
         )
