@@ -3,7 +3,7 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import {Link, Route,Router} from 'react-router-dom'
 import {PopularRecipes} from "./PopularRecipes";
 import ExploreRecipes from "../Explore/ExploreRecipes";
-import LandingPage from "../LandingPage/LandingPage";
+import LandingPage from ".//LandingPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
 

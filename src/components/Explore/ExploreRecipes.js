@@ -12,9 +12,11 @@ class ExploreRecipes extends React.Component {
         this.mealDBServices = new MealDBServices();
         this.state = {
             recipes: [],
+            unsortedRecipes: [],
             searchRecipe: '',
             popularRecipes: [],
-            filterCategory: []
+            filterCategory: [],
+            sorted:0
 
         };
         this.searchRecipe = this.searchRecipe.bind(this);
@@ -26,8 +28,11 @@ class ExploreRecipes extends React.Component {
         this.mealDBServices.findAllRecipes()
             .then(recipes => {
                 this.setState
-                ({recipes: recipes.meals})
+                ({
+                    recipes: recipes.meals
+                })
             });
+
     }
 
     componentDidMount() {
@@ -35,6 +40,13 @@ class ExploreRecipes extends React.Component {
             .then(filterCategory => {
                 this.setState
                 ({filterCategory: filterCategory.meals})
+            });
+        this.mealDBServices.findAllRecipes()
+            .then(recipes => {
+                this.setState
+                ({
+
+                    unsortedRecipes: recipes.meals})
             });
     }
 
@@ -58,7 +70,8 @@ class ExploreRecipes extends React.Component {
         this.mealDBServices.findRecipesByCategory(category)
             .then(recipes => {
                 this.setState
-                ({recipes: recipes.meals})
+                ({recipes: recipes.meals,
+                    unsortedRecipes:recipes.meals})
             });
     }
 
@@ -69,6 +82,7 @@ class ExploreRecipes extends React.Component {
                 ({recipes: recipes.meals})
             });
     }
+
 
     searchRecipe = (recipe) => {
         this.mealDBServices.findRecipeByName(recipe).then(recipes => {
@@ -125,19 +139,54 @@ class ExploreRecipes extends React.Component {
     }
 
     sortAscend = () => {
-        var sortedRecipes=this.state.recipes.sort(this.compareAsc);
-        this.setState
-            (
-                {recipes: sortedRecipes}
-                )
-        alert(this.state.recipes.length)
+        var unsortedRecipes=this.state.recipes;
+        const sortedRecipes=unsortedRecipes.sort(this.compareAsc);
+
+            this.setState
+            ({recipes: sortedRecipes,
+                sorted:1})
+        this.mealDBServices.findAllRecipes()
+            .then(recipes => {
+                this.setState
+                ({
+
+                    unsortedRecipes: recipes.meals})
+            });
+
     };
 
     sortDescend = () => {
-        var sortedRecipes=this.state.recipes.sort(this.compareDesc);
-        this.setState
-        ({recipes: sortedRecipes})
+        var dummy=this.state.recipes;
+        // const unsortedRecipes=this.state.recipes;
+        console.log()
+        const sortedRecipes=dummy.sort(this.compareDesc);
+
+            this.setState
+            ({recipes: sortedRecipes,
+                    sorted: 1})
+        this.mealDBServices.findAllRecipes()
+            .then(recipes => {
+                this.setState
+                ({
+
+                    unsortedRecipes: recipes.meals})
+            });
+
+
     };
+
+    resetSort=()=>{
+        const unsortedRecipes= this.state.unsortedRecipes;
+        if(this.state.sorted===1){
+            this.setState({
+                recipes: unsortedRecipes,
+                unsortedRecipes: unsortedRecipes,
+                sorted:0
+            })
+        }
+
+    }
+
 
     searchChanged = (event) => {
         this.setState(
@@ -226,7 +275,7 @@ class ExploreRecipes extends React.Component {
                                     <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
                                                                           aria-hidden="true"></i></a>
 
-                                    <a href="#">reset</a>
+                                    <a href="#" onClick={this.resetSort}>reset</a>
 
                                 </div>
                             </div>

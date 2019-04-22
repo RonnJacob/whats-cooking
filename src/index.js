@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import HomePage from "./containers/HomePage/HomePage";
-import LandingPage from "./containers/LandingPage/LandingPage";
+import HomePage from "./components/HomePage/HomePage";
+import LandingPage from "./components/LandingPage/LandingPage";
 import {BrowserRouter as Router, Route} from 'react-router-dom'
-import RegisterPage from "./containers/RegisterPage/RegisterPage";
-import WhatsCooking from "./containers/WhatsCooking";
+import RegisterPage from "./components/RegisterPage/RegisterPage";
+import WhatsCooking from "./components/WhatsCooking";
 
 ReactDOM.render(
 
