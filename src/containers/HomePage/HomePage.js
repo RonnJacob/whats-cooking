@@ -41,8 +41,8 @@ class HomePage extends  Component {
         return (
             <div>
                 <div id="header">
-                        <HomePageNav/>
-                </div>
+                <HomePageNav/>
+            </div>
                 <section className="banner-area">
                     <div className="container">
                         <div className="row fullscreen align-items-center justify-content-between">

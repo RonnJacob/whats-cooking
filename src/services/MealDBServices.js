@@ -15,11 +15,37 @@ export default class mealDBServices{
                              return response.json();
                          });
     }
-    // findAllCourses() {
-    //     return fetch(this.COURSE_API_URL)
-    //         .then(function(response){
-    //             return response.json();
-    //         });
-    // }
+    findRecipeByName =(recipeName) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/search.php?s='+recipeName)
+            .then(function(response){
+                return response.json();
+            });
+    }
+
+    findRecipesByCategory =(category) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c='+category)
+            .then(function(response){
+                return response.json();
+            });
+    }
+
+    findRecipesByCuisines =(cuisine) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/list.php?a='+cuisine)
+            .then(function(response){
+                return response.json();
+            });
+    }
+    findAllCategories() {
+        return fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=')
+            .then(function(response){
+                return response.json();
+            });
+    }
+    findAllCuisines(){
+        return fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=')
+            .then(function(response){
+                return response.json();
+            });
+    }
 }
 

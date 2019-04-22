@@ -7,7 +7,7 @@ import LandingPage from "../LandingPage/LandingPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
 
-export const LandingPageHeader = () => {
+export const LandingPageHeader = ({popularRecipes}) => {
 
 
     {
@@ -46,7 +46,8 @@ export const LandingPageHeader = () => {
 
                                         <Link  to={`/explore-recipes`}>explore</Link>
 
-                                        <Route path='/explore-recipes' component={ExploreRecipes}/>
+                                        <Route path='/explore-recipes' render={() => <ExploreRecipes
+                                            popularRecipes={popularRecipes}/>}/>
 
                                         {/*<Route path='/explore-recipes'*/}
                                                {/*render={() => <ExploreRecipes/>}/>*/}

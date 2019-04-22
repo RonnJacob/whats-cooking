@@ -13,7 +13,7 @@ const HomePageNav = (user) =>
                 {/*</ul>*/}
             {/*</nav>*/}
         {/*</div>*/}
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" class={"navbar-expand-lg"}>
             <Navbar.Brand href="#home">What's Cookin!</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">

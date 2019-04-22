@@ -5,7 +5,8 @@ body {
     color: #777;
     font-family: "Roboto", sans-serif;
     font-size: 14px;
-    font-weight: 400
+    font-weight: 400;
+    margin: 0px;
 }
 
 h1 {
@@ -509,7 +510,11 @@ input:focus, textarea:focus {
     background-position: top right;
     position: relative
 }
-
+#food-area{
+    width: 85%;
+    margin-left: 15%;
+    padding: 0 10px;
+}
 @media (min-width: 768px) and (max-width: 991.98px) {
     .food-area {
         background-image: none
@@ -3161,8 +3166,43 @@ h6 {
 }
 
 .section-padding {
-    padding: 40px 0
+    padding: 70px 0
 }
+
+.cookbook-search-results {
+    position: relative;
+    z-index: 100;
+    transition: all .8s ease;
+}
+
+.no-results {
+    padding: 4em 0 4.5em;
+    text-align: center;
+    background-color: #e3e3e3;
+    color: #4a4a4a;
+}
+.no-results .no-results-suggestion {
+    padding: 25px 40px 0;
+    text-align: center;
+    display: inline-block;
+}
+.no-results h3, .no-results h4 {
+    -webkit-font-smoothing: subpixel-antialiased;
+    -moz-osx-font-smoothing: auto;
+    -ms-font-smoothing: subpixel-antialiased;
+    -o-font-smoothing: subpixel-antialiased;
+    font-smoothing: subpixel-antialiased;
+    font-family: europa-lightregular, sans-serif;
+    font-weight: 100;
+}
+
+.no-results h3 {
+    font-size: 1.5em;
+}
+.seasonal-cta .title, h1, h2, h3, h4, h5, h6 {
+    line-height: 1.5;
+}
+
 
 .section-padding2 {
     padding-top: 130px
@@ -3191,6 +3231,22 @@ h6 {
 
 .section-top2 span {
     color: #ffb606
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
 }
 
 

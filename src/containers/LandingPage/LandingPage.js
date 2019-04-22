@@ -49,12 +49,7 @@ class LandingPage extends Component {
     //
     //         });}
 
-    findPopularRecipes = () => {
-        this.mealDBServices.findPopularRecipes()
-            .then(recipes =>{
-                this.setState
-                ({popularRecipes: recipes})
-            });}
+
 
 
     render() {
@@ -81,7 +76,7 @@ class LandingPage extends Component {
                 </div>
 
                 <Router>
-            <LandingPageHeader/>
+            <LandingPageHeader popularRecipes={this.state.popularRecipes}/>
                 </Router>
 
                 {/*// {<!--Header Area End-->}*/}
@@ -151,13 +146,9 @@ class LandingPage extends Component {
                         <div className="row">
                             <div className="col-lg-8 offset-lg-2">
                                 <form action="#">
-                                    <div className="input-group md-form form-sm form-2 pl-0">
-                                        <input className="form-control my-0 py-1 amber-border" type="text"
-                                               placeholder="Search" aria-label="Search"/>
-                                        <div className="input-group-append">
-    <span className="input-group-text amber lighten-3" id="basic-text1"><i className="fa fa-search"
-                                                                           aria-hidden="true"></i></span>
-                                        </div>
+                                    <div className="form-group has-search">
+                                        <span className="fa fa-search form-control-feedback"></span>
+                                        <input type="text" className="form-control" placeholder="search a million recipes & more"/>
                                     </div>
 
                                     <div className="table-btn text-center">
