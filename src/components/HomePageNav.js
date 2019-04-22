@@ -1,5 +1,6 @@
 import React from 'react'
 import '../assets/css/main.css'
+import AddIngredient from "./MainApp";
 class HomePageNav extends React.Component{
     constructor(props){
         super(props);
@@ -8,12 +9,21 @@ class HomePageNav extends React.Component{
 
     render(){
         return(
+            <Router>
             <div className="container main-menu">
                 <div className="row align-items-center justify-content-center d-flex">
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
                             <li><a href="#">Home</a></li>
-                            {(this.props.user['userType']==='REGULAR') && <li><a href="#">Ingredients</a></li>}
+                            {
+                                (this.props.user['userType']==='REGULAR') &&
+                                <li>
+                                    <a href="">Ingredients</a>
+                                    <AddIngredient
+                                        addIngredient={this.addIngredient}
+                                        userId={this.state.userId}/>
+                                </li>
+                            }
                             {(this.props.user['userType'] ==='CHEF' || this.props.user['userType']==='REGULAR')
                             && <li><a href="#">My Recipes</a></li>}
                             {(this.props.user['userType']==='REGULAR') && <li><a href="#">Favorite Recipes</a></li>}
@@ -25,6 +35,7 @@ class HomePageNav extends React.Component{
                     </nav>
                 </div>
             </div>
+            </Router>
         );
     }
 };

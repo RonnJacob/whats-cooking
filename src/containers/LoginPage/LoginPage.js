@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import '../../../node_modules/font-awesome.css'
-import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import './LoginPage.css'
 import '../../assets/css/main.css'
 import {Redirect} from 'react-router-dom'

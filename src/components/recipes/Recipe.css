@@ -12,3 +12,13 @@
     border-width: 0px;
     color: red
 }
+
+.hand-cursor{
+    cursor: pointer;
+    color: black
+}
+
+
+.endorsed-theader{
+    padding-left: 15px;
+}

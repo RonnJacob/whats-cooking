@@ -7,6 +7,8 @@ import AddIngredient from "../components/ingredients/AddIngredient";
 import IngredientServices from "../services/IngredientServices";
 import AddRecipe from "./recipes/AddRecipe";
 import RecipeServices from "../services/RecipeServices";
+import RecipeDetails from "./recipes/RecipeDetails";
+import Profile from "./Profile";
 
 class MainApp extends React.Component {
     constructor() {
@@ -48,6 +50,11 @@ class MainApp extends React.Component {
             .then(() => {
                 alert('Recipe Added Successfully!')
             })
+    }
+
+    deleteIngredient = (recipeId) => {
+        this.recipeService.deleteRecipe(recipeId)
+            .then(() => alert('Recipe Deleted Successfully!'))
     }
 
 
@@ -98,6 +105,21 @@ class MainApp extends React.Component {
                                    <AddRecipe
                                        addRecipe={this.addRecipe}
                                        userId={1}/>}/>
+                        <Route path="/recipes/:recipeId"
+                               component={(props) =>
+                                   <RecipeDetails
+                                       // Regular
+                                       userId={`5cb94983e587896bea89fefd`}
+                                       //Chef
+                                       // userId={`5cbd7841e9ee3e368d4db140`}
+                                       //Nutritionist
+                                       // userId={`5cbd79efe9ee3e368d4db142`}
+                                       userType='REGULAR'
+                                       {...props}/>}/>
+                        <Route path='/profile/:userType/:userId' exact
+                               component={(props) =>
+                                   <Profile
+                                       {...props}/>}/>
                     </div>
                 </Router>
             </div>
