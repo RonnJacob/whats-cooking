@@ -9,12 +9,12 @@ export default class UserServices{
     };
 
     verifyUser = (token) => {
-        return fetch('http://localhost:4200/api/account/verify?token=' + token)
+        return fetch(FETCH_URL + 'account/verify?token=' + token)
             .then(res => res.json());
     };
 
     loginUser = (username, password)  => {
-        return fetch('http://localhost:4200/api/login', {
+        return fetch(FETCH_URL + 'login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,7 +27,7 @@ export default class UserServices{
     };
 
     logOutUser = (token) => {
-        return fetch('http://localhost:4200/api/logout?token=' + token)
+        return fetch(FETCH_URL + 'logout?token=' + token)
             .then(res => res.json());
     }
 }
