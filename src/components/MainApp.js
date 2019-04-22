@@ -8,6 +8,7 @@ import IngredientServices from "../services/IngredientServices";
 import AddRecipe from "./recipes/AddRecipe";
 import RecipeServices from "../services/RecipeServices";
 import RecipeDetails from "./recipes/RecipeDetails";
+import Profile from "./Profile";
 
 class MainApp extends React.Component {
     constructor() {
@@ -114,6 +115,10 @@ class MainApp extends React.Component {
                                        //Nutritionist
                                        // userId={`5cbd79efe9ee3e368d4db142`}
                                        userType='REGULAR'
+                                       {...props}/>}/>
+                        <Route path='/profile/:userType/:userId' exact
+                               component={(props) =>
+                                   <Profile
                                        {...props}/>}/>
                     </div>
                 </Router>

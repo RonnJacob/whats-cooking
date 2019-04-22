@@ -12,6 +12,9 @@ export default class NutritionistServices {
         }).then(res => console.log(res));
     };
 
+    findById = userID => fetch(FETCH_URL + 'nutritionist/' + userID)
+        .then(response => response.json());
+
     endorseRecipe = (userId, recipeId) => {
         return fetch(FETCH_URL + 'nutritionist/' + userId + '/recipes/' + recipeId, {
             method: 'POST',

@@ -13,6 +13,9 @@ export default class ChefServices {
         }).then(res => console.log(res));
     };
 
+    findById = userID => fetch(FETCH_URL + 'chef/' + userID)
+        .then(response => response.json());
+
     endorseRecipe = (userId, recipeId) => {
         return fetch(FETCH_URL + 'chef/' + userId + '/recipes/' + recipeId, {
             method: 'POST',

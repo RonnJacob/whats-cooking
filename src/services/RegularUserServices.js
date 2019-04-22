@@ -13,6 +13,9 @@ export default class RegularUserServices {
         }).then(res => console.log(res));
     };
 
+    findById = userID => fetch(FETCH_URL + 'regularUser/' + userID)
+        .then(response => response.json());
+
     favoriteRecipe = (userId, recipeId) => {
         return fetch(FETCH_URL + 'regularUser/' + userId + '/recipes/' + recipeId, {
             method: 'POST',

@@ -77,28 +77,43 @@ class RecipeDetails extends Component {
                     let ingredients = recipe.ingredients.join(',');
                     recipe.ingredients = ingredients;
                     currentRecipe = recipe
-                    if (recipe.endorsedByChef) {
-                        // let chefNames = [];
-                        // recipe.endorsedByChef.map(e => {
-                        //     this.userServices.findById(e)
-                        //         .then(user => chefNames.push(user.firstName))
-                        // })
-
-                        this.getPromiseOfMap(recipe.endorsedByChef)
-                            .then((chefNames) => {
-                                alert('chefnames length: ' + chefNames.length)
-                                endorsedByChef = [...new Set(chefNames)]
-                            })
-
-                    }
-                    // if (recipe.endorsedByNutritionist) {
-                    //     let nutritionistNames = [];
-                    //     recipe.endorsedByNutritionist.map(e => {
+                    // if (recipe.endorsedByChef) {
+                    //     let chefNames = [];
+                    //     alert('array inside map: ' + recipe.endorsedByChef.length)
+                    //     recipe.endorsedByChef.map(e => {
                     //         this.userServices.findById(e)
-                    //             .then(user => nutritionistNames.push(user.firstName))
+                    //             .then(user => {
+                    //                 chefNames.push(user.firstName)
+                    //             })
                     //     })
-                    //         .then(() => endorsedByNutritionist = [...new Set(nutritionistNames)])
+                    //     alert('chef names length: ' + chefNames.length)
+                    //     endorsedByChef = [...new Set(chefNames)]
+                    //
                     // }
+                    if (recipe.endorsedByChef) {
+                        let chefNames = [];
+                        recipe.endorsedByChef.map(e => {
+                            this.userServices.findById(e)
+                                .then(user => {
+                                    // this.state.chefIds.push(user._id)
+                                    // this.state.endorsedByChef.push(user.firstName)
+                                    this.state.endorsedByChef.push(user)
+                                })
+                        })
+                        // endorsedByChef = [...new Set(chefNames)]
+                    }
+                    if (recipe.endorsedByNutritionist) {
+                        let nutritionistNames = [];
+                        recipe.endorsedByNutritionist.map(e => {
+                            this.userServices.findById(e)
+                                .then(user => {
+                                    // this.state.nutritionistIds.push(user._id)
+                                    // this.state.endorsedByNutritionist.push(user.firstName)
+                                    this.state.endorsedByNutritionist.push(user)
+                                })
+                        })
+                        // endorsedByNutritionist = [...new Set(nutritionistNames)]
+                    }
                 }
             )
             .then(() => this.userServices.findById(currentRecipe.ownedBy))
@@ -108,28 +123,31 @@ class RecipeDetails extends Component {
                     currentUser = user;
                     currentUserName = user.firstName
                 }
+                // let chefIds = [...new Set(this.state.chefIds)]
+                // let nutritionistIds = [...new Set(this.state.nutritionistIds)]
+                // let chefNames = [...new Set(this.state.endorsedByChef)]
+                // let nutritionistNames = [...new Set(this.state.endorsedByNutritionist)]
+                //
+
+                let x = this.state.endorsedByChef.filter((thing, index) => {
+                    return index === this.state.endorsedByChef.findIndex(obj => {
+                        return JSON.stringify(obj) === JSON.stringify(thing);
+                    });
+                });
+                let y = this.state.endorsedByNutritionist.filter((thing, index) => {
+                    return index === this.state.endorsedByNutritionist.findIndex(obj => {
+                        return JSON.stringify(obj) === JSON.stringify(thing);
+                    });
+                });
                 this.setState({
                     recipe: currentRecipe,
                     owner: currentUser,
                     ownerName: currentUserName,
-                    endorsedByChef: endorsedByChef,
-                    endorsedByNutritionist: endorsedByNutritionist
+                    endorsedByChef: x,
+                    endorsedByNutritionist: y
                 })
             })
     }
-
-    getPromiseOfMap = array => new Promise(() => {
-        alert('array inside map: ' + array.length)
-        let names=[];
-        array.map(e => {
-            this.userServices.findById(e)
-                .then(user => {
-                    alert(user.firstName)
-                    names.push(user.firstName)
-                })
-        })
-        return names;
-    })
 
     valueChanged = (event) => {
         this.setState(
@@ -343,8 +361,9 @@ class RecipeDetails extends Component {
                                             <td className="name-theader">{this.state.ownerName}</td>
                                             <td className="actions-theader">
                                             </td>
-                                        </tr> ||
-                                        (this.state.endorsedByChef.length != 0
+                                        </tr>
+                                        }
+                                        {(this.state.endorsedByChef.length != 0
                                             || this.state.endorsedByNutritionist.length != 0)
                                         &&
                                         <tr>
@@ -358,8 +377,16 @@ class RecipeDetails extends Component {
                                                             icon={faUtensils}
                                                             className="fas" data-tip='Chefs'/>
                                                     </div>
+                                                    {/*{this.state.endorsedByChef.map((e, index) => <div*/}
+                                                    {/*className='row endorsed-theader'>*/}
+                                                    {/*<Link to={`/profile/${this.state.chefIds[index]}`}>{e}</Link></div>)*/}
+                                                    {/*}*/}
+
                                                     {this.state.endorsedByChef.map(e => <div
-                                                        className='row endorsed-theader'>{e}</div>)
+                                                        className='row endorsed-theader'>
+                                                        <Link to={`/profile/CHEF/${e._id}`} className='hand-cursor'>
+                                                            {e.firstName}</Link>
+                                                    </div>)
                                                     }
                                                 </div>
                                                 }
@@ -371,7 +398,10 @@ class RecipeDetails extends Component {
                                                             className="fas"/>
                                                     </div>
                                                     {this.state.endorsedByNutritionist.map(e => <div
-                                                        className='row endorsed-theader'>{e}</div>)
+                                                        className='row endorsed-theader'><Link
+                                                        to={`/profile/NUTRITIONIST/${e._id}`}
+                                                        className='hand-cursor'>
+                                                        {e.firstName}</Link></div>)
                                                     }
                                                 </div>
                                                 }
