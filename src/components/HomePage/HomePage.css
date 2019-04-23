@@ -6,6 +6,10 @@
     padding: 20px 0px;
 }
 
+.banner-area .homepage{
+    padding:0;
+}
+
 .top-head-btn {
     background: #f47d41;
     padding: 9px 26px;

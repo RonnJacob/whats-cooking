@@ -9,17 +9,30 @@ import LoginPage from "../containers/LoginPage/LoginPage";
 import FavoriteRecipes from "./recipes/FavoriteRecipes"
 import RecipeDetails from "./recipes/RecipeDetails";
 import MyRecipes from "./recipes/MyRecipes";
+import MealDBServices from "../services/MealDBServices";
 
 class WhatsCooking extends Component{
     constructor(props){
         super(props);
+        this.mealDBServices = new MealDBServices();
+        this.state = {
+            popularRecipes: []
+        };
     }
 
+
+    componentWillMount() {
+        this.mealDBServices.findPopularRecipes()
+            .then(recipes =>{
+                this.setState
+                ({popularRecipes: recipes})
+            });
+    }
 
     render(){
 
         return (
-            <div id="landing-page">
+            <div id="landing-page" style={{height: '100%'}}>
                 <Router>
                     <Switch>
                     {/*<Link to="/home">Go To Home Page</Link>*/}
@@ -41,7 +54,7 @@ class WhatsCooking extends Component{
                                component={(props) =>
                                    <RecipeDetails
                                        // Regular
-                                       userId={`5cb93fa8d765b8de30a1ace2`}
+                                       // userId={`5cb93fa8d765b8de30a1ace2`}
                                        //Chef
                                        // userId={`5cbd7841e9ee3e368d4db140`}
                                        //Nutritionist

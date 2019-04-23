@@ -124,7 +124,7 @@ class HomePage extends  Component {
                 <div id="header">
                         <HomePageNav user={this.state.user} logOut={this.logOut}/>
                 </div>
-                <section className="banner-area">
+                <section className="banner-area home-page">
                     <div className="container">
                         <div className="row fullscreen align-items-center justify-content-between">
                             <div className="col-lg-12 banner-content">

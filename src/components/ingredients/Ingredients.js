@@ -151,7 +151,7 @@ class Ingredients extends Component {
                         <h1 className="mb-5 text-center">In Stock Groceries</h1>
                         <div className="row">
                             <div className="col-lg-6 home-about-left">
-                                <div className="table-responsive">
+                                <div id="table-ingredients" className="table-responsive">
                                     <table className="groceries table table-bordered table-hover"
                                            id="grocery_table">
                                         <thead>

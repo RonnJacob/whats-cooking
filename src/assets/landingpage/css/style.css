@@ -376,7 +376,7 @@ input:focus, textarea:focus {
 }
 
 .banner-area {
-    padding: 400px 0 350px;
+    /*padding: 400px 0 350px;*/
     background-color: #b0b0b0;
     background-image: url("../images/banner-bg.jpg");
     background-repeat: no-repeat;

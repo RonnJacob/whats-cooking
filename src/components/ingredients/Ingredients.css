@@ -3,7 +3,9 @@
     height: 50px;
     overflow-x: hidden
 }
-
+#table-ingredients{
+    overflow-x: hidden;
+}
 .name-theader {
     width: 100px;
     height: 50px;
