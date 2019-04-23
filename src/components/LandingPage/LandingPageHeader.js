@@ -43,9 +43,9 @@ export const LandingPageHeader = ({popularRecipes}) => {
                                         </a></li>
 
 
-                                    <li><a href="about.html">
-
-                                        <Link  to={`/explore-recipes`}>explore</Link>
+                                    <li><a href="/explore-recipes">
+                                        explore
+                                        {/*<Link  to={`/explore-recipes`}>explore</Link>*/}
 
                                         <Route path='/explore-recipes' render={() => <ExploreRecipes
                                             popularRecipes={popularRecipes}/>}/>

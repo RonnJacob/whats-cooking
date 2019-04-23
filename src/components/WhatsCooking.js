@@ -7,12 +7,25 @@ import LandingPage from "./LandingPage/LandingPage";
 import ExploreRecipes from "./Explore/ExploreRecipes";
 import LoginPage from "../containers/LoginPage/LoginPage";
 import FavoriteRecipes from "./recipes/FavoriteRecipes"
+import MealDBServices from "../services/MealDBServices";
 
 class WhatsCooking extends Component{
     constructor(props){
         super(props);
+        this.mealDBServices = new MealDBServices();
+        this.state = {
+            popularRecipes: []
+        };
     }
 
+
+    componentWillMount() {
+        this.mealDBServices.findPopularRecipes()
+            .then(recipes =>{
+                this.setState
+                ({popularRecipes: recipes})
+            });
+    }
 
     render(){
 

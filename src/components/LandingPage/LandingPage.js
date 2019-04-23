@@ -38,7 +38,6 @@ class LandingPage extends Component {
                 this.setState
                 ({popularRecipes: recipes})
             });
-        console.log(this.state.popularRecipes)
     }
 
     // findAllCourses = () => {
