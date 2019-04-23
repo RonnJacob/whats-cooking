@@ -285,9 +285,8 @@ class ExploreRecipes extends React.Component {
 
                 <section className="header">
                     <div className="row wrap">
-                        <div className="fleft">
+                        <div className="split fleft">
                             <div className={"side-menu"}>
-
                                 <div className="">
 
                                     <div className="sidebar-categories">
@@ -307,7 +306,7 @@ class ExploreRecipes extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="fright">
+                        <div className="split fright">
                             {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
                             {/*<div className="sorting">*/}
 
@@ -333,20 +332,18 @@ class ExploreRecipes extends React.Component {
 
                                 </div>
                                 <div className="sorting mr-auto">
+                                    <div className="pagination">
+                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
+                                                                                                             aria-hidden="true"></i></a>
+                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
+                                                                                                              aria-hidden="true"></i></a>
 
+                                        <a href="#" onClick={this.resetSort}>reset</a>
+
+                                    </div>
                                 </div>
 
-                                <div className="pagination">
-                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
-                                        className="fa fa-sort-alpha-asc"
-                                        aria-hidden="true"></i></a>
-                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
-                                        className="fa fa-sort-alpha-desc"
-                                        aria-hidden="true"></i></a>
 
-                                    <a href="#" onClick={this.resetSort}>reset</a>
-
-                                </div>
                                 <div className="pagination">
                                     <a href="#" className="prev-arrow"><i className="fa fa-long-arrow-left"
                                                                           aria-hidden="true"></i></a>

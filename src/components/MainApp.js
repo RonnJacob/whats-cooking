@@ -109,7 +109,7 @@ class MainApp extends React.Component {
                                component={(props) =>
                                    <RecipeDetails
                                        // Regular
-                                       userId={`5cb94983e587896bea89fefd`}
+                                       userId={`5cb93fa8d765b8de30a1ace2`}
                                        //Chef
                                        // userId={`5cbd7841e9ee3e368d4db140`}
                                        //Nutritionist

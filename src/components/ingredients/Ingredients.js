@@ -9,7 +9,7 @@ import AddIngredient from './AddIngredient'
 import IngredientService from '../../services/IngredientServices'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
-import {library} from "@fortawesome/fontawesome-svg-core";
+import {library} from "../../../node_modules/@fortawesome/fontawesome-svg-core";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import HomePageNav from '../HomePageNav'
 
