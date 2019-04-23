@@ -8,12 +8,14 @@ import FilterRecipes from "../Explore/FilterRecipes";
 import '../Explore/Explore.css'
 import HomePageNav from "../HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
+import RecipeServices from "../../services/RecipeServices";
 
-class FavoriteRecipes extends React.Component {
+class MyRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
         this.regularUserServices = new RegularUserServices();
+        this.recipeServices = new RecipeServices();
         this.state = {
             recipes: [],
             unsortedRecipes: [],
@@ -30,8 +32,8 @@ class FavoriteRecipes extends React.Component {
     }
 
     componentWillMount() {
-        document.title = "Favorite Recipes";
-        this.regularUserServices.findFavoriteRecipes(this.state.userId)
+        document.title = "My Recipes";
+        this.regularUserServices.findOwnRecipes(this.state.userId)
             .then(recipes => {
                 this.setState
                 ({
@@ -48,7 +50,7 @@ class FavoriteRecipes extends React.Component {
                 this.setState
                 ({filterCategory: filterCategory.meals})
             });
-        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
+        this.regularUserServices.findOwnRecipes(this.state.userId)
             .then(recipes => {
                 this.setState
                 ({
@@ -86,7 +88,7 @@ class FavoriteRecipes extends React.Component {
         // ({
         //     unsortedRecipes: recipes
         // })
-        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
+        this.regularUserServices.findOwnRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe=>{
                     if(recipe.strCategory?recipe.strCategory===category:(recipe.category===category))
@@ -222,13 +224,26 @@ class FavoriteRecipes extends React.Component {
     };
 
     resetSort = () => {
-        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
+        this.regularUserServices.findOwnRecipes(this.state.userId)
             .then(recipes => {
                 this.setState
                 ({
                     recipes: recipes.meals?recipes.meals:recipes
                 })
             });
+    }
+
+    deleteRecipe = (recipeId) => {
+        this.recipeServices.deleteRecipe(recipeId)
+            .then(this.regularUserServices.deleteOwnRecipe(this.state.userId,recipeId)
+            .then(this.regularUserServices.findOwnRecipes(this.state.userId)
+                .then(recipes => {
+                    this.setState
+                    ({
+                        recipes: recipes.meals?recipes.meals:recipes
+                    })
+                })))
+
     }
 
 
@@ -248,7 +263,8 @@ class FavoriteRecipes extends React.Component {
         const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe}/>
+            return <RecipeCard popularRecipe={recipe}
+                               deleteRecipe={this.deleteRecipe}/>
         });
 
         // Logic for displaying page numbers
@@ -281,7 +297,7 @@ class FavoriteRecipes extends React.Component {
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="section-top2 text-center">
-                                        <h3>My <span>Favorite</span> recipes</h3>
+                                        <h3>My <span>Recipes</span> </h3>
                                         <p><i>Time to get into a yummilicious world.</i></p>
                                     </div>
                                 </div>
@@ -333,6 +349,7 @@ class FavoriteRecipes extends React.Component {
                             </div>
                         </div>
                         <div className="split fright">
+
                             {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
                             {/*<div className="sorting">*/}
 
@@ -405,4 +422,4 @@ class FavoriteRecipes extends React.Component {
     }
 }
 
-export default FavoriteRecipes;
+export default MyRecipes;
