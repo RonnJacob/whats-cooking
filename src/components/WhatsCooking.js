@@ -30,7 +30,7 @@ class WhatsCooking extends Component{
     render(){
 
         return (
-            <div id="landing-page">
+            <div id="landing-page" style={{height: '100%'}}>
                 <Router>
                     <Switch>
                     {/*<Link to="/home">Go To Home Page</Link>*/}
