@@ -2,9 +2,12 @@ import React from 'react';
 // import './Ingredients.css'
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {getFromStorage} from "../../utils/storage";
 
-const AddIngredient = ({addIngredient, userId}) => {
+const AddIngredient = ({addIngredient}) => {
     let name;
+    const obj = getFromStorage('project_april');
+    const userId = obj.user[0]._id;
     return (
         <div>
             <div id="header">
@@ -18,7 +21,7 @@ const AddIngredient = ({addIngredient, userId}) => {
                             <h1 className="text-white">
                                 Groceries
                             </h1>
-                            <p className="text-white link-nav"><Link to='/'>Home </Link> <span
+                            <p className="text-white link-nav"><a href='/home'>Home</a> <span
                                 className="lnr lnr-arrow-right"></span>
                                 <Link to={`/ingredients/${userId}`}>Ingredients</Link>
                                 <span
@@ -60,7 +63,7 @@ const AddIngredient = ({addIngredient, userId}) => {
                                                 })
                                             }}>Save changes
                                     </button>
-                                    <Link to={`/ingredients/${userId}`} className="middle-div btn btn-danger"
+                                    <Link to='/ingredients' className="middle-div btn btn-danger"
                                           id="save_recipe">Cancel
                                     </Link>
                                 </div>

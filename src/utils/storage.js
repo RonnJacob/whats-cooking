@@ -2,7 +2,6 @@ export function getFromStorage(key) {
     if (!key) {
         return null;
     }
-
     try {
         const valueStr = localStorage.getItem(key);
         if (valueStr) {

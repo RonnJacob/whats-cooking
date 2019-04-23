@@ -12,6 +12,8 @@ import {faPlus, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import HomePageNav from '../HomePageNav'
+import {getFromStorage} from "../../utils/storage";
+import UserServices from "../../services/UserServices";
 
 library.add(faPlus, faTimes, faPencilAlt, faCheck);
 
@@ -23,24 +25,35 @@ class Ingredients extends Component {
         this.state = {
             ingredients: this.props.ingredients,
             userId: userId,
+            user: {},
             updateIngredientName: '',
             updatedFieldVisibility: 'd-none'
         }
+        this.userServices = new UserServices();
     }
 
-    // componentDidMount() {
-    //     document.title = "What's Cooking?";
-    //     // this.ingredientService.findIngredientsByUser()
-    //     //     .then(ingredients => this.setState({
-    //     //         ingredients: ingredients
-    //     //     }))
-    //
-    //     this.ingredientService.findIngredientsByUser(this.state.userId)
-    //         .then(ingredients => this.setState({
-    //             ingredients: ingredients
-    //         }))
-    //
-    // }
+    componentDidMount() {
+        document.title = "What's Cooking?";
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.verifyUser(token).then(json => {
+                console.log(json);
+                if (json.success) {
+                    console.log(obj.user[0]._id);
+                    this.ingredientService.findIngredientsByUser(obj.user[0]._id)
+                        .then(ingredients => {
+                            // alert("updated"+courses.length)
+                            this.setState({
+                                ingredients: ingredients,
+                                token,
+                                user: obj.user[0]
+                            })
+                        });
+                }
+            });
+        }
+    }
 
     // addIngredient = ingredient => {
     //     alert('in call')
@@ -65,12 +78,12 @@ class Ingredients extends Component {
             {
                 updateIngredientName: event.target.value
             });
-    }
+    };
 
     updateIngredient = () => {
         let ingredient = {
             name: this.state.updateIngredientName
-        }
+        };
         this.ingredientService.updateIngredient(this.state.updateIngredientId, ingredient)
             .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
             .then(ingredients =>
@@ -80,7 +93,10 @@ class Ingredients extends Component {
                     updateIngredientId: '',
                     updatedFieldVisibility: 'd-none'
                 }))
-            .then(() => alert('Ingredient Updated Successfully!'))
+            .then(() => {
+                alert('Ingredient Updated Successfully!');
+                window.location.href = `/ingredients`;
+            })
     }
 
     selectForUpdate = (ingredient) => {
@@ -89,7 +105,7 @@ class Ingredients extends Component {
             updateIngredientId: ingredient._id,
             updatedFieldVisibility: 'd-block'
         })
-    }
+    };
 
     deleteIngredient = (ingredientId) => {
         this.ingredientService.deleteIngredient(ingredientId)
@@ -98,7 +114,10 @@ class Ingredients extends Component {
                 this.setState({
                     ingredients: ingredients
                 }))
-            .then(() => alert('Ingredient Deleted Successfully!'))
+            .then(() => {
+                alert('Ingredient Deleted Successfully!');
+                window.location.href = `/ingredients`;
+            });
     }
 
     render() {
@@ -116,8 +135,12 @@ class Ingredients extends Component {
                                 <h1 className="text-white">
                                     Groceries
                                 </h1>
-                                <p className="text-white link-nav"><Link to="/">Home </Link> <span
-                                    className="lnr lnr-arrow-right"></span>
+                                <p className="text-white link-nav">
+                                    {/*<Link to="/home">Home </Link> */}
+                                    <a href="/home">Home </a>
+                                    <span className="lnr lnr-arrow-right">
+
+                                    </span>
                                     <a href="#">Ingredients</a></p>
                             </div>
                         </div>

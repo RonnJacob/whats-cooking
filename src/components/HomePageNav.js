@@ -1,15 +1,16 @@
 import React from 'react'
 import '../assets/css/main.css'
 import AddIngredient from "./MainApp";
+import {Link} from "react-router-dom";
 class HomePageNav extends React.Component{
     constructor(props){
         super(props);
+        console.log(this.props.user['userType']);
     }
 
 
     render(){
         return(
-            <Router>
             <div className="container main-menu">
                 <div className="row align-items-center justify-content-center d-flex">
                     <nav id="nav-menu-container">
@@ -18,10 +19,9 @@ class HomePageNav extends React.Component{
                             {
                                 (this.props.user['userType']==='REGULAR') &&
                                 <li>
-                                    <a href="">Ingredients</a>
-                                    <AddIngredient
-                                        addIngredient={this.addIngredient}
-                                        userId={this.state.userId}/>
+                                    <a href="/ingredients">
+                                            Ingredients
+                                    </a>
                                 </li>
                             }
                             {(this.props.user['userType'] ==='CHEF' || this.props.user['userType']==='REGULAR')
@@ -35,7 +35,6 @@ class HomePageNav extends React.Component{
                     </nav>
                 </div>
             </div>
-            </Router>
         );
     }
 };

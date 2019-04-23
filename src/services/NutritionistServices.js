@@ -1,6 +1,7 @@
 const FETCH_URL = 'http://localhost:4200/api/';
 // const FETCH_URL = 'https://cs5610-backend.herokuapp.com/api/';
 
+
 export default class NutritionistServices {
     registerNutritionist = (nutritionist) => {
         return fetch(FETCH_URL + 'registerNutritionist', {
@@ -32,5 +33,7 @@ export default class NutritionistServices {
                 'Content-Type': 'application/json'
             },
         })
+
+
     };
 }

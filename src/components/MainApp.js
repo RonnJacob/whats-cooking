@@ -9,6 +9,7 @@ import AddRecipe from "./recipes/AddRecipe";
 import RecipeServices from "../services/RecipeServices";
 import RecipeDetails from "./recipes/RecipeDetails";
 import Profile from "./Profile";
+import {getFromStorage} from '../utils/storage';
 
 class MainApp extends React.Component {
     constructor() {
@@ -16,7 +17,8 @@ class MainApp extends React.Component {
         this.ingredientService = new IngredientServices();
         this.recipeService = new RecipeServices();
         this.state = {
-            userId: 1,
+            // userId: 1,
+            user: getFromStorage('project_april'),
             ingredients: [],
         }
     }
@@ -40,22 +42,22 @@ class MainApp extends React.Component {
                     ingredients: ingredients
                 }))
             .then(() => {
-                alert('Ingredient Added Successfully!')
-                window.location.href = `/ingredients/${this.state.userId}`
+                alert('Ingredient Added Successfully!');
+                window.location.href = `/ingredients`
             })
-    }
+    };
 
     addRecipe = (recipe) => {
         this.recipeService.addRecipe(recipe)
             .then(() => {
                 alert('Recipe Added Successfully!')
             })
-    }
+    };
 
     deleteIngredient = (recipeId) => {
         this.recipeService.deleteRecipe(recipeId)
             .then(() => alert('Recipe Deleted Successfully!'))
-    }
+    };
 
 
     // selectCourse = (course) => {
@@ -86,8 +88,7 @@ class MainApp extends React.Component {
         return (
             <div>
                 <Router>
-                    <div>
-                        <Route path='/ingredients/:userId' exact
+                        <Route path='/ingredients' exact
                                component={(props) =>
                                    <Ingredients
                                        ingredients={this.state.ingredients}
@@ -109,7 +110,7 @@ class MainApp extends React.Component {
                                component={(props) =>
                                    <RecipeDetails
                                        // Regular
-                                       userId={`5cb94983e587896bea89fefd`}
+                                       // userId={`5cb94983e587896bea89fefd`}
                                        //Chef
                                        // userId={`5cbd7841e9ee3e368d4db140`}
                                        //Nutritionist
@@ -120,7 +121,6 @@ class MainApp extends React.Component {
                                component={(props) =>
                                    <Profile
                                        {...props}/>}/>
-                    </div>
                 </Router>
             </div>
         )
