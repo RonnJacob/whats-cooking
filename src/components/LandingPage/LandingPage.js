@@ -85,7 +85,7 @@ class LandingPage extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
-                                <h1><i>Our Menu</i></h1>
+                                <h1 className='text-white'><i>Our Menu</i></h1>
                                 <p className="pt-2"><i>What's Cooking is your smart cooking sidekick!!
                                     From healthy and yummy recipes to handy tools and helpful tips from great chefs, We
                                     have everything you need to improve life in the kitchen.</i></p>
