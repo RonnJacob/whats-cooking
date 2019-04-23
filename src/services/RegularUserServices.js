@@ -36,11 +36,25 @@ export default class RegularUserServices {
         })
     };
 
-    // findFavoriteRecipes = userID => fetch(FETCH_URL + 'regularUser/' + userID)
-    //     .then(response => response.json());
+
+
+    deleteOwnRecipe = (userId, recipeId) => {
+        return fetch(FETCH_URL + 'user/' + userId + '/recipes/' + recipeId, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+    };
 
     findFavoriteRecipes = (userID) => {
         return fetch(FETCH_URL + 'regularUser/' + userID+'/recipes')
+            .then(function(response){
+                return response.json();
+            });
+    }
+    findOwnRecipes = (userID) => {
+        return fetch(FETCH_URL + 'users/' + userID+'/recipes')
             .then(function(response){
                 return response.json();
             });

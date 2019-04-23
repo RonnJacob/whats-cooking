@@ -72,10 +72,11 @@ const AddRecipe = ({addRecipe, userId}) => {
                                                     name: name.value,
                                                     ownedBy: userId,
                                                     steps: steps.value,
+                                                    category:'Miscellaneous',
                                                     ingredients: ingredients.value.split(',').map(function(item) {
                                                         return item.trim();
                                                     }),
-                                                    image: 'https://picsum.photos/id/292/200/300'
+                                                    image: 'https://picsum.photos/id/292/300/300'
                                                 };
                                                 console.log('$$$$$$$$$' + recipe)
                                                 addRecipe(recipe)
