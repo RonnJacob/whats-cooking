@@ -20,10 +20,6 @@ class LandingPage extends Component{
             <div>
                 <Router>
                     <div>
-                        <a onClick={this.goToHome}>asd</a>
-                        <a onClick={this.goToRegister}>asd</a>
-                        {/*<Link to="/home">Go To Home Page</Link>*/}
-                        {/*<Link to="/register">Go To Registration Page</Link>*/}
                         <Route path='/home' component={HomePage}/>
                         <Route path="/register"
                                exact component={RegisterPage}>

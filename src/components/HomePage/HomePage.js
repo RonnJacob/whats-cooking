@@ -100,27 +100,27 @@ class HomePage extends  Component {
                            render={() =>
                                <AddIngredient
                                    addIngredient={this.addIngredient}/>}/>
-                </Router>
                     {/*<Route path="/addRecipe"*/}
-                           {/*render={() =>*/}
-                               {/*<AddRecipe*/}
-                                   {/*addRecipe={this.addRecipe}*/}
-                                   {/*userId={1}/>}/>*/}
+                    {/*render={() =>*/}
+                    {/*<AddRecipe*/}
+                    {/*addRecipe={this.addRecipe}*/}
+                    {/*userId={1}/>}/>*/}
                     {/*<Route path="/recipes/:recipeId"*/}
-                           {/*component={(props) =>*/}
-                               {/*<RecipeDetails*/}
-                                   {/*// Regular*/}
-                                   {/*userId={`5cb94983e587896bea89fefd`}*/}
-                                   {/*//Chef*/}
-                                   {/*// userId={`5cbd7841e9ee3e368d4db140`}*/}
-                                   {/*//Nutritionist*/}
-                                   {/*// userId={`5cbd79efe9ee3e368d4db142`}*/}
-                                   {/*userType='REGULAR'*/}
-                                   {/*{...props}/>}/>*/}
+                    {/*component={(props) =>*/}
+                    {/*<RecipeDetails*/}
+                    {/*// Regular*/}
+                    {/*userId={`5cb94983e587896bea89fefd`}*/}
+                    {/*//Chef*/}
+                    {/*// userId={`5cbd7841e9ee3e368d4db140`}*/}
+                    {/*//Nutritionist*/}
+                    {/*// userId={`5cbd79efe9ee3e368d4db142`}*/}
+                    {/*userType='REGULAR'*/}
+                    {/*{...props}/>}/>*/}
                     {/*<Route path='/profile/:userType/:userId' exact*/}
-                           {/*component={(props) =>*/}
-                               {/*<Profile*/}
-                                   {/*{...props}/>}/>*/}
+                    {/*component={(props) =>*/}
+                    {/*<Profile*/}
+                    {/*{...props}/>}/>*/}
+                </Router>
                 <div id="header">
                         <HomePageNav user={this.state.user} logOut={this.logOut}/>
                 </div>

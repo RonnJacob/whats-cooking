@@ -6,6 +6,8 @@ import GuestNav from "../LandingPage/GuestNav";
 import '../../assets/landingpage/css/sidebar.css'
 import FilterRecipes from "./FilterRecipes";
 import './Explore.css'
+import {getFromStorage} from "../../utils/storage";
+import UserServices from "../../services/UserServices";
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
@@ -19,22 +21,45 @@ class ExploreRecipes extends React.Component {
             filterCategory: [],
             sorted: 0,
             currentPage: 1,
+            loggedIn: false,
+            user: {},
             recipesPerPage: 6
         };
         this.searchRecipe = this.searchRecipe.bind(this);
+        this.userServices = new UserServices();
 
     }
 
     componentWillMount() {
         document.title = "Explore Recipes";
-        this.mealDBServices.findAllRecipes()
-            .then(recipes => {
-                this.setState
-                ({
-                    recipes: recipes.meals
-                })
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.verifyUser(token).then(json => {
+                console.log(json);
+                if (json.success) {
+                    this.mealDBServices.findAllRecipes()
+                        .then(recipes => {
+                            // alert("updated"+courses.length)
+                            this.setState({
+                                recipes: recipes.meals,
+                                token,
+                                loggedIn: true,
+                                user: obj.user[0]
+                            })
+                        });
+                }
+                else{
+                    this.mealDBServices.findAllRecipes()
+                        .then(recipes => {
+                            this.setState({
+                                recipes: recipes.meals,
+                                loggedIn: false
+                            })
+                        });
+                }
             });
-
+        }
     }
 
     componentDidMount() {
@@ -193,6 +218,22 @@ class ExploreRecipes extends React.Component {
 
     };
 
+    logOut = () => {
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.logOutUser(token)
+                .then(json => {
+                    console.log(json);
+                    if (json.success) {
+                        this.setState({
+                            token: ''
+                        });
+                    }
+                });
+        }
+    };
+
     resetSort = () => {
         const unsortedRecipes = this.state.unsortedRecipes;
         if (this.state.sorted === 1) {
@@ -247,7 +288,7 @@ class ExploreRecipes extends React.Component {
             <div>
                 {/*<LandingPageHeader/>*/}
                 <div id="header">
-                    <GuestNav/>
+                    <GuestNav user = {this.state.user} logOut = {this.logOut}/>
                 </div>
                 <div>
                     <section className="table-area section-padding">

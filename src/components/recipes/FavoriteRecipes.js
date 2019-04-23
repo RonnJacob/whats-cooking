@@ -14,6 +14,7 @@ class FavoriteRecipes extends React.Component {
         super(props);
         this.mealDBServices = new MealDBServices();
         this.regularUserServices = new RegularUserServices();
+        const userId = props.match.params['userId'];
         this.state = {
             recipes: [],
             unsortedRecipes: [],
@@ -23,7 +24,7 @@ class FavoriteRecipes extends React.Component {
             sorted: 0,
             currentPage: 1,
             recipesPerPage: 6,
-            userId: this.props.userId
+            userId: userId
         };
         //this.searchRecipe = this.searchRecipe.bind(this);
 

@@ -2,11 +2,9 @@ import React from 'react'
 
 import RegularUserServices from "../../services/RegularUserServices";
 import RecipeCard from "../LandingPage/RecipeCard";
-import GuestNav from "../LandingPage/GuestNav";
 import '../../assets/landingpage/css/sidebar.css'
 import FilterRecipes from "../Explore/FilterRecipes";
 import '../Explore/Explore.css'
-import HomePageNav from "../HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
 import RecipeServices from "../../services/RecipeServices";
 
@@ -15,6 +13,7 @@ class MyRecipes extends React.Component {
         super(props);
         this.mealDBServices = new MealDBServices();
         this.regularUserServices = new RegularUserServices();
+        const userId = props.match.params['userId'];
         this.recipeServices = new RecipeServices();
         this.state = {
             recipes: [],
@@ -25,7 +24,7 @@ class MyRecipes extends React.Component {
             sorted: 0,
             currentPage: 1,
             recipesPerPage: 6,
-            userId: this.props.userId
+            userId: userId
         };
         //this.searchRecipe = this.searchRecipe.bind(this);
 

@@ -35,8 +35,6 @@ class WhatsCooking extends Component{
             <div id="landing-page" style={{height: '100%'}}>
                 <Router>
                     <Switch>
-                    {/*<Link to="/home">Go To Home Page</Link>*/}
-                    {/*<Link to="/register">Go To Registration Page</Link>*/}
                     <Route path='/' exact component={LandingPage}/>
                     <Route path='/explore-recipes' component={ExploreRecipes}/>
 
@@ -48,7 +46,6 @@ class WhatsCooking extends Component{
                         <Route path='/user/:userId/myrecipes'
                                component={(props) =>
                                    <MyRecipes
-                                       userId={`1`}
                                        {...props}/>}/>
                         <Route path="/recipes/:recipeId"
                                component={(props) =>
@@ -62,7 +59,6 @@ class WhatsCooking extends Component{
                                        userType='REGULAR'
                                        {...props}/>}/>
                     <Route path='/home' component={HomePage}/>
-                    <Route path="/register" exact component={RegisterPage}/>
                     <Route path="/register" exact component={RegisterPage}/>
                     <Route path="/login" exact component={LoginPage}/>
                     </Switch>
