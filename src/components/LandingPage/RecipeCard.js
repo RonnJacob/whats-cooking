@@ -7,12 +7,12 @@ const RecipeCard = ({popularRecipe}) =>
     <div className="col-md-4 col-sm-6">
         <div className="single-food">
             <div className="food-img">
-                <img src={popularRecipe.strMealThumb}
+                <img src={popularRecipe.strMealThumb?popularRecipe.strMealThumb:popularRecipe.image}
                      className="img-fluid" alt=""/>
             </div>
             <div className="food-content">
                 <div className="d-flex justify-content-between">
-                    <h5>{popularRecipe.strMeal}</h5>
+                    <h5>{popularRecipe.strMeal?popularRecipe.strMeal:popularRecipe.name}</h5>
 
                 </div>
 

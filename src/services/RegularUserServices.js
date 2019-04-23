@@ -35,4 +35,15 @@ export default class RegularUserServices {
             },
         })
     };
+
+    // findFavoriteRecipes = userID => fetch(FETCH_URL + 'regularUser/' + userID)
+    //     .then(response => response.json());
+
+    findFavoriteRecipes = (userID) => {
+        return fetch(FETCH_URL + 'regularUser/' + userID+'/recipes')
+            .then(function(response){
+                return response.json();
+            });
+    }
 }
+

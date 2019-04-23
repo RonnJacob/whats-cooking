@@ -6,10 +6,7 @@ import MainApp from './MainApp'
 import LandingPage from "./LandingPage/LandingPage";
 import ExploreRecipes from "./Explore/ExploreRecipes";
 import LoginPage from "../containers/LoginPage/LoginPage";
-import AddIngredient from "./ingredients/AddIngredient";
-import AddRecipe from "./recipes/AddRecipe";
-import RecipeDetails from "./recipes/RecipeDetails";
-import Profile from "./Profile";
+import FavoriteRecipes from "./recipes/FavoriteRecipes"
 
 class WhatsCooking extends Component{
     constructor(props){
@@ -27,6 +24,7 @@ class WhatsCooking extends Component{
                     {/*<Link to="/register">Go To Registration Page</Link>*/}
                     <Route path='/' exact component={LandingPage}/>
                     <Route path='/explore-recipes' component={ExploreRecipes}/>
+                        <Route path='/user/:userId/my-favorites' component={FavoriteRecipes}/>
                     <Route path='/home' component={HomePage}/>
                     <Route path="/register" exact component={RegisterPage}/>
                     <Route path="/register" exact component={RegisterPage}/>
