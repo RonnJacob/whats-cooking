@@ -1,16 +1,19 @@
 import React from 'react'
 
-import MealDBServices from "../../services/MealDBServices";
+import RegularUserServices from "../../services/RegularUserServices";
 import RecipeCard from "../LandingPage/RecipeCard";
 import GuestNav from "../LandingPage/GuestNav";
 import '../../assets/landingpage/css/sidebar.css'
-import FilterRecipes from "./FilterRecipes";
-import './Explore.css'
+import FilterRecipes from "../Explore/FilterRecipes";
+import '../Explore/Explore.css'
+import HomePageNav from "../HomePageNav";
+import MealDBServices from "../../services/MealDBServices";
 
-class ExploreRecipes extends React.Component {
+class FavoriteRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
+        this.regularUserServices = new RegularUserServices();
         this.state = {
             recipes: [],
             unsortedRecipes: [],
@@ -26,12 +29,12 @@ class ExploreRecipes extends React.Component {
     }
 
     componentWillMount() {
-        document.title = "Explore Recipes";
-        this.mealDBServices.findAllRecipes()
+        document.title = "Favorite Recipes";
+        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
             .then(recipes => {
                 this.setState
                 ({
-                    recipes: recipes.meals
+                    recipes: recipes.meals?recipes.meals:recipes
                 })
             });
 
@@ -43,12 +46,11 @@ class ExploreRecipes extends React.Component {
                 this.setState
                 ({filterCategory: filterCategory.meals})
             });
-        this.mealDBServices.findAllRecipes()
+        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
             .then(recipes => {
                 this.setState
                 ({
-
-                    unsortedRecipes: recipes.meals
+                    unSortedRecipes: recipes.meals?recipes.meals:recipes
                 })
             });
     }
@@ -78,6 +80,7 @@ class ExploreRecipes extends React.Component {
     findRecipesByCategory = (category) => {
         this.mealDBServices.findRecipesByCategory(category)
             .then(recipes => {
+
                 this.setState
                 ({
                     recipes: recipes.meals,
@@ -219,7 +222,7 @@ class ExploreRecipes extends React.Component {
         // Logic for displaying todos
         const indexOfLastRecipe = currentPage * recipesPerPage;
         const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-        const currentRecipes = recipes?recipes.slice(indexOfFirstRecipe, indexOfLastRecipe):[];
+        const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = currentRecipes.map(recipe => {
             return <RecipeCard popularRecipe={recipe}/>
@@ -227,7 +230,7 @@ class ExploreRecipes extends React.Component {
 
         // Logic for displaying page numbers
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(recipes?(recipes.length / recipesPerPage):0); i++) {
+        for (let i = 1; i <= Math.ceil(recipes.length / recipesPerPage); i++) {
             pageNumbers.push(i);
         }
 
@@ -247,7 +250,7 @@ class ExploreRecipes extends React.Component {
             <div>
                 {/*<LandingPageHeader/>*/}
                 <div id="header">
-                    <GuestNav/>
+                    {/*<HomePageNav/>*/}
                 </div>
                 <div>
                     <section className="table-area section-padding">
@@ -379,4 +382,4 @@ class ExploreRecipes extends React.Component {
     }
 }
 
-export default ExploreRecipes;
+export default FavoriteRecipes;
