@@ -47,7 +47,7 @@ class HomePageNav extends React.Component{
                                     {this.props.user['username']}
                                 </a>
                             </li>
-                            <li><a href="/login" onClick={this.props.logOut}>Log Out</a></li>
+                            <li><a href="/" onClick={this.props.logOut}>Log Out</a></li>
                         </ul>
                     </nav>
                 </div>

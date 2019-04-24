@@ -69,7 +69,7 @@ class LandingPage extends Component {
                         <div className="row">
                             <div className="col-md-6 col-sm-12">
                                 <h2 className="text-center">Sort &amp; Filter</h2>
-                                    <p>Yummly’s unique search filters allow you to narrow down your search by cook time, course,
+                                    <p className="wbdv-app-info">Yummly’s unique search filters allow you to narrow down your search by cook time, course,
                                         cuisine, occasion, diet, allergy, nutrition and more! Yummly’s unique search filters
                                         allow you to narrow down your search by cook time, course, cuisine, occasion, diet,
                                         allergy, nutrition and more! Yummly’s unique search filters allow you to narrow down
@@ -80,7 +80,7 @@ class LandingPage extends Component {
                             </div>
                             <div className="col-md-6 col-sm-12">
                                 <h2 className="text-center">Diet &amp; Allergy</h2>
-                                    <p>Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
+                                    <p className="wbdv-app-info">Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
                                         you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
                                         you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
                                         you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
@@ -91,7 +91,7 @@ class LandingPage extends Component {
                             <div className="row">
                                 <div className="col-md-6 col-sm-12">
                                 <h2 className="text-center">Collect Your Favorites</h2>
-                                    <p>Use the Yum button to save and organize recipes in your personal recipe box.
+                                    <p className="wbdv-app-info">Use the Yum button to save and organize recipes in your personal recipe box.
                                         Use the Yum button to save and organize recipes in your personal recipe box.
                                         Use the Yum button to save and organize recipes in your personal recipe box.
                                         Use the Yum button to save and organize recipes in your personal recipe box.
@@ -102,7 +102,7 @@ class LandingPage extends Component {
                                 <h2 className="text-center">
                                     Browse for Inspiration
                                 </h2>
-                                    <p>Use the Yum button to save and organize recipes in your personal recipe box.
+                                    <p className="wbdv-app-info">Use the Yum button to save and organize recipes in your personal recipe box.
                                         Use the Yum button to save and organize recipes in your personal recipe box.
                                         Use the Yum button to save and organize recipes in your personal recipe box.
                                         Use the Yum button to save and organize recipes in your personal recipe box.
