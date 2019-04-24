@@ -39,6 +39,11 @@ class HomePageNav extends React.Component{
                             </li>}
                             {(this.props.user['userType'] ==='CHEF' || this.props.user['userType']==='NUTRITIONIST')
                             && <li><a href="#">Endorsed Recipes</a></li>}
+                            <li>
+                                <Link to={`/profile/${this.props.user.userType}/${this.props.user._id}`}>
+                                    {this.props.user['username']}
+                                </Link>
+                            </li>
                             <li><a href="/explore-recipes">Explore</a></li>
                             <li><a href="/login" onClick={this.props.logOut}>Log Out</a></li>
                         </ul>
