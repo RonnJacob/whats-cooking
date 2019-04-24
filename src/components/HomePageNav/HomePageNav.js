@@ -3,6 +3,7 @@ import '../../assets/css/main.css'
 import AddIngredient from "../MainApp";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import './HomePageNav.css'
+import MainApp from "../WhatsCooking";
 class HomePageNav extends React.Component{
     constructor(props){
         super(props);
@@ -16,7 +17,7 @@ class HomePageNav extends React.Component{
                 <div className="row align-items-center justify-content-center d-flex">
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
-                            <li><a href="/">Home</a></li>
+                            <li><a href="#">Home</a></li>
                             {
                                 (this.props.user['userType']==='REGULAR') &&
                                 <li>

@@ -20,6 +20,7 @@ import IngredientServices from "../../services/IngredientServices";
 import RecipeServices from "../../services/RecipeServices";
 import RecipeDetails from "../recipes/RecipeDetails";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import MainApp from "../MainApp";
 
 class HomePage extends  Component {
     constructor(props){
@@ -154,6 +155,7 @@ class HomePage extends  Component {
                         </div>
                     </div>
                 </section>
+                <MainApp/>
             </div>
         );
     }

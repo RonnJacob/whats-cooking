@@ -70,7 +70,7 @@ class WhatsCooking extends Component{
                     <Route path="/login" exact component={LoginPage}/>
                     </Switch>
                 </Router>
-                <MainApp/>
+                {/*<MainApp/>*/}
             </div>
         )
     }
