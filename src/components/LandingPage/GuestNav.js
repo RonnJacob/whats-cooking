@@ -34,6 +34,8 @@ const GuestNav = ({user, logOut}) =>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+
+
         </div>
 
 export default GuestNav;

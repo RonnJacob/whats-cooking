@@ -27,10 +27,9 @@ export const LandingPageBody = () => {
         <div className="col-md-5">
 
 
-        <div className="features-content nav-content p2-text"><h2
-        className="features-overview-title nav-title font-bold h2-text">Find the Perfect
-        Recipe</h2><h2
-        className="features-section-title font-bold h4-text filter-title">Sort &amp; Filter</h2>
+        <div className="nav-content">
+            <h2 className="nav-title">Find the Perfect Recipe</h2>
+            <h2>Sort &amp; Filsater</h2>
         <p className="features-section-description p2-text filter-description">Yummly’s
             unique search filters allow you to narrow down your search by cook time, course,
             cuisine, occasion, diet, allergy, nutrition and more!</p><h2

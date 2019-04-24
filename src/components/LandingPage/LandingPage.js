@@ -5,15 +5,13 @@ import '../../assets/landingpage/css/style.css'
 import '../../assets/landingpage/css/owl-carousel.min.css'
 import '../../assets/landingpage/css/nice-select.css'
 import '../../assets/landingpage/css/jquery.datetimepicker.min.css'
-// import '../../assets/landingpage/css/font-awesome-4.7.0.min.css'
 import '../../assets/landingpage/css/bootstrap-4.1.3.min.css'
 import '../../assets/landingpage/css/animate-3.7.0.css'
 import MealDBServices from '../../services/MealDBServices'
 import RecipeCard from "./RecipeCard";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {Link} from 'react-router-dom'
-import ExploreRecipes from "../Explore/ExploreRecipes";
 import {LandingPageHeader} from "./LandingPageHeader";
+import './LandingPage.css'
 
 class LandingPage extends Component {
     constructor() {
@@ -39,36 +37,12 @@ class LandingPage extends Component {
             });
     }
 
-    // findAllCourses = () => {
-    //     this.courseService.findAllCourses()
-    //         .then(courses =>{
-    //             this.setState
-    //             ({courses: courses})
-    //
-    //         });}
-
-
 
 
     render() {
+        console.log(this.state.popularRecipes);
         return (
             <div>
-
-                {/*<Router>*/}
-                    {/*<Switch>*/}
-                        {/*<Route path='/' exact*/}
-                               {/*render={() =>*/}
-                                   {/*<LandingPage/>}/>*/}
-
-                        {/*<Route  path="/explore-recipes"   render={() =>*/}
-                            {/*<ExploreRecipes findAllRecipes={this.findAllRecipes}/>}/>*/}
-
-
-
-
-
-                    {/*</Switch>*/}
-                {/*</Router>*/}
                 <div className="preloader">
                     <div className="spinner"></div>
                 </div>
@@ -76,9 +50,6 @@ class LandingPage extends Component {
                 <Router>
             <LandingPageHeader popularRecipes={this.state.popularRecipes}/>
                 </Router>
-
-                {/*// {<!--Header Area End-->}*/}
-                {/*// <!-- Banner Area Starts -->*/}
                 <section className="banner-area banner-area2 menu-bg text-center">
                     <div className="container">
                         <div className="row">
@@ -93,40 +64,58 @@ class LandingPage extends Component {
                 </section>
                 <section className="food-area section-padding">
                     <div className="container">
+
+                        <h1 className="wbdv-find-recipes text-center">Find the Perfect Recipe</h1>
                         <div className="row">
-                            <div className="col-md-5">
-
-
-                                <div className="features-content nav-content p2-text"><h2
-                                    className="features-overview-title nav-title font-bold h2-text">
-                                    <div className="container">
-                                        Find the Perfect Recipe
-                                    </div>
-                                </h2>
-
-                                <h2 className="features-section-title font-bold h4-text filter-title">Sort &amp; Filter</h2>
-                                    <p className="features-section-description p2-text filter-description">Yummly’s
-                                        unique search filters allow you to narrow down your search by cook time, course,
-                                        cuisine, occasion, diet, allergy, nutrition and more!</p>
-                                <h2 className="features-section-title font-bold h4-text diet-title">Diet &amp; Allergy</h2>
-                                    <p className="features-section-description p2-text diet-description">Tell Yummly
-                                        your diet needs and allergies, and you’ll only see recipes that work for
+                            <div className="col-md-6 col-sm-12">
+                                <h2 className="text-center">Sort &amp; Filter</h2>
+                                    <p>Yummly’s unique search filters allow you to narrow down your search by cook time, course,
+                                        cuisine, occasion, diet, allergy, nutrition and more! Yummly’s unique search filters
+                                        allow you to narrow down your search by cook time, course, cuisine, occasion, diet,
+                                        allergy, nutrition and more! Yummly’s unique search filters allow you to narrow down
+                                        your search by cook time, course, cuisine, occasion, diet, allergy, nutrition and
+                                        more! Yummly’s unique search filters allow you to narrow down your search by cook
+                                        time, course, cuisine, occasion, diet, allergy, nutrition and more!
+                                    </p>
+                            </div>
+                            <div className="col-md-6 col-sm-12">
+                                <h2 className="text-center">Diet &amp; Allergy</h2>
+                                    <p>Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
+                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
+                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
+                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
+                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
+                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
                                         you.</p>
-                                <h2 className="features-section-title font-bold h4-text collection-title">Collect Your Favorites</h2>
-                                    <p className="features-section-description p2-text collection-description">Use the
-                                        Yum button to save and organize recipes in your personal recipe box.</p>
-                                <h2 className="features-section-title font-bold h4-text browse-title">
-                                        <p title="Browse for Inspiration" aria-label="Browse for Inspiration" href="/dish">Browse
-                                            for Inspiration</p>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-6 col-sm-12">
+                                <h2 className="text-center">Collect Your Favorites</h2>
+                                    <p>Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.</p>
+                                </div>
+                                <div className="col-md-6 col-sm-12">
+                                <h2 className="text-center">
+                                    Browse for Inspiration
                                 </h2>
+                                    <p>Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.
+                                        Use the Yum button to save and organize recipes in your personal recipe box.</p>
+                                </div>
+                            </div>
                                     <p className="features-section-description p2-text browse-description"><p
                                         title="Not Sure Where to Start? Browse Through Article Content to Read About Kitchen Tips, Trending Foods, and Recipe Roundups."
                                         aria-label="Not Sure Where to Start? Browse Through Article Content to Read About Kitchen Tips, Trending Foods, and Recipe Roundups."
                                         href="/dish">Not sure where to start? Browse through article content to read
                                         about kitchen tips, trending foods, and recipe roundups.</p>
                                     </p></div>
-                            </div>
-                        </div>
                     </div>
                 </section>
 

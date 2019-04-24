@@ -7,27 +7,23 @@ import LandingPage from ".//LandingPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import LoginPage from "../LoginPage/LoginPage";
 import HomePageNav from "../HomePageNav/HomePageNav";
-import './LandingPage.css'
+import './LandingPageHeader.css'
+import {Navbar, Nav, NavDropdown} from "react-bootstrap";
 
 
 export const LandingPageHeader = ({popularRecipes}) => {
-
-
     {
         return (
-
             <header className="header-area header-area2">
 
                 <div className="container">
-                    <div
-                        className="row">
-                        <div
-                            className="col-lg-2">
-                            < div
-                                className="logo-area">
+                    <div className="row">
+                        <div className="col-lg-2">
+                            <div className="logo-area">
                                 <a href="/">
                                     <img src={require("../../../src/assets/landingpage/images/logo/newlogo.png")}
-                                         alt="logo"/></a>
+                                         alt="logo"/>
+                                </a>
                             </div>
                         </div>
                         <div className="col-lg-10">
@@ -36,26 +32,19 @@ export const LandingPageHeader = ({popularRecipes}) => {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <div id="wbdv_main_menu" className="main-menu main-menu2">
-                                <ul className="main-menu main-menu2">
-                                    <li className="active"><a href="#">home
-                                        {/*<Link  to={`/`}>explore</Link>*/}
-
-                                        {/*<Route path='/' exact component={LandingPage}/>*/}
-                                        </a></li>
-
-
-                                    <li><a href="/explore-recipes">
-                                        explore
-                                        {/*<Link  to={`/explore-recipes`}>explore</Link>*/}
-
+                            <div id="wbdv_main_menu" className="wbdv-main-menu wbdv-main-menu2">
+                                <ul className="wbdv-main-menu wbdv-main-menu2">
+                                    <li className="active">
+                                        <a href="#">home
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href={`/explore-recipes`}>explore
                                         <Route path='/explore-recipes' render={() => <ExploreRecipes
                                             popularRecipes={popularRecipes}/>}/>
 
-                                        {/*<Route path='/explore-recipes'*/}
-                                               {/*render={() => <ExploreRecipes/>}/>*/}
-
-                                    </a></li>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="/login">
                                             login
