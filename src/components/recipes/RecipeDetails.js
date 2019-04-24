@@ -19,7 +19,7 @@ import {
 import {faHeart as emptyHeart, faThumbsUp as emptyThumbsUp} from "@fortawesome/free-regular-svg-icons";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
-import HomePageNav from '../HomePageNav'
+import HomePageNav from '../HomePageNav/HomePageNav'
 import RecipeServices from "../../services/RecipeServices";
 import UserServices from "../../services/UserServices";
 import RegularUserServices from "../../services/RegularUserServices";
@@ -259,7 +259,7 @@ class RecipeDetails extends Component {
                                 <p className="text-white link-nav"><a href='/home'>Home </a> <span
                                     className="lnr lnr-arrow-right"></span>
                                     {/*TODO need to change the hyper link to my recipes*/}
-                                    <Link>My Recipes</Link>
+                                    <a href={`/user/${this.state.userId}/myrecipes`}>My Recipes</a>
                                     <span
                                         className="lnr lnr-arrow-right"></span>
                                     <a href="#">Recipe Details</a>

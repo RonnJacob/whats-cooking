@@ -72,7 +72,7 @@ class Profile extends React.Component {
                                     <h1 className="text-white">
                                         Profile
                                     </h1>
-                                    <p className="text-white link-nav"><Link to="/">Home </Link> <span
+                                    <p className="text-white link-nav"><a href="/home">Home </a> <span
                                         className="lnr lnr-arrow-right"></span>
                                         <a href="#">Profile</a></p>
                                 </div>

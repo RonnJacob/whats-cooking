@@ -11,7 +11,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
 import {library} from "../../../node_modules/@fortawesome/fontawesome-svg-core";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
-import HomePageNav from '../HomePageNav'
+import HomePageNav from '../HomePageNav/HomePageNav'
 import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
 

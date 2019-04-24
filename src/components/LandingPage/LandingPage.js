@@ -98,29 +98,33 @@ class LandingPage extends Component {
 
 
                                 <div className="features-content nav-content p2-text"><h2
-                                    className="features-overview-title nav-title font-bold h2-text">Find the Perfect
-                                    Recipe</h2><h2
-                                    className="features-section-title font-bold h4-text filter-title">Sort &amp; Filter</h2>
+                                    className="features-overview-title nav-title font-bold h2-text">
+                                    <div className="container">
+                                        Find the Perfect Recipe
+                                    </div>
+                                </h2>
+
+                                <h2 className="features-section-title font-bold h4-text filter-title">Sort &amp; Filter</h2>
                                     <p className="features-section-description p2-text filter-description">Yummly’s
                                         unique search filters allow you to narrow down your search by cook time, course,
-                                        cuisine, occasion, diet, allergy, nutrition and more!</p><h2
-                                        className="features-section-title font-bold h4-text diet-title">Diet &amp; Allergy</h2>
+                                        cuisine, occasion, diet, allergy, nutrition and more!</p>
+                                <h2 className="features-section-title font-bold h4-text diet-title">Diet &amp; Allergy</h2>
                                     <p className="features-section-description p2-text diet-description">Tell Yummly
                                         your diet needs and allergies, and you’ll only see recipes that work for
-                                        you.</p><h2
-                                        className="features-section-title font-bold h4-text collection-title">Collect
-                                        Your Favorites</h2><p
-                                        className="features-section-description p2-text collection-description">Use the
-                                        Yum button to save and organize recipes in your personal recipe box.</p><h2
-                                        className="features-section-title font-bold h4-text browse-title">
-                                        <p
-                                            title="Browse for Inspiration" aria-label="Browse for Inspiration" href="/dish">Browse
-                                            for Inspiration</p></h2><p
-                                        className="features-section-description p2-text browse-description"><p
+                                        you.</p>
+                                <h2 className="features-section-title font-bold h4-text collection-title">Collect Your Favorites</h2>
+                                    <p className="features-section-description p2-text collection-description">Use the
+                                        Yum button to save and organize recipes in your personal recipe box.</p>
+                                <h2 className="features-section-title font-bold h4-text browse-title">
+                                        <p title="Browse for Inspiration" aria-label="Browse for Inspiration" href="/dish">Browse
+                                            for Inspiration</p>
+                                </h2>
+                                    <p className="features-section-description p2-text browse-description"><p
                                         title="Not Sure Where to Start? Browse Through Article Content to Read About Kitchen Tips, Trending Foods, and Recipe Roundups."
                                         aria-label="Not Sure Where to Start? Browse Through Article Content to Read About Kitchen Tips, Trending Foods, and Recipe Roundups."
                                         href="/dish">Not sure where to start? Browse through article content to read
-                                        about kitchen tips, trending foods, and recipe roundups.</p></p></div>
+                                        about kitchen tips, trending foods, and recipe roundups.</p>
+                                    </p></div>
                             </div>
                         </div>
                     </div>

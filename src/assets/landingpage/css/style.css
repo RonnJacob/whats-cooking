@@ -194,7 +194,7 @@ input:focus, textarea:focus {
 }
 
 .main-menu ul li a {
-    color: #131230;
+    color: white;
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     font-size: 14px;

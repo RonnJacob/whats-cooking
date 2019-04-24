@@ -6,7 +6,7 @@ import ExploreRecipes from "../Explore/ExploreRecipes";
 import LandingPage from ".//LandingPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import LoginPage from "../LoginPage/LoginPage";
-import HomePageNav from "../HomePageNav";
+import HomePageNav from "../HomePageNav/HomePageNav";
 import './LandingPage.css'
 
 
@@ -38,7 +38,7 @@ export const LandingPageHeader = ({popularRecipes}) => {
                             </div>
                             <div id="wbdv_main_menu" className="main-menu main-menu2">
                                 <ul className="main-menu main-menu2">
-                                    <li className="active"><a href="about.html">home
+                                    <li className="active"><a href="#">home
                                         {/*<Link  to={`/`}>explore</Link>*/}
 
                                         {/*<Route path='/' exact component={LandingPage}/>*/}

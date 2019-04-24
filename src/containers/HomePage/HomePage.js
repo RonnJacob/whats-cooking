@@ -8,7 +8,7 @@ import '../../assets/css/main.css'
 import './HomePage.css'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../assets/css/bootstrap.css'
-import HomePageNav from "../../components/HomePageNav";
+import HomePageNav from "../../components/HomePageNav/HomePageNav";
 import UserServices from '../../services/UserServices'
 import {getFromStorage} from '../../utils/storage';
 

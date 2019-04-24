@@ -6,7 +6,7 @@ import GuestNav from "../LandingPage/GuestNav";
 import '../../assets/landingpage/css/sidebar.css'
 import FilterRecipes from "../Explore/FilterRecipes";
 import '../Explore/Explore.css'
-import HomePageNav from "../HomePageNav";
+import HomePageNav from "../HomePageNav/HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
 
 class FavoriteRecipes extends React.Component {
