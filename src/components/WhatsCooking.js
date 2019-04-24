@@ -50,6 +50,10 @@ class WhatsCooking extends Component{
                            component={(props) =>
                                <MyRecipes
                                    {...props}/>}/>
+                        <Route path='/user/:userId/findRecipes'
+                               component={(props) =>
+                                   <SearchRecipesByIngredients
+                                       {...props}/>}/>
                     <Route path="/recipes/:recipeId"
                            component={(props) =>
                                <RecipeDetails
