@@ -22,3 +22,10 @@
 .endorsed-theader{
     padding-left: 15px;
 }
+
+.wd-bottom-right {
+    color: #CB3B3B;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}

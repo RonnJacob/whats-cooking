@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import RegularUserServices from "../../services/RegularUserServices";
 import RecipeCard from "../LandingPage/RecipeCard";
 import '../../assets/landingpage/css/sidebar.css'
@@ -7,6 +7,8 @@ import FilterRecipes from "../Explore/FilterRecipes";
 import '../Explore/Explore.css'
 import MealDBServices from "../../services/MealDBServices";
 import RecipeServices from "../../services/RecipeServices";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import ReactTooltip from 'react-tooltip'
 
 class MyRecipes extends React.Component {
     constructor(props) {
@@ -36,7 +38,7 @@ class MyRecipes extends React.Component {
             .then(recipes => {
                 this.setState
                 ({
-                    recipes: recipes.meals?recipes.meals:recipes
+                    recipes: recipes.meals ? recipes.meals : recipes
                 })
             });
 
@@ -53,7 +55,7 @@ class MyRecipes extends React.Component {
             .then(recipes => {
                 this.setState
                 ({
-                    unSortedRecipes: recipes.meals?recipes.meals:recipes
+                    unSortedRecipes: recipes.meals ? recipes.meals : recipes
                 })
             });
     }
@@ -81,7 +83,7 @@ class MyRecipes extends React.Component {
     }
 
     findRecipesByCategory = (category) => {
-        var filteredresult=[];
+        var filteredresult = [];
         // var recipes=this.state.recipes;
         // this.setState
         // ({
@@ -89,8 +91,8 @@ class MyRecipes extends React.Component {
         // })
         this.regularUserServices.findOwnRecipes(this.state.userId)
             .then(recipes => {
-                recipes.map(recipe=>{
-                    if(recipe.strCategory?recipe.strCategory===category:(recipe.category===category))
+                recipes.map(recipe => {
+                    if (recipe.strCategory ? recipe.strCategory === category : (recipe.category === category))
                         filteredresult.push(recipe);
                 })
                 this.setState
@@ -98,7 +100,6 @@ class MyRecipes extends React.Component {
                     recipes: filteredresult
                 })
             });
-
 
 
         // if()
@@ -153,8 +154,8 @@ class MyRecipes extends React.Component {
 
     compareAsc(a, b) {
         // Use toUpperCase() to ignore character casing
-        const recipeA = a.strMeal?a.strMeal.toUpperCase():a.name.toUpperCase();
-        const recipeB = b.strMeal?b.strMeal.toUpperCase():b.name.toUpperCase();
+        const recipeA = a.strMeal ? a.strMeal.toUpperCase() : a.name.toUpperCase();
+        const recipeB = b.strMeal ? b.strMeal.toUpperCase() : b.name.toUpperCase();
 
         let comparison = 0;
         if (recipeA > recipeB) {
@@ -167,8 +168,8 @@ class MyRecipes extends React.Component {
 
     compareDesc(a, b) {
         // Use toUpperCase() to ignore character casing
-        const recipeA = a.strMeal?a.strMeal.toUpperCase():a.name.toUpperCase();
-        const recipeB = b.strMeal?b.strMeal.toUpperCase():b.name.toUpperCase();
+        const recipeA = a.strMeal ? a.strMeal.toUpperCase() : a.name.toUpperCase();
+        const recipeB = b.strMeal ? b.strMeal.toUpperCase() : b.name.toUpperCase();
 
         let comparison = 0;
         if (recipeA > recipeB) {
@@ -227,20 +228,20 @@ class MyRecipes extends React.Component {
             .then(recipes => {
                 this.setState
                 ({
-                    recipes: recipes.meals?recipes.meals:recipes
+                    recipes: recipes.meals ? recipes.meals : recipes
                 })
             });
     }
 
     deleteRecipe = (recipeId) => {
         this.recipeServices.deleteRecipe(recipeId)
-            .then(()=>{
+            .then(() => {
                 this.setState({
-                    recipes: this.state.recipes.filter(function(recipe) {
+                    recipes: this.state.recipes.filter(function (recipe) {
                         return recipe._id !== recipeId;
                     })
                 });
-                this.regularUserServices.deleteOwnRecipe(this.state.userId,recipeId)
+                this.regularUserServices.deleteOwnRecipe(this.state.userId, recipeId)
             });
 
     };
@@ -296,29 +297,29 @@ class MyRecipes extends React.Component {
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="section-top2 text-center">
-                                        <h3>My <span>Recipes</span> </h3>
+                                        <h3>My <span>Recipes</span></h3>
                                         <p><i>Time to get into a yummilicious world.</i></p>
                                     </div>
                                 </div>
                             </div>
                             {/*<div className="row">*/}
-                                {/*<div className="col-lg-8 offset-lg-2">*/}
-                                    {/*<form action="#">*/}
+                            {/*<div className="col-lg-8 offset-lg-2">*/}
+                            {/*<form action="#">*/}
 
 
-                                        {/*<div className="form-group has-search">*/}
-                                            {/*<span className="fa fa-search form-control-feedback"></span>*/}
-                                            {/*<input type="text" className="form-control"*/}
-                                                   {/*placeholder="search a million recipes & more"*/}
-                                                   {/*onChange={this.searchChanged}/>*/}
-                                        {/*</div>*/}
+                            {/*<div className="form-group has-search">*/}
+                            {/*<span className="fa fa-search form-control-feedback"></span>*/}
+                            {/*<input type="text" className="form-control"*/}
+                            {/*placeholder="search a million recipes & more"*/}
+                            {/*onChange={this.searchChanged}/>*/}
+                            {/*</div>*/}
 
-                                        {/*<div className="table-btn text-center">*/}
-                                            {/*<a href="#" className="template-btn template-btn2 mt-4"*/}
-                                               {/*onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</a>*/}
-                                        {/*</div>*/}
-                                    {/*</form>*/}
-                                {/*</div>*/}
+                            {/*<div className="table-btn text-center">*/}
+                            {/*<a href="#" className="template-btn template-btn2 mt-4"*/}
+                            {/*onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</a>*/}
+                            {/*</div>*/}
+                            {/*</form>*/}
+                            {/*</div>*/}
                             {/*</div>*/}
                         </div>
                     </section>
@@ -375,10 +376,12 @@ class MyRecipes extends React.Component {
                                 </div>
                                 <div className="sorting mr-auto">
                                     <div className="pagination">
-                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
-                                                                                                             aria-hidden="true"></i></a>
-                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
-                                                                                                              aria-hidden="true"></i></a>
+                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
+                                            className="fa fa-sort-alpha-asc"
+                                            aria-hidden="true"></i></a>
+                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
+                                            className="fa fa-sort-alpha-desc"
+                                            aria-hidden="true"></i></a>
 
                                         <a href="#" onClick={this.resetSort}>reset</a>
 
@@ -411,11 +414,16 @@ class MyRecipes extends React.Component {
                                         </ul>
                                     </div>
                                 </div>
+                                <Link to="/addRecipe" id="addRecipe"> <span
+                                    className="fa-stack wd-bottom-right hand-cursor"> <FontAwesomeIcon
+                                    icon="plus"
+                                    className="fas fa-2x hand-cursor" data-tip='Add Recipe'/>
+			</span></Link>
                             </div>
                         </div>
                     </div>
                 </section>
-
+                <ReactTooltip/>
             </div>
         )
     }

@@ -21,7 +21,7 @@ const AddRecipe = ({addRecipe, userId}) => {
                             <p className="text-white link-nav"><Link to='/'>Home </Link> <span
                                 className="lnr lnr-arrow-right"></span>
                                 {/*TODO need to change the hyper link to my recipes*/}
-                                <Link to={`/ingredients/${userId}`}>My Recipes</Link>
+                                <Link to={`/user/${userId}/myrecipes`}>My Recipes</Link>
                                 <span
                                     className="lnr lnr-arrow-right"></span>
                                 <a href="#">Add Recipe</a>
@@ -76,13 +76,12 @@ const AddRecipe = ({addRecipe, userId}) => {
                                                     ingredients: ingredients.value.split(',').map(function(item) {
                                                         return item.trim();
                                                     }),
-                                                    image: 'https://picsum.photos/id/292/300/300'
+                                                    image: ''
                                                 };
-                                                console.log('$$$$$$$$$' + recipe)
                                                 addRecipe(recipe)
                                             }}>Save changes
                                     </button>
-                                    <Link to={`/ingredients/${userId}`} className="middle-div btn btn-danger"
+                                    <Link to={`/user/${userId}/myrecipes`} className="middle-div btn btn-danger"
                                           id="save_recipe">Cancel
                                     </Link>
                                 </div>
