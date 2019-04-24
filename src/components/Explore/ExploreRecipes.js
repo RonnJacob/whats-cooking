@@ -41,6 +41,7 @@ class ExploreRecipes extends React.Component {
                     this.mealDBServices.findAllRecipes()
                         .then(recipes => {
                             // alert("updated"+courses.length)
+                            console.log(recipes);
                             this.setState({
                                 recipes: recipes.meals,
                                 token,
