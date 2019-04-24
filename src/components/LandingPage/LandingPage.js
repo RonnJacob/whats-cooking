@@ -19,7 +19,6 @@ class LandingPage extends Component {
     constructor() {
         super();
         this.mealDBServices = new MealDBServices();
-
         this.state = {
             popularRecipes: []
         };
@@ -137,23 +136,9 @@ class LandingPage extends Component {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-top2 text-center">
-                                    <h3>Find <span>a</span> recipe</h3>
+                                    <h3>Find <span>our popular</span> recipes down below</h3>
                                     <p><i>Time to get into a yummilicious world.</i></p>
                                 </div>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-lg-8 offset-lg-2">
-                                <form action="#">
-                                    <div className="form-group has-search">
-                                        <span className="fa fa-search form-control-feedback"></span>
-                                        <input type="text" className="form-control" placeholder="search a million recipes & more"/>
-                                    </div>
-
-                                    <div className="table-btn text-center">
-                                        <a href="#" className="template-btn template-btn2 mt-4">Go</a>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </div>
@@ -178,9 +163,8 @@ class LandingPage extends Component {
                             {
                                 this.state.popularRecipes.meals &&
                                 this.state.popularRecipes.meals.map(recipe =>
-                                    <RecipeCard popularRecipe={recipe}/>
+                                    <RecipeCard popularRecipe={recipe} loggedIn={false}/>
                                 )
-
                             }
                         </div>
                     </div>
@@ -192,7 +176,6 @@ class LandingPage extends Component {
                 {/*// <!-- Table Area End -->*/}
                 {/*//*/}
                 {/*// <!-- Footer Area Starts -->*/}
-                <div className="footer-area">
                     <div className="footer-widget section-padding">
                         <div className="container">
                             <div className="row">
@@ -201,11 +184,6 @@ class LandingPage extends Component {
                                         <a href="index.html"><img
                                             src={require("../../../src/assets/landingpage/images/logo/newlogo.png")}
                                             alt=""/></a>
-                                        {/*<p className="mt-3">Which morning fourth great won't is to fly bearing man.*/}
-                                        {/*Called unto*/}
-                                        {/*shall seed, deep, herb set seed land divide after over first creeping. First*/}
-                                        {/*creature set upon stars deep male gathered said she'd an image spirit*/}
-                                        {/*our</p>*/}
                                     </div>
                                 </div>
                                 <div className="col-md-4">
@@ -237,19 +215,10 @@ class LandingPage extends Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-md-4">
-                                    {/*<div className="single-widget single-widget3">*/}
-                                    {/*<h5 className="mb-4">opening hours</h5>*/}
-                                    {/*<p>Monday ...................... Closed</p>*/}
-                                    {/*<p>Tue-Fri .............. 10 am - 12 pm</p>*/}
-                                    {/*<p>Sat-Sun ............... 8 am - 11 pm</p>*/}
-                                    {/*<p>Holidays ............. 10 am - 12 pm</p>*/}
-                                    {/*</div>*/}
-                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
             </div>
         );
     }

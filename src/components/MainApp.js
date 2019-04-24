@@ -93,7 +93,7 @@ class MainApp extends React.Component {
                                    <Ingredients
                                        ingredients={this.state.ingredients}
                                        {...props}/>}/>
-                        <Route path='/' exact
+                        <Route path='/register' exact
                                render={() =>
                                    <RegisterPage/>}/>
                         <Route path="/addIngredient"
@@ -109,12 +109,6 @@ class MainApp extends React.Component {
                         <Route path="/recipes/:recipeId"
                                component={(props) =>
                                    <RecipeDetails
-                                       // Regular
-                                       // userId={`5cb93fa8d765b8de30a1ace2`}
-                                       //Chef
-                                       // userId={`5cbd7841e9ee3e368d4db140`}
-                                       //Nutritionist
-                                       // userId={`5cbd79efe9ee3e368d4db142`}
                                        userType='REGULAR'
                                        {...props}/>}/>
                         <Route path='/profile/:userType/:userId' exact

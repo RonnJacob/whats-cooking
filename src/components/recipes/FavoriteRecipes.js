@@ -249,7 +249,7 @@ class FavoriteRecipes extends React.Component {
         const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe}/>
+            return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
         });
 
         // Logic for displaying page numbers

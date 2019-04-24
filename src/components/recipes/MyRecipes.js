@@ -234,16 +234,16 @@ class MyRecipes extends React.Component {
 
     deleteRecipe = (recipeId) => {
         this.recipeServices.deleteRecipe(recipeId)
-            .then(this.regularUserServices.deleteOwnRecipe(this.state.userId,recipeId)
-            .then(this.regularUserServices.findOwnRecipes(this.state.userId)
-                .then(recipes => {
-                    this.setState
-                    ({
-                        recipes: recipes.meals?recipes.meals:recipes
+            .then(()=>{
+                this.setState({
+                    recipes: this.state.recipes.filter(function(recipe) {
+                        return recipe._id !== recipeId;
                     })
-                })))
+                });
+                this.regularUserServices.deleteOwnRecipe(this.state.userId,recipeId)
+            });
 
-    }
+    };
 
 
     searchChanged = (event) => {
@@ -263,7 +263,7 @@ class MyRecipes extends React.Component {
 
         const renderRecipes = currentRecipes.map(recipe => {
             return <RecipeCard popularRecipe={recipe}
-                               deleteRecipe={this.deleteRecipe}/>
+                               deleteRecipe={this.deleteRecipe} loggedIn={true}/>
         });
 
         // Logic for displaying page numbers

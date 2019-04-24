@@ -5,7 +5,9 @@ import {PopularRecipes} from "./PopularRecipes";
 import ExploreRecipes from "../Explore/ExploreRecipes";
 import LandingPage from ".//LandingPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import LoginPage from "../../containers/LoginPage/LoginPage";
+import LoginPage from "../LoginPage/LoginPage";
+import HomePageNav from "../HomePageNav";
+import './LandingPage.css'
 
 
 export const LandingPageHeader = ({popularRecipes}) => {
@@ -19,7 +21,7 @@ export const LandingPageHeader = ({popularRecipes}) => {
                 <div className="container">
                     <div
                         className="row">
-                        < div
+                        <div
                             className="col-lg-2">
                             < div
                                 className="logo-area">
@@ -34,8 +36,8 @@ export const LandingPageHeader = ({popularRecipes}) => {
                                 <span></span>
                                 <span></span>
                             </div>
-                            <div className="main-menu main-menu2">
-                                <ul>
+                            <div id="wbdv_main_menu" className="main-menu main-menu2">
+                                <ul className="main-menu main-menu2">
                                     <li className="active"><a href="about.html">home
                                         {/*<Link  to={`/`}>explore</Link>*/}
 
@@ -54,8 +56,6 @@ export const LandingPageHeader = ({popularRecipes}) => {
                                                {/*render={() => <ExploreRecipes/>}/>*/}
 
                                     </a></li>
-
-
                                     <li>
                                         <a href="/login">
                                             login

@@ -263,7 +263,7 @@ class ExploreRecipes extends React.Component {
         const currentRecipes = recipes?recipes.slice(indexOfFirstRecipe, indexOfLastRecipe):[];
 
         const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe}/>
+            return <RecipeCard popularRecipe={recipe} loggedIn={this.state.loggedIn}/>
         });
 
         // Logic for displaying page numbers

@@ -17,11 +17,6 @@ export const LandingPageFooter = () => {
                                     <a href="index.html"><img
                                         src={require("../../../src/assets/landingpage/images/logo/newlogo.png")}
                                         alt=""/></a>
-                                    {/*<p className="mt-3">Which morning fourth great won't is to fly bearing man.*/}
-                                    {/*Called unto*/}
-                                    {/*shall seed, deep, herb set seed land divide after over first creeping. First*/}
-                                    {/*creature set upon stars deep male gathered said she'd an image spirit*/}
-                                    {/*our</p>*/}
                                 </div>
                             </div>
                             <div className="col-md-4">

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Link} from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import RegisterPage from "./RegisterPage/RegisterPage";
 import './LandingPage.css'
-import LoginPage from "./LoginPage/LoginPage";
+import LoginPage from "../components/LoginPage/LoginPage";
 import MainApp from "../components/MainApp";
 
 class LandingPage extends Component {

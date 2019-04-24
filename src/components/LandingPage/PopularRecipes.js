@@ -28,7 +28,7 @@ export const PopularRecipes = ({popularRecipes}) => {
                         {
                             popularRecipes &&
                             popularRecipes.map(recipe =>
-                                <RecipeCard popularRecipe={recipe}/>
+                                <RecipeCard popularRecipe={recipe} loggedIn={false}/>
                             )
 
                         }

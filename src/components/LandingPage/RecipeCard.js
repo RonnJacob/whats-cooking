@@ -2,7 +2,7 @@ import React from 'react'
 import {Link, Route} from 'react-router-dom'
 
 
-const RecipeCard = ({popularRecipe,deleteRecipe}) =>
+const RecipeCard = ({popularRecipe,deleteRecipe, loggedIn}) =>
 
     <div className="col-md-4 col-sm-6">
         <Link to={`/recipes/${popularRecipe.idMeal?popularRecipe.idMeal:popularRecipe._id}`}>
@@ -19,9 +19,13 @@ const RecipeCard = ({popularRecipe,deleteRecipe}) =>
 
 
             </div>
-        </div></Link><button  onClick={() => { if (window.confirm('Are you sure you wish to delete this item?')) deleteRecipe(popularRecipe._id) } }>
+        </div></Link>
+        {loggedIn && <button className="btn btn-danger" onClick={() => {
+                        if (window.confirm('Are you sure you wish to delete this item?')){
+                            deleteRecipe(popularRecipe._id);
+                        }  } }>
         Delete
-    </button>
+    </button>}
     </div>
 
 export default RecipeCard;
