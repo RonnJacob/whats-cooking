@@ -1,7 +1,7 @@
 import React from 'react';
 import {browserHistory} from 'react-router'
 import {BrowserRouter as Router, Link, Redirect, Route} from 'react-router-dom'
-import RegisterPage from "../containers/RegisterPage/RegisterPage";
+import RegisterPage from "../components/RegisterPage/RegisterPage";
 import Ingredients from "../components/ingredients/Ingredients";
 import AddIngredient from "../components/ingredients/AddIngredient";
 import IngredientServices from "../services/IngredientServices";
@@ -60,31 +60,7 @@ class MainApp extends React.Component {
         this.recipeService.deleteRecipe(recipeId)
             .then(() => alert('Recipe Deleted Successfully!'))
     };
-
-
-    // selectCourse = (course) => {
-    //     alert('hey')
-    //     this.courseService.findCourseById(course)
-    //         .then(course => {
-    //             return this.setState({
-    //                 course: course
-    //             })
-    //         })
-    //     // .then(() => window.location.href = '/course')
-    // }
-
-    // logout = () => {
-    //     this.userService.logout()
-    //         .then(() => window.location.href = '/')
-    // }
-    //
-    // profile = () => {
-    //     this.userService.profile().then((user) => {
-    //         return this.setState({
-    //             user: user
-    //         })
-    //     })
-    // }
+    
 
     render() {
         return (

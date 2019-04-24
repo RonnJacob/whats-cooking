@@ -170,6 +170,7 @@ class RegisterPage extends React.Component{
                                         user: json.user[0],
                                         toHome: true
                                     });
+                                    window.location.href = `/home`;
                                 } else {
                                     this.setState({
                                         toHome: false
