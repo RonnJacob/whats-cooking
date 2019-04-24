@@ -35,7 +35,7 @@ class MainApp extends React.Component {
 
 
     addIngredient = (ingredient) => {
-        this.ingredientService.addIngredient(ingredient)
+        this.ingredientService.addIngredient(ingredient.toLowerCase())
             .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
             .then(ingredients =>
                 this.setState({

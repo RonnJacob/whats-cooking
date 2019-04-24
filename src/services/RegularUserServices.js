@@ -59,5 +59,11 @@ export default class RegularUserServices {
                 return response.json();
             });
     }
+    findOwnIngredients = (userID) => {
+        return fetch(FETCH_URL + 'users/' + userID+'/ingredients')
+            .then(function(response){
+                return response.json();
+            });
+    }
 }
 

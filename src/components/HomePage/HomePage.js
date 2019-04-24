@@ -133,7 +133,8 @@ class HomePage extends  Component {
                                     What's Cooking?</h1>
                                 <p className="text-white">
                                     Here is your one stop solution to find recipes that best match the ingredients in
-                                    hand.<br/>
+                                    h
+                                    and.<br/>
                                     What's Cooking? makes your life easier by helping you decide what to cook based on
                                     the time and
                                     ingredients in hand.

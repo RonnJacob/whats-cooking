@@ -26,6 +26,12 @@ export default class mealDBServices{
                 return response.json();
             });
     }
+    findRecipesByIngredient =(ingredient) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/filter.php?i='+ingredient)
+            .then(function(response){
+                return response.json();
+            });
+    }
 
     findRecipesByCuisines =(cuisine) =>{
         return fetch('https://www.themealdb.com/api/json/v1/1/list.php?a='+cuisine)

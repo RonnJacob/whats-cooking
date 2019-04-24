@@ -32,5 +32,6 @@ export default class RecipeServices {
     findAllRecipes = () =>
         fetch(FETCH_URL + '/recipes/').then(response => response.json());
 
-
+    findRecipesByIngredients=(ingredient)=>
+        fetch(FETCH_URL + '/ingredients/' + ingredient+'/recipes').then(response => response.json());
 }

@@ -9,7 +9,11 @@ import LoginPage from "./LoginPage/LoginPage";
 import FavoriteRecipes from "./recipes/FavoriteRecipes"
 import RecipeDetails from "./recipes/RecipeDetails";
 import MyRecipes from "./recipes/MyRecipes";
+
 import MealDBServices from "../services/MealDBServices";
+
+import SearchRecipesByIngredients from "./recipes/SearchRecipesByIngredients";
+
 
 class WhatsCooking extends Component{
     constructor(props){
@@ -37,6 +41,7 @@ class WhatsCooking extends Component{
                     <Switch>
                     <Route path='/' exact component={LandingPage}/>
                     <Route path='/explore-recipes' component={ExploreRecipes}/>
+
                     <Route path='/user/:userId/favorites' component={(props) =>
                                <FavoriteRecipes
                                    userId={`5cb93fa8d765b8de30a1ace2`}
@@ -50,6 +55,7 @@ class WhatsCooking extends Component{
                                <RecipeDetails
                                    userType='REGULAR'
                                    {...props}/>}/>
+
                     <Route path='/home' component={HomePage}/>
                     <Route path="/login" exact component={LoginPage}/>
                     </Switch>
