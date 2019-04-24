@@ -50,12 +50,12 @@ class ExploreRecipes extends React.Component {
                             })
                         });
                 }
-                    this.mealDBServices.findAllRecipes()
-                        .then(recipes => {
-                            this.setState({
-                                recipes: recipes.meals
-                            })
-                        });
+                this.mealDBServices.findAllRecipes()
+                    .then(recipes => {
+                        this.setState({
+                            recipes: recipes.meals
+                        })
+                    });
             });
         }
     }
