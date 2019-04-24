@@ -16,9 +16,10 @@ class MainApp extends React.Component {
         super();
         this.ingredientService = new IngredientServices();
         this.recipeService = new RecipeServices();
+        const obj = getFromStorage('project_april');
         this.state = {
-            // userId: 1,
-            user: getFromStorage('project_april'),
+            userId: obj.user[0]._id,
+            user: obj.user[0],
             ingredients: [],
         }
     }
@@ -35,7 +36,7 @@ class MainApp extends React.Component {
 
 
     addIngredient = (ingredient) => {
-        this.ingredientService.addIngredient(ingredient.toLowerCase())
+        this.ingredientService.addIngredient(ingredient)
             .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
             .then(ingredients =>
                 this.setState({
@@ -51,6 +52,7 @@ class MainApp extends React.Component {
         this.recipeService.addRecipe(recipe)
             .then(() => {
                 alert('Recipe Added Successfully!')
+                window.location.href = `/user/${this.state.userId}/myrecipes`
             })
     };
 
@@ -88,33 +90,33 @@ class MainApp extends React.Component {
         return (
             <div>
                 <Router>
-                        <Route path='/ingredients' exact
-                               component={(props) =>
-                                   <Ingredients
-                                       ingredients={this.state.ingredients}
-                                       {...props}/>}/>
-                        <Route path='/register' exact
-                               render={() =>
-                                   <RegisterPage/>}/>
-                        <Route path="/addIngredient"
-                               render={() =>
-                                   <AddIngredient
-                                       addIngredient={this.addIngredient}
-                                       userId={this.state.userId}/>}/>
-                        <Route path="/addRecipe"
-                               render={() =>
-                                   <AddRecipe
-                                       addRecipe={this.addRecipe}
-                                       userId={1}/>}/>
-                        <Route path="/recipes/:recipeId"
-                               component={(props) =>
-                                   <RecipeDetails
-                                       userType='REGULAR'
-                                       {...props}/>}/>
-                        <Route path='/profile/:userType/:userId' exact
-                               component={(props) =>
-                                   <Profile
-                                       {...props}/>}/>
+                    <Route path='/ingredients' exact
+                           component={(props) =>
+                               <Ingredients
+                                   ingredients={this.state.ingredients}
+                                   {...props}/>}/>
+                    <Route path='/register' exact
+                           render={() =>
+                               <RegisterPage/>}/>
+                    <Route path="/addIngredient"
+                           render={() =>
+                               <AddIngredient
+                                   addIngredient={this.addIngredient}
+                                   userId={this.state.user.id}/>}/>
+                    <Route path="/addRecipe"
+                           render={() =>
+                               <AddRecipe
+                                   addRecipe={this.addRecipe}
+                                   userId={this.state.userId}/>}/>
+                    <Route path="/recipes/:recipeId"
+                           component={(props) =>
+                               <RecipeDetails
+                                   userType={this.state.user.userType}
+                                   {...props}/>}/>
+                    <Route path='/profile/:userType/:userId' exact
+                           component={(props) =>
+                               <Profile
+                                   {...props}/>}/>
                 </Router>
             </div>
         )

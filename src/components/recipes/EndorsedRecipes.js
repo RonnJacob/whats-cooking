@@ -2,141 +2,67 @@ import React from 'react'
 
 import RegularUserServices from "../../services/RegularUserServices";
 import RecipeCard from "../LandingPage/RecipeCard";
+import GuestNav from "../LandingPage/GuestNav";
 import '../../assets/landingpage/css/sidebar.css'
+import FilterRecipes from "../Explore/FilterRecipes";
 import '../Explore/Explore.css'
+import HomePageNav from "../HomePageNav/HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
-import RecipeServices from "../../services/RecipeServices";
+import {Link} from "react-router-dom";
+import ChefServices from "../../services/ChefServices";
 
-class SearchRecipesByIngredients extends React.Component {
+class EndorsedRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
-        this.regularUserServices = new RegularUserServices();
-        this.recipeServices = new RecipeServices();
+        this.chefServices = new ChefServices();
+        const userId = props.match.params['userId'];
         this.state = {
-            ingredients: [],
-            userId: this.props.match.params.userId,
-            recipes: []
+            recipes: [],
+            unsortedRecipes: [],
+            searchRecipe: '',
+            popularRecipes: [],
+            filterCategory: [],
+            sorted: 0,
+            currentPage: 1,
+            recipesPerPage: 6,
+            userId: userId
         };
         //this.searchRecipe = this.searchRecipe.bind(this);
-
     }
 
     componentWillMount() {
-        document.title = "Find Recipes";
-        this.regularUserServices.findOwnIngredients(this.state.userId)
-            .then(ingredients => {
+        document.title = "Endorsed Recipes";
+        this.chefServices.findEndorsedRecipes(this.state.userId)
+            .then(recipes => {
                 this.setState
                 ({
-                    ingredients: ingredients
+                    recipes: recipes.meals?recipes.meals:recipes
                 })
             });
-        console.log("Ingredientsssssss" + this.state.ingredients)
+
+
     }
 
     componentDidMount() {
-
-        // findAllRecipes = () => {
-        //     this.mealDBServices.findAllCategories()
-        //         .then(categories => {
-        //             categories.meals.map(c => {
-        //                 this.mealDBServices.findRecipesByCategory(c.strCategory)
-        //                     .then(r => {
-        //                         console.log("hello: "+r.meals)
-        //                         alert('found? ' + r.meals.length)
-        //                         this.setState({
-        //                             recipes: [...this.state.recipes, r.meals]
-        //                         })
-        //                     })
-        //             })
-        //         })
-        //
-        //
-        // }
-
-        // var foundRecipes=[]
-        // console.log(this.state.recipes);
-        // this.state.ingredients.map(ingredient=>{
-        //     this.recipeServices.findRecipesByIngredients(ingredient.name.toLowerCase()).then(
-        //         r=>{
-        //
-        //             foundRecipes.push(r);
-        //             console.log("hello: "+foundRecipes.length)
-        //             // this.setState({
-        //             //     recipes: [...this.state.recipes, r]
-        //             // })
-        //         }
-        //
-        //     )
-        // })
-        // this.setState({
-        //     recipe:foundRecipes
-        // })
-
-
-        // var foundRecipes=[]
-        // console.log(this.state.recipes);
-        // this.state.ingredients.map(ingredient=>{
-        //     this.mealDBServices.findRecipesByIngredient(ingredient.name.toLowerCase()).then(
-        //         r=>{r.meals.map(recipe=> {
-        //                 console.log("Inside the map Recipe = "+recipe.strMeal)
-        //                 foundRecipes = [...foundRecipes, recipe]
-        //             console.log("Inside the map Array of recipes = "+foundRecipes.length)
-        //             }
-        //
-        //         )
-        //         }
-        //     )
-        // })
-
-        // this.regularUserServices.findOwnIngredients(this.state.userId)
-        //     .then(ingredients => {
-        //         this.setState
-        //         ({
-        //             ingredients: ingredients
-        //         })
-        //     });
+        this.mealDBServices.findAllCategories()
+            .then(filterCategory => {
+                this.setState
+                ({filterCategory: filterCategory.meals})
+            });
+        this.chefServices.findEndorsedRecipes('5cb93fa8d765b8de30a1ace2')
+            .then(recipes => {
+                this.setState
+                ({
+                    unSortedRecipes: recipes.meals?recipes.meals:recipes
+                })
+            });
     }
-
-    // componentDidMount() {
-    //     this.regularUserServices.findOwnIngredients(this.state.userId)
-    //         .then(ingredients => {
-    //             this.setState
-    //             ({
-    //                 ingredients: ingredients
-    //             })
-    //         });
-    // }
 
     handleClick = event => {
         return this.setState({
             currentPage: Number(event.target.id)
         })
-    }
-
-    findRecipesByIngredient = (ingredients) => {
-        var foundRecipes = []
-        console.log(this.state.recipes);
-        ingredients.map(ingredient => {
-            this.mealDBServices.findRecipesByIngredient(ingredient.name.toLowerCase()).then(
-                r => {
-                    r.meals&&r.meals.map(recipe => {
-                            console.log("Inside the map Recipe = " + recipe.strMeal)
-                            foundRecipes = [...foundRecipes, recipe]
-                            console.log("Inside the map Array of recipes = " + foundRecipes.length)
-                        }
-                    )
-
-                return foundRecipes;
-                }
-            ).then(recipes => {
-                alert(recipes.length)
-                this.setState({
-                    recipes: recipes
-                })
-            })
-        })
-        
     }
 
     findAllCuisines = () => {
@@ -156,16 +82,16 @@ class SearchRecipesByIngredients extends React.Component {
     }
 
     findRecipesByCategory = (category) => {
-        var filteredresult = [];
+        var filteredresult=[];
         // var recipes=this.state.recipes;
         // this.setState
         // ({
         //     unsortedRecipes: recipes
         // })
-        this.regularUserServices.findOwnRecipes(this.state.userId)
+        this.chefServices.findEndorsedRecipes('5cb93fa8d765b8de30a1ace2')
             .then(recipes => {
-                recipes.map(recipe => {
-                    if (recipe.strCategory ? recipe.strCategory === category : (recipe.category === category))
+                recipes.map(recipe=>{
+                    if(recipe.strCategory?recipe.strCategory===category:(recipe.category===category))
                         filteredresult.push(recipe);
                 })
                 this.setState
@@ -174,6 +100,19 @@ class SearchRecipesByIngredients extends React.Component {
                 })
             });
 
+
+
+        // if()
+
+        // this.mealDBServices.findRecipesByCategory(category)
+        //     .then(recipes => {
+        //
+        //         this.setState
+        //         ({
+        //             recipes: recipes.meals,
+        //             unsortedRecipes: recipes.meals
+        //         })
+        //     });
     }
 
     findRecipesByCuisine = (cuisine) => {
@@ -184,10 +123,39 @@ class SearchRecipesByIngredients extends React.Component {
             });
     }
 
+
+    // searchRecipe = (recipe) => {
+    //     this.state.recipes.map(recipe => {
+    //
+    //
+    //         this.setState
+    //         ({recipes: recipes.meals})
+    //         if (recipes.meals == null) {
+    //             document.getElementById("food-area").innerHTML =
+    //                 " <div class=\"no-results\">" +
+    //                 "<h3>We searched all over but didn't " +
+    //                 "find a recipe for '" + `${recipe}` + "'</h3>" +
+    //
+    //                 "<div class=\"no-results-suggestion\">" +
+    //                 "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/check_spelling.svg\">" +
+    //                 "<span>Check Spelling</span></div><div class=\"no-results-suggestion\">" +
+    //                 "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/different_keywords.svg\">" +
+    //                 "<span>Different Keywords</span></div><div class=\"no-results-suggestion\">" +
+    //                 "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/simplify_search.svg\">" +
+    //                 "<span>Simplify Search</span></div></div>" +
+    //                 "" +
+    //                 " </PopularRecipes popularRecipes={" + this.state.popularRecipes + "}>"
+    //
+    //
+    //         }
+    //     });
+    // }
+
+
     compareAsc(a, b) {
         // Use toUpperCase() to ignore character casing
-        const recipeA = a.strMeal ? a.strMeal.toUpperCase() : a.name.toUpperCase();
-        const recipeB = b.strMeal ? b.strMeal.toUpperCase() : b.name.toUpperCase();
+        const recipeA = a.strMeal?a.strMeal.toUpperCase():a.name.toUpperCase();
+        const recipeB = b.strMeal?b.strMeal.toUpperCase():b.name.toUpperCase();
 
         let comparison = 0;
         if (recipeA > recipeB) {
@@ -200,8 +168,8 @@ class SearchRecipesByIngredients extends React.Component {
 
     compareDesc(a, b) {
         // Use toUpperCase() to ignore character casing
-        const recipeA = a.strMeal ? a.strMeal.toUpperCase() : a.name.toUpperCase();
-        const recipeB = b.strMeal ? b.strMeal.toUpperCase() : b.name.toUpperCase();
+        const recipeA = a.strMeal?a.strMeal.toUpperCase():a.name.toUpperCase();
+        const recipeB = b.strMeal?b.strMeal.toUpperCase():b.name.toUpperCase();
 
         let comparison = 0;
         if (recipeA > recipeB) {
@@ -229,6 +197,7 @@ class SearchRecipesByIngredients extends React.Component {
                     unsortedRecipes: recipes.meals
                 })
             });
+
     };
 
     sortDescend = () => {
@@ -250,28 +219,18 @@ class SearchRecipesByIngredients extends React.Component {
                     unsortedRecipes: recipes.meals
                 })
             });
+
+
     };
 
     resetSort = () => {
-        this.regularUserServices.findOwnRecipes(this.state.userId)
+        this.chefServices.findEndorsedRecipes('5cb93fa8d765b8de30a1ace2')
             .then(recipes => {
                 this.setState
                 ({
-                    recipes: recipes.meals ? recipes.meals : recipes
+                    recipes: recipes.meals?recipes.meals:recipes
                 })
             });
-    }
-
-    deleteRecipe = (recipeId) => {
-        this.recipeServices.deleteRecipe(recipeId)
-            .then(this.regularUserServices.deleteOwnRecipe(this.state.userId, recipeId)
-                .then(this.regularUserServices.findOwnRecipes(this.state.userId)
-                    .then(recipes => {
-                        this.setState
-                        ({
-                            recipes: recipes.meals ? recipes.meals : recipes
-                        })
-                    })))
     }
 
 
@@ -290,9 +249,8 @@ class SearchRecipesByIngredients extends React.Component {
         const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
         const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
-        const renderRecipes = this.state.recipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe}
-                               deleteRecipe={this.deleteRecipe}/>
+        const renderRecipes = currentRecipes.map(recipe => {
+            return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
         });
 
         // Logic for displaying page numbers
@@ -325,33 +283,33 @@ class SearchRecipesByIngredients extends React.Component {
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="section-top2 text-center">
-                                        <h3>Find <span>Recipes</span></h3>
-                                        <p><i>Time to get into a yummilicious world.</i></p>
-                                    </div>
-                                    <div className="table-btn text-center">
-                                        <a href="#" className="template-btn template-btn2 mt-4"
-                                           onClick={() => this.findRecipesByIngredient(this.state.ingredients)}>Get Recipes</a>
+                                        <h3>My <span>Endorsed</span> recipes</h3>
+                                        <p className="text-white link-nav"><Link className="text-white link-nav" to='/'>Home </Link> <span
+                                            className="lnr lnr-arrow-right"></span>
+                                            <Link className="text-white link-nav" to={`/user/${this.state.user}/myrecipes`}>My Endorsed Recipes</Link>
+
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                             {/*<div className="row">*/}
-                            {/*<div className="col-lg-8 offset-lg-2">*/}
-                            {/*<form action="#">*/}
+                                {/*<div className="col-lg-8 offset-lg-2">*/}
+                                    {/*<form action="#">*/}
 
 
-                            {/*<div className="form-group has-search">*/}
-                            {/*<span className="fa fa-search form-control-feedback"></span>*/}
-                            {/*<input type="text" className="form-control"*/}
-                            {/*placeholder="search a million recipes & more"*/}
-                            {/*onChange={this.searchChanged}/>*/}
-                            {/*</div>*/}
+                                        {/*<div className="form-group has-search">*/}
+                                            {/*<span className="fa fa-search form-control-feedback"></span>*/}
+                                            {/*<input type="text" className="form-control"*/}
+                                                   {/*placeholder="search a million recipes & more"*/}
+                                                   {/*onChange={this.searchChanged}/>*/}
+                                        {/*</div>*/}
 
-                            {/*<div className="table-btn text-center">*/}
-                            {/*<a href="#" className="template-btn template-btn2 mt-4"*/}
-                            {/*onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</a>*/}
-                            {/*</div>*/}
-                            {/*</form>*/}
-                            {/*</div>*/}
+                                        {/*<div className="table-btn text-center">*/}
+                                            {/*<a href="#" className="template-btn template-btn2 mt-4"*/}
+                                               {/*onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</a>*/}
+                                        {/*</div>*/}
+                                    {/*</form>*/}
+                                {/*</div>*/}
                             {/*</div>*/}
                         </div>
                     </section>
@@ -360,28 +318,19 @@ class SearchRecipesByIngredients extends React.Component {
                 <section className="header">
                     <div className="row wrap">
                         <div className="split fleft">
-                            {/*<div className="ingredients">*/}
-                            {/*<h4 className="text-center mt-2">Available Groceries</h4>*/}
-                            {/*<ol className="list--alt" id="grocery_list">*/}
-                            {/**/}
-
-                            {/*</ol>*/}
-                            {/**/}
-                            {/*</div>*/}
                             <div className={"side-menu"}>
                                 <div className="">
 
                                     <div className="sidebar-categories">
-                                        <div className="head">Available Groceries</div>
+                                        <div className="head">Filter up your TasteBuds</div>
                                         <ul className="main-categories">
 
 
-                                            {this.state.ingredients.map(ingredient =>
-                                                <li className="main-nav-list child"><a href="#"
-
-                                                                                       tabIndex="1">{ingredient.name}<span
-                                                    className="number"></span></a></li>)
-                                            }
+                                            {this.state.filterCategory.map(category =>
+                                                <FilterRecipes category={category.strCategory}
+                                                               findRecipesByCategory={this.findRecipesByCategory}
+                                                               findRecipesByCuisine={this.findRecipesByCuisine}/>
+                                            )}
 
 
                                         </ul>
@@ -390,7 +339,6 @@ class SearchRecipesByIngredients extends React.Component {
                             </div>
                         </div>
                         <div className="split fright">
-
                             {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
                             {/*<div className="sorting">*/}
 
@@ -417,12 +365,10 @@ class SearchRecipesByIngredients extends React.Component {
                                 </div>
                                 <div className="sorting mr-auto">
                                     <div className="pagination">
-                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
-                                            className="fa fa-sort-alpha-asc"
-                                            aria-hidden="true"></i></a>
-                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
-                                            className="fa fa-sort-alpha-desc"
-                                            aria-hidden="true"></i></a>
+                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
+                                                                                                             aria-hidden="true"></i></a>
+                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
+                                                                                                              aria-hidden="true"></i></a>
 
                                         <a href="#" onClick={this.resetSort}>reset</a>
 
@@ -465,4 +411,4 @@ class SearchRecipesByIngredients extends React.Component {
     }
 }
 
-export default SearchRecipesByIngredients;
+export default EndorsedRecipes;

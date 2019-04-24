@@ -13,6 +13,7 @@ import MyRecipes from "./recipes/MyRecipes";
 import MealDBServices from "../services/MealDBServices";
 
 import SearchRecipesByIngredients from "./recipes/SearchRecipesByIngredients";
+import EndorsedRecipes from "./recipes/EndorsedRecipes";
 
 
 class WhatsCooking extends Component{
@@ -50,6 +51,15 @@ class WhatsCooking extends Component{
                            component={(props) =>
                                <MyRecipes
                                    {...props}/>}/>
+
+                        <Route path='/chef/:userId/endorsedRecipes'
+                               component={(props) =>
+                                   <EndorsedRecipes
+                                       {...props}/>}/>
+                        <Route path='/user/:userId/findRecipes'
+                               component={(props) =>
+                                   <SearchRecipesByIngredients
+                                       {...props}/>}/>
                     <Route path="/recipes/:recipeId"
                            component={(props) =>
                                <RecipeDetails

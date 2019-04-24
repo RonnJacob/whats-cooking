@@ -8,6 +8,7 @@ import FilterRecipes from "../Explore/FilterRecipes";
 import '../Explore/Explore.css'
 import HomePageNav from "../HomePageNav/HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
+import {Link} from "react-router-dom";
 
 class FavoriteRecipes extends React.Component {
     constructor(props) {
@@ -283,7 +284,11 @@ class FavoriteRecipes extends React.Component {
                                 <div className="col-lg-12">
                                     <div className="section-top2 text-center">
                                         <h3>My <span>Favorite</span> recipes</h3>
-                                        <p><i>Time to get into a yummilicious world.</i></p>
+                                        <p className="text-white link-nav"><Link className="text-white link-nav" to='/'>Home </Link> <span
+                                            className="lnr lnr-arrow-right"></span>
+                                            <Link className="text-white link-nav" to={`/user/${this.state.user}/myrecipes`}>My Recipes</Link>
+
+                                        </p>
                                     </div>
                                 </div>
                             </div>
