@@ -33,6 +33,12 @@ class ExploreRecipes extends React.Component {
     componentWillMount() {
         document.title = "Explore Recipes";
         const obj = getFromStorage('project_april');
+        this.mealDBServices.findAllRecipes()
+            .then(recipes => {
+                this.setState({
+                    recipes: recipes.meals
+                })
+            });
         if (obj && obj.token) {
             const { token } = obj;
             this.userServices.verifyUser(token).then(json => {
@@ -43,19 +49,12 @@ class ExploreRecipes extends React.Component {
                             // alert("updated"+courses.length)
                             console.log(recipes);
                             this.setState({
-                                recipes: recipes.meals,
                                 token,
                                 loggedIn: true,
                                 user: obj.user[0]
                             })
                         });
                 }
-                this.mealDBServices.findAllRecipes()
-                    .then(recipes => {
-                        this.setState({
-                            recipes: recipes.meals
-                        })
-                    });
             });
         }
     }
