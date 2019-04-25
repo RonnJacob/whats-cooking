@@ -22,7 +22,12 @@ export default class ChefServices {
                 return response.json();
             });
     }
-
+    findEndorsedRecipeId = (userID) => {
+        return fetch(FETCH_URL + 'chef/' + userID+'/recipeId')
+            .then(function(response){
+                return response.json();
+            });
+    }
     endorseRecipe = (userId, recipeId) => {
         return fetch(FETCH_URL + 'chef/' + userId + '/recipes/' + recipeId, {
             method: 'POST',

@@ -18,6 +18,7 @@ import AddIngredient from "./ingredients/AddIngredient";
 import Ingredients from "./ingredients/Ingredients";
 import Profile from "./Profile";
 import AddRecipe from "./recipes/AddRecipe";
+import EndorsedRecipesNutritionist from "./recipes/EndorsedRecipesNutritionist";
 
 
 class WhatsCooking extends Component{
@@ -88,6 +89,10 @@ class WhatsCooking extends Component{
                            component={(props) =>
                                <EndorsedRecipes
                                    {...props}/>}/>
+                        <Route path='/nutritionist/:userId/endorsedRecipes'
+                               component={(props) =>
+                                   <EndorsedRecipesNutritionist
+                                       {...props}/>}/>
                     <Route path='/user/:userId/findRecipes'
                            component={(props) =>
                                <SearchRecipesByIngredients

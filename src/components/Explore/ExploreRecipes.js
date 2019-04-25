@@ -8,11 +8,15 @@ import FilterRecipes from "./FilterRecipes";
 import './Explore.css'
 import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
+import {NoResults} from "../LandingPage/NoResults";
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
+        const obj =  getFromStorage('project_april');
+
+
         this.state = {
             recipes: [],
             unsortedRecipes: [],
@@ -22,8 +26,10 @@ class ExploreRecipes extends React.Component {
             sorted: 0,
             currentPage: 1,
             loggedIn: false,
-            user: {},
-            recipesPerPage: 6
+            user: obj.user[0]?obj.user[0]:'',
+            userId: obj.user[0]._id?obj.user[0]._id:'',
+            recipesPerPage: 6,
+            searched:''
         };
         this.searchRecipe = this.searchRecipe.bind(this);
         this.userServices = new UserServices();
@@ -118,29 +124,36 @@ class ExploreRecipes extends React.Component {
 
 
     searchRecipe = (recipe) => {
+
         this.mealDBServices.findRecipeByName(recipe).then(recipes => {
 
             this.setState
-            ({recipes: recipes.meals})
-            if (recipes.meals == null) {
-                document.getElementById("food-area").innerHTML =
-                    " <div class=\"no-results\">" +
-                    "<h3>We searched all over but didn't " +
-                    "find a recipe for '" + `${recipe}` + "'</h3>" +
-
-                    "<div class=\"no-results-suggestion\">" +
-                    "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/check_spelling.svg\">" +
-                    "<span>Check Spelling</span></div><div class=\"no-results-suggestion\">" +
-                    "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/different_keywords.svg\">" +
-                    "<span>Different Keywords</span></div><div class=\"no-results-suggestion\">" +
-                    "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/simplify_search.svg\">" +
-                    "<span>Simplify Search</span></div></div>" +
-                    "" +
-                    " </PopularRecipes popularRecipes={" + this.state.popularRecipes + "}>"
-
-
-            }
+            ({recipes: recipes.meals,
+                    searched: recipe})
+            // if (recipes.meals == null) {
+            //     document.getElementById("food-area").innerHTML =
+            //         " <div class=\"no-results\">" +
+            //         "<h3>We searched all over but didn't " +
+            //         "find a recipe for '" + `${recipe}` + "'</h3>" +
+            //
+            //         "<div class=\"no-results-suggestion\">" +
+            //         "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/check_spelling.svg\">" +
+            //         "<span>Check Spelling</span></div><div class=\"no-results-suggestion\">" +
+            //         "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/different_keywords.svg\">" +
+            //         "<span>Different Keywords</span></div><div class=\"no-results-suggestion\">" +
+            //         "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/simplify_search.svg\">" +
+            //         "<span>Simplify Search</span></div></div>" +
+            //         "" +
+            //         " </PopularRecipes popularRecipes={" + this.state.popularRecipes + "}>"
+            //
+            //
+            // } else{
+            //     this.setState
+            //     ({recipes: recipes.meals})
+            // }
         });
+
+
     }
 
 
@@ -252,33 +265,34 @@ class ExploreRecipes extends React.Component {
     };
 
     render() {
-        const {recipes, currentPage, recipesPerPage} = this.state;
-
-        // Logic for displaying todos
-        const indexOfLastRecipe = currentPage * recipesPerPage;
-        const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-        const currentRecipes = recipes?recipes.slice(indexOfFirstRecipe, indexOfLastRecipe):[];
-
-        const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe} loggedIn={this.state.loggedIn}/>
-        });
-
-        // Logic for displaying page numbers
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(recipes?(recipes.length / recipesPerPage):0); i++) {
-            pageNumbers.push(i);
-        }
-
-        const renderPageNumbers = pageNumbers.map(number => {
-            return (
-                <li className='horizontal-li'
-                    key={number}
-                    id={number}
-                    onClick={this.handleClick}>
-                    &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
-                </li>
-            );
-        });
+        // const {recipes, currentPage, recipesPerPage} = this.state;
+        //
+        // // Logic for displaying todos
+        // const indexOfLastRecipe = currentPage * recipesPerPage;
+        // const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+        // const currentRecipes = recipes?recipes.slice(indexOfFirstRecipe, indexOfLastRecipe):[];
+        //
+        //    if(currentRecipes.length===0)
+        //        return <NoResults recipe={this.state.searchRecipe}/>
+        // const renderRecipes = currentRecipes.map(recipe => {
+        //     return <RecipeCard popularRecipe={recipe} loggedIn={this.state.loggedIn}/>
+        // });
+        // // Logic for displaying page numbers
+        // const pageNumbers = [];
+        // for (let i = 1; i <= Math.ceil(recipes?(recipes.length / recipesPerPage):0); i++) {
+        //     pageNumbers.push(i);
+        // }
+        //
+        // const renderPageNumbers = pageNumbers.map(number => {
+        //     return (
+        //         <li className='horizontal-li'
+        //             key={number}
+        //             id={number}
+        //             onClick={this.handleClick}>
+        //             &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
+        //         </li>
+        //     );
+        // });
 
         return (
 
@@ -311,8 +325,8 @@ class ExploreRecipes extends React.Component {
                                         </div>
 
                                         <div className="table-btn text-center">
-                                            <a href="#" className="template-btn template-btn2 mt-4"
-                                               onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</a>
+                                            <button href="#" className="template-btn template-btn2 mt-4"
+                                               onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</button>
                                         </div>
                                     </form>
                                 </div>
@@ -371,28 +385,19 @@ class ExploreRecipes extends React.Component {
                                 </div>
                                 <div className="sorting mr-auto">
                                     <div className="pagination">
-                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
-                                                                                                             aria-hidden="true"></i></a>
-                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
-                                                                                                              aria-hidden="true"></i></a>
 
-                                        <a href="#" onClick={this.resetSort}>reset</a>
 
                                     </div>
                                 </div>
 
 
                                 <div className="pagination">
-                                    <a href="#" className="prev-arrow"><i className="fa fa-long-arrow-left"
-                                                                          aria-hidden="true"></i></a>
-                                    <a href="#" className="active">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#" className="dot-dot"><i className="fa fa-ellipsis-h"
-                                                                       aria-hidden="true"></i></a>
-                                    <a href="#">6</a>
-                                    <a href="#" className="next-arrow"><i className="fa fa-long-arrow-right"
-                                                                          aria-hidden="true"></i></a>
+                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
+                                                                                                         aria-hidden="true"></i></a>
+                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
+                                                                                                          aria-hidden="true"></i></a>
+
+                                    <a href="#" onClick={this.resetSort}>reset</a>
                                 </div>
                             </div>
 
@@ -401,10 +406,17 @@ class ExploreRecipes extends React.Component {
 
                                 <div className="container">
                                     <div className="row">
-                                        {this.state.recipes && renderRecipes}
-                                        <ul id="page-numbers" className="page-numbers">
-                                            {renderPageNumbers}
-                                        </ul>
+
+                                        {!(this.state.recipes)&&<NoResults recipe={this.state.searched}/>}
+                                        {
+
+                                            (this.state.recipes)
+                                                &&(this.state.recipes.map(recipe =>
+                                                <RecipeCard popularRecipe={recipe} loggedIn={this.state.userId?true:false}/>)
+
+
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>

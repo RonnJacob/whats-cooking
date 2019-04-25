@@ -31,7 +31,19 @@ export default class NutritionistServices {
                 'Content-Type': 'application/json'
             },
         })
-
-
     };
+
+    findEndorsedRecipes = (userID) => {
+        return fetch(FETCH_URL + 'nutritionist/' + userID+'/recipes')
+            .then(function(response){
+                return response.json();
+            });
+
+    }
+    findEndorsedRecipeId = (userID) => {
+        return fetch(FETCH_URL + 'nutritionist/' + userID+'/recipeId')
+            .then(function(response){
+                return response.json();
+            });
+    }
 }

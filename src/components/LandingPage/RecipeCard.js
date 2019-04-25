@@ -62,7 +62,7 @@ export default class RecipeCard extends React.Component{
             </a>
 
             <div>
-                <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
+                {<div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
@@ -83,7 +83,7 @@ export default class RecipeCard extends React.Component{
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>}
 
                 {this.props.loggedIn &&<Button variant="danger" onClick={this.handleShow}>
                     Delete

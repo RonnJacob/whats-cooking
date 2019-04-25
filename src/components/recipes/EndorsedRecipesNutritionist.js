@@ -10,12 +10,13 @@ import HomePageNav from "../HomePageNav/HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
 import {Link} from "react-router-dom";
 import ChefServices from "../../services/ChefServices";
+import NutritionistServices from "../../services/NutritionistServices";
 
 class EndorsedRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
-        this.chefServices = new ChefServices();
+        this.nutritionistServices = new NutritionistServices();
         const userId = props.match.params['userId'];
         this.state = {
             recipes: [],
@@ -41,7 +42,7 @@ class EndorsedRecipes extends React.Component {
         //         })
         //     });
         var endorsed = [];
-        this.chefServices.findEndorsedRecipes(this.state.userId)
+        this.nutritionistServices.findEndorsedRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
                         console.log("Inside the map Recipe = " + recipe.name)
@@ -49,7 +50,7 @@ class EndorsedRecipes extends React.Component {
                         console.log("Inside the map Array of recipes = " + endorsed.length)
                     }
                 )
-            }).then(() => this.chefServices.findEndorsedRecipeId(this.state.userId))
+            }).then(() => this.nutritionistServices.findEndorsedRecipeId(this.state.userId))
             .then(recipeIds => {
                 recipeIds.map(recipeId => {
                     if (recipeId.length === 5) {
@@ -93,7 +94,7 @@ class EndorsedRecipes extends React.Component {
     componentDidMount() {
 
         var endorsed = [];
-        this.chefServices.findEndorsedRecipes(this.state.userId)
+        this.nutritionistServices.findEndorsedRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
                         console.log("Inside the map Recipe = " + recipe.name)
@@ -101,7 +102,7 @@ class EndorsedRecipes extends React.Component {
                         console.log("Inside the map Array of recipes = " + endorsed.length)
                     }
                 )
-            }).then(() => this.chefServices.findEndorsedRecipeId(this.state.userId))
+            }).then(() => this.nutritionistServices.findEndorsedRecipeId(this.state.userId))
             .then(recipeIds => {
                 recipeIds.map(recipeId => {
                     if (recipeId.length === 5) {
@@ -145,30 +146,6 @@ class EndorsedRecipes extends React.Component {
         return this.setState({
             currentPage: Number(event.target.id)
         })
-    }
-
-
-    findRecipesByCategory = (category) => {
-        var filteredresult=[];
-        this.chefServices.findEndorsedRecipes('5cb93fa8d765b8de30a1ace2')
-            .then(recipes => {
-                recipes.map(recipe=>{
-                    if(recipe.strCategory?recipe.strCategory===category:(recipe.category===category))
-                        filteredresult.push(recipe);
-                })
-                this.setState
-                ({
-                    recipes: filteredresult
-                })
-            });
-    }
-
-    findRecipesByCuisine = (cuisine) => {
-        this.mealDBServices.findRecipesByCuisines(cuisine)
-            .then(recipes => {
-                this.setState
-                ({recipes: recipes.meals})
-            });
     }
 
 
@@ -253,7 +230,7 @@ class EndorsedRecipes extends React.Component {
                         console.log("Inside the map Array of recipes = " + endorsed.length)
                     }
                 )
-            }).then(() => this.chefServices.findEndorsedRecipeId(this.state.userId))
+            }).then(() => this.nutritionistServices.findEndorsedRecipeId(this.state.userId))
             .then(recipeIds => {
                 recipeIds.map(recipeId => {
                     if (recipeId.length === 5) {
@@ -360,10 +337,7 @@ class EndorsedRecipes extends React.Component {
 
                                 </div>
                                 <div className="sorting mr-auto">
-                                    <div className="pagination">
 
-
-                                    </div>
                                 </div>
 
 

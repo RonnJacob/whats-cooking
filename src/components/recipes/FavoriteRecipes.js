@@ -33,9 +33,7 @@ class FavoriteRecipes extends React.Component {
         this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
-                        console.log("Inside the map Recipe = " + recipe.name)
-                        favorites = [...favorites, recipe]
-                        console.log("Inside the map Array of recipes = " + favorites.length)
+                        favorites = [...favorites, recipe];
                     }
                 )
             }).then(() => this.regularUserServices.findFavoriteRecipeId(this.state.userId))
@@ -45,6 +43,8 @@ class FavoriteRecipes extends React.Component {
                         this.mealDBServices.findRecipeById(recipeId)
                             .then(recipeFromAPI => {
                                 let recipeFound = {};
+                                recipeFound._id=recipeFromAPI.meals[0].idMeal;
+                                recipeFound.idMeal=recipeFromAPI.meals[0].idMeal;
                                 recipeFound.name = recipeFromAPI.meals[0].strMeal
                                 recipeFound.ingredients = recipeFromAPI.meals[0].strIngredient1 + ',' +
                                     recipeFromAPI.meals[0].strIngredient2 + ',' +
@@ -77,6 +77,9 @@ class FavoriteRecipes extends React.Component {
 
 
     }
+
+
+
 
     componentDidMount() {
         var favorites = [];
@@ -112,6 +115,8 @@ class FavoriteRecipes extends React.Component {
                                 recipeFound.endorsedByNutritionist = []
                                 recipeFound.ownedBy = "Anonymous"
                                 recipeFound.category = "Miscellaneous"
+                                recipeFound.idMeal = recipeFromAPI.meals[0].idMeal
+                                recipeFound._id = recipeFromAPI.meals[0].idMeal
                                 favorites = [...favorites, recipeFound]
 
                                 favorites = favorites.filter(function (a) {
@@ -246,6 +251,8 @@ class FavoriteRecipes extends React.Component {
                                 recipeFound.endorsedByNutritionist = []
                                 recipeFound.ownedBy = "Anonymous"
                                 recipeFound.category = "Miscellaneous"
+                                recipeFound.idMeal = recipeFromAPI.meals[0].idMeal
+                                recipeFound._id = recipeFromAPI.meals[0].idMeal
                                 favorites = [...favorites, recipeFound]
 
                                 favorites = favorites.filter(function (a) {
@@ -355,18 +362,7 @@ class FavoriteRecipes extends React.Component {
                                 </div>
 
 
-                                <div className="pagination">
-                                    <a href="#" className="prev-arrow"><i className="fa fa-long-arrow-left"
-                                                                          aria-hidden="true"></i></a>
-                                    <a href="#" className="active">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#" className="dot-dot"><i className="fa fa-ellipsis-h"
-                                                                       aria-hidden="true"></i></a>
-                                    <a href="#">6</a>
-                                    <a href="#" className="next-arrow"><i className="fa fa-long-arrow-right"
-                                                                          aria-hidden="true"></i></a>
-                                </div>
+
                             </div>
 
 
