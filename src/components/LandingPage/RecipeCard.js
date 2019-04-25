@@ -12,12 +12,18 @@ export default class RecipeCard extends React.Component{
 
         this.state = {
             show: false,
+            showRecipeDetail: false
         };
     }
 
     handleClose=()=> {
         this.setState({ show: false });
     };
+
+    handleCloseRecipeModal=()=> {
+        this.setState({ showRecipeDetail: false });
+    };
+
 
     handleCloseDelete=()=> {
         this.setState({ show: false });
@@ -39,7 +45,7 @@ export default class RecipeCard extends React.Component{
         else{
             // window.location.href
             //     =`/recipes/${this.props.popularRecipe.idMeal?this.props.popularRecipe.idMeal:this.props.popularRecipe._id}`;
-            alert('Please register or login to view recipe details');
+            this.setState({showRecipeDetail: true});
         }
     };
 
@@ -106,20 +112,22 @@ export default class RecipeCard extends React.Component{
                     </Modal.Footer>
                 </Modal>
 
-                {/*<Modal show={this.state.show && !this.props.loggedIn} onHide={this.handleClose}>*/}
-                    {/*<Modal.Header closeButton>*/}
-                        {/*<Modal.Title>You are not logged in!</Modal.Title>*/}
-                    {/*</Modal.Header>*/}
-                    {/*<Modal.Body>Login Fool</Modal.Body>*/}
-                    {/*<Modal.Footer>*/}
-                        {/*<Button variant="secondary" onClick={this.handleClose}>*/}
-                            {/*Close*/}
-                        {/*</Button>*/}
-                        {/*<Button variant="danger" onClick={this.handleCloseDelete}>*/}
-                            {/*Login*/}
-                        {/*</Button>*/}
-                    {/*</Modal.Footer>*/}
-                {/*</Modal>*/}
+
+                <Modal show={this.state.showRecipeDetail} onHide={this.handleCloseRecipeModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Sorry</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Yikes! You have to register or be logged in to view the recipe details.</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={this.handleCloseRecipeModal}>
+                            Close
+                        </Button>
+                        <Button variant="danger" onClick={this.handleCloseRecipeModal}>
+                            Got it
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         </div>
         );
