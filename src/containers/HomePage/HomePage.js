@@ -81,9 +81,13 @@ class HomePage extends  Component {
                                 <p className="text-white">Step 3: Well! Everything is done, just click see results
                                     button to find out your
                                     recipes</p>
-                                <button type="button" className="primary-btn text-uppercase mt-3" id="prepare"
-                                        style={{marginBottom:'20px'}}>Let's Cook!
-                                </button>
+                                {this.state.user.userType==='REGULAR' &&
+                                <button type="button"
+                                        className="primary-btn text-uppercase mt-3"
+                                        href={`/user/${this.state.userId}/findRecipes`}
+                                        id="prepare"
+                                        style={{marginBottom:'20px'}}><a>Let's Cook!</a>
+                                </button>}
                             </div>
                         </div>
                     </div>

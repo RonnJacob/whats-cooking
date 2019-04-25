@@ -33,16 +33,88 @@ class FavoriteRecipes extends React.Component {
 
     componentWillMount() {
         document.title = "Favorite Recipes";
+        var favorites=[];
         this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
                 this.setState
                 ({
                     recipes: recipes.meals?recipes.meals:recipes
                 })
-            });
+            }).then(()=>alert(this.state.recipes));
+        // this.regularUserServices.findFavoriteRecipes(this.state.userId)
+        //     .then(recipes => {
+        //         recipes.map(recipe => {
+        //                 console.log("Inside the map Recipe = " + recipe.name)
+        //                 favorites = [...favorites, recipe]
+        //                 console.log("Inside the map Array of recipes = " + favorites.length)
+        //             }
+        //         )
+        //         alert(favorites.length)
+        //         // return favorites;
+        //         // favorites = [...favorites, recipes]
+        //         // this.setState
+        //         // ({
+        //         //     recipes: recipes.meals?recipes.meals:recipes
+        //         // })
+        //     }).then(()=> this.regularUserServices.findFavoriteRecipeId(this.state.userId)
+        //     .then(recipeIds=>{
+        //         recipeIds.map(recipeId=> {
+        //             if(recipeId.length===5) {
+        //                 this.mealDBServices.findRecipeById(recipeId)
+        //                     .then(recipeFromAPI => {
+        //                         let recipeFound = {};
+        //                         recipeFound.name = recipeFromAPI.meals[0].strMeal
+        //                         recipeFound.ingredients = recipeFromAPI.meals[0].strIngredient1 + ',' +
+        //                             recipeFromAPI.meals[0].strIngredient2 + ',' +
+        //                             recipeFromAPI.meals[0].strIngredient3 + ',' +
+        //                             recipeFromAPI.meals[0].strIngredient4 + ',' +
+        //                             recipeFromAPI.meals[0].strIngredient5
+        //                         recipeFound.steps = recipeFromAPI.meals[0].strInstructions
+        //                         recipeFound.image = recipeFromAPI.meals[0].strMealThumb
+        //                         recipeFound.endorsedByChef = []
+        //                         recipeFound.endorsedByNutritionist = []
+        //                         recipeFound.ownedBy = "Anonymous"
+        //                         favorites = [...favorites, recipeFound]
+        //                     })
+        //             }
+        //         })
+        //         return favorites;
+        //     }).then(finalFavorites=>{
+        //         alert(finalFavorites.length)
+        //         this.setState({
+        //             recipes: finalFavorites
+        //         })
+        //     }));
+
+
 
 
     }
+    //
+    // findFavorites = (userId) => {
+    //     var foundRecipes = []
+    //     console.log(this.state.recipes);
+    //     ingredients.map(ingredient => {
+    //         this.mealDBServices.findRecipesByIngredient(ingredient.name.toLowerCase()).then(
+    //             r => {
+    //                 r.meals&&r.meals.map(recipe => {
+    //                         console.log("Inside the map Recipe = " + recipe.strMeal)
+    //                         foundRecipes = [...foundRecipes, recipe]
+    //                         console.log("Inside the map Array of recipes = " + foundRecipes.length)
+    //                     }
+    //                 )
+    //
+    //                 return foundRecipes;
+    //             }
+    //         ).then(recipes => {
+    //             alert(recipes.length)
+    //             this.setState({
+    //                 recipes: recipes
+    //             })
+    //         })
+    //     })
+    //
+    // }
 
     componentDidMount() {
         this.mealDBServices.findAllCategories()
