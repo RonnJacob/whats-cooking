@@ -21,15 +21,13 @@ class LoginPage extends Component {
     }
 
 
-    componentDidMount() {
+    componentWillMount() {
         const obj = getFromStorage('project_april');
         if (obj && obj.token) {
             const { token } = obj;
             this.userServices.verifyUser(token).then(json => {
                     if (json.success) {
-                        this.setState({
-                            token
-                        });
+                        window.location.href='/home';
                     }
                 });
         }
