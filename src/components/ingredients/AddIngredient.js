@@ -6,6 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faExclamation } from '@fortawesome/free-solid-svg-icons'
 import {getFromStorage} from "../../utils/storage";
 import {Button, Modal} from "react-bootstrap";
+import UserServices from "../../services/UserServices";
 
 class AddIngredient extends React.Component{
     constructor(props){
@@ -15,21 +16,22 @@ class AddIngredient extends React.Component{
             addSuccessful: false,
             ingredientToBeSaved: {}
         };
+        this.userServices = new UserServices();
     }
 
 
-    componentWillMount() {
-        document.title = "What's Cooking?";
-        const obj = getFromStorage('project_april');
-        if (obj && obj.token) {
-            const { token } = obj;
-            this.userServices.verifyUser(token).then(json => {
-                if(!json.success){
-                    window.location.href='/';
-                }
-            });
-        }
-    }
+    // componentWillMount() {
+    //     document.title = "What's Cooking?";
+    //     const obj = getFromStorage('project_april');
+    //     if (obj && obj.token) {
+    //         const { token } = obj;
+    //         this.userServices.verifyUser(token).then(json => {
+    //             if(!json.success){
+    //                 window.location.href='/';
+    //             }
+    //         });
+    //     }
+    // }
     addIngredient = (ingredient) => {
         if(ingredient.name.length < 1){
             this.setState({

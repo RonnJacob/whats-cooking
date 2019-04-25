@@ -160,7 +160,7 @@ class Ingredients extends Component {
                                     <span className="lnr lnr-arrow-right">
 
                                     </span>
-                                    <a href="#">Ingredients</a></p>
+                                    <a href="/ingredients">Ingredients</a></p>
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ export const LandingPageHeader = ({popularRecipes}) => {
                         </div>
                         <div className="col-lg-10">
                             <div className="custom-navbar">
-                                <span></span>
+                                <span>8</span>
                                 <span></span>
                                 <span></span>
                             </div>

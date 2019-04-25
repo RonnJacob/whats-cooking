@@ -300,13 +300,15 @@ class RecipeDetails extends Component {
                                 <h1 className="text-white">
                                     My Recipes
                                 </h1>
-                                <p className="text-white link-nav"><a href='/home'>Home </a> <span
-                                    className="lnr lnr-arrow-right"></span>
+                                <p className="text-white link-nav"><a href='/home'>Home </a>
+                                    <span className="lnr lnr-arrow-right">
+                                    </span>
                                     {/*TODO need to change the hyper link to my recipes*/}
                                     <a href={`/user/${this.state.userId}/myrecipes`}>My Recipes</a>
                                     <span
-                                        className="lnr lnr-arrow-right"></span>
-                                    <a href="#">Recipe Details</a>
+                                        className="lnr lnr-arrow-right">
+                                    </span>
+                                    <a href={`/recipes/${this.state.recipeId}`}>Recipe Details</a>
                                 </p>
                             </div>
                         </div>

@@ -335,7 +335,7 @@ class FavoriteRecipes extends React.Component {
 
                                             className="lnr lnr-arrow-right"></span>
                                             <Link className="text-white link-nav"
-                                                  to={`/user/${this.state.user}/myrecipes`}>My Recipes</Link>
+                                                  to={`/user/${this.state.userId}/favorites`}> Favorite Recipes</Link>
 
                                         </p>
                                     </div>

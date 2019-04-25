@@ -315,7 +315,7 @@ class MyRecipes extends React.Component {
                                         <h3>My <span>Recipes</span></h3>
                                          <p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Home </Link> <span
                                             className="lnr lnr-arrow-right"></span>
-                                            <Link className="text-white link-nav" to={`/user/${this.state.user}/myrecipes`}>My Recipes</Link>
+                                            <Link className="text-white link-nav" to={`/user/${this.state.userId}/myrecipes`}>My Recipes</Link>
                                         </p>
                                     </div>
                                 </div>

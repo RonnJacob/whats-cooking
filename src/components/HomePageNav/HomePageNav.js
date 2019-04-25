@@ -15,7 +15,7 @@ class HomePageNav extends React.Component{
                 <div className="row align-items-center justify-content-center d-flex">
                     <nav id="nav-menu-container">
                         <ul className="nav-menu">
-                            <li><a href="#">Home</a></li>
+                            <li><a href="/home">Home</a></li>
                             {
                                 (this.props.user['userType']==='REGULAR') &&
                                 <li>

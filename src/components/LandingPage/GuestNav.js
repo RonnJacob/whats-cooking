@@ -1,6 +1,6 @@
 import React from 'react'
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap'
-
+import './GuestNav.css'
 const GuestNav = ({user, logOut}) =>
 
         <div>
@@ -15,7 +15,10 @@ const GuestNav = ({user, logOut}) =>
             {/*</nav>*/}
             {/*</div>*/}
             {console.log(user)}
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" class={"navbar-expand-lg"}>
+            <div className="navbar-explore">
+            <Navbar id="navbar-explore"
+                    collapseOnSelect
+                    expand="lg" bg="dark" variant="dark" className=" navbar-explore">
                 <Navbar.Brand href="/">What's Cookin!</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
@@ -34,6 +37,7 @@ const GuestNav = ({user, logOut}) =>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
+            </div>
 
 
         </div>

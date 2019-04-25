@@ -1238,10 +1238,12 @@ h1, h2, h3, h4, h5, h6 {
 .banner-area .active-banner-slider .owl-nav .owl-next:hover {
     opacity: 1; }
 .banner-area .banner-content {
-    padding-left: 10px; }
+    padding-left: 15%;
+    }
 @media (max-width: 991px) {
     .banner-area .banner-content {
-        padding-left: 0; } }
+        padding-left: 0; 
+        margin: 5%;} }
 .banner-area .banner-content h1 {
     font-size: 60px;
     line-height: 66px;

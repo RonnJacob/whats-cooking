@@ -34,7 +34,7 @@ class HomePage extends  Component {
         this.recipeService = new RecipeServices();
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const obj = getFromStorage('project_april');
         if (obj && obj.token) {
             const { token } = obj;

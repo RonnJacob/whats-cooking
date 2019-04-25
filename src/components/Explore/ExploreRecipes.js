@@ -9,6 +9,7 @@ import './Explore.css'
 import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
 import {NoResults} from "../LandingPage/NoResults";
+import {Link} from "react-router-dom";
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
@@ -311,6 +312,16 @@ class ExploreRecipes extends React.Component {
                                         <p><i>Time to get into a yummilicious world.</i></p>
                                     </div>
                                 </div>
+                            </div>
+                            <div className="row">
+                                {/*<div className="col-lg-12">*/}
+                                    {/*<div className="section-top2 text-center">*/}
+                                        {/*<p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Home </Link> <span*/}
+                                            {/*className="lnr lnr-arrow-right"></span>*/}
+                                            {/*<Link className="text-white link-nav" to={`/explore-recipes`}>Explore</Link>*/}
+                                        {/*</p>*/}
+                                    {/*</div>*/}
+                                {/*</div>*/}
                             </div>
                             <div className="row">
                                 <div className="col-lg-8 offset-lg-2">
