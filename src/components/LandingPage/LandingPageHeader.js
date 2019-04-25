@@ -40,13 +40,13 @@ export const LandingPageHeader = ({popularRecipes}) => {
                             </div>
                         </div>
                         <div className="col-lg-10">
-                            {/*<div className="custom-navbar">
+                            <div className="custom-navbar">
                                 <span></span>
                                 <span></span>
                                 <span></span>
                             </div>
-                            <div id="wbdv_main_menu" className="wbdv-main-menu wbdv-main-menu2">
-                                <ul className="wbdv-main-menu wbdv-main-menu2">
+                            <div id="wbdv_main_menu" className="main-menu main-menu2">
+                                <ul className="main-menu main-menu2">
                                     <li className="active">
                                         <a href="#">home
                                         </a>
@@ -68,20 +68,20 @@ export const LandingPageHeader = ({popularRecipes}) => {
                                     </li>
 
                                 </ul>
-                            </div>*/}
-                            <Navbar className={styles["wbdv-navbar"]} light expand="md">
-                                <NavbarToggler/>
-                                <Collapse navbar>
-                                    <Nav className="ml-auto" navbar>
-                                        <NavItem className={styles["wbdv-navbar"]} style={{color: 'white'}} >
-                                            <NavLink href="/components/">Components</NavLink>
-                                        </NavItem>
-                                        <NavItem>
-                                            <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
-                                        </NavItem>
-                                    </Nav>
-                                </Collapse>
-                            </Navbar>
+                            </div>
+                            {/*<Navbar className={styles["wbdv-navbar"]} light expand="md">*/}
+                                {/*<NavbarToggler/>*/}
+                                {/*<Collapse navbar>*/}
+                                    {/*<Nav className="ml-auto" navbar>*/}
+                                        {/*<NavItem className={styles["wbdv-navbar"]} style={{color: 'white'}} >*/}
+                                            {/*<NavLink href="/components/">Components</NavLink>*/}
+                                        {/*</NavItem>*/}
+                                        {/*<NavItem>*/}
+                                            {/*<NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>*/}
+                                        {/*</NavItem>*/}
+                                    {/*</Nav>*/}
+                                {/*</Collapse>*/}
+                            {/*</Navbar>*/}
                         </div>
                     </div>
                 </div>

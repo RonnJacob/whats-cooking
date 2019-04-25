@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import RegisterPage from "./RegisterPage/RegisterPage";
-import MainApp from './MainApp'
 import LandingPage from "./LandingPage/LandingPage";
 import ExploreRecipes from "./Explore/ExploreRecipes";
 import LoginPage from "./LoginPage/LoginPage";
@@ -14,12 +13,18 @@ import MealDBServices from "../services/MealDBServices";
 
 import SearchRecipesByIngredients from "./recipes/SearchRecipesByIngredients";
 import EndorsedRecipes from "./recipes/EndorsedRecipes";
+import IngredientServices from "../services/IngredientServices";
+import AddIngredient from "./ingredients/AddIngredient";
+import Ingredients from "./ingredients/Ingredients";
+import Profile from "./Profile";
+import AddRecipe from "./recipes/AddRecipe";
 
 
 class WhatsCooking extends Component{
     constructor(props){
         super(props);
         this.mealDBServices = new MealDBServices();
+        this.ingredientService = new IngredientServices();
         this.state = {
             popularRecipes: []
         };
@@ -33,6 +38,33 @@ class WhatsCooking extends Component{
                 ({popularRecipes: recipes})
             });
     }
+
+    addIngredient = (ingredient) => {
+        this.ingredientService.addIngredient(ingredient)
+            .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
+            .then(ingredients =>
+                this.setState({
+                    ingredients: ingredients
+                }))
+            .then(() => {
+                alert('Ingredient Added Successfully!');
+                window.location.href = `/ingredients`
+            })
+    };
+
+    addRecipe = (recipe) => {
+        this.recipeService.addRecipe(recipe)
+            .then(() => {
+                alert('Recipe Added Successfully!')
+                window.location.href = `/user/${this.state.userId}/myrecipes`
+            })
+    };
+
+    deleteIngredient = (recipeId) => {
+        this.recipeService.deleteRecipe(recipeId)
+            .then(() => alert('Recipe Deleted Successfully!'))
+    };
+
 
     render(){
 
@@ -52,26 +84,41 @@ class WhatsCooking extends Component{
                                <MyRecipes
                                    {...props}/>}/>
 
-                        <Route path='/chef/:userId/endorsedRecipes'
-                               component={(props) =>
-                                   <EndorsedRecipes
-                                       {...props}/>}/>
-                        <Route path='/user/:userId/findRecipes'
-                               component={(props) =>
-                                   <SearchRecipesByIngredients
-                                       {...props}/>}/>
+                    <Route path='/chef/:userId/endorsedRecipes'
+                           component={(props) =>
+                               <EndorsedRecipes
+                                   {...props}/>}/>
+                    <Route path='/user/:userId/findRecipes'
+                           component={(props) =>
+                               <SearchRecipesByIngredients
+                                   {...props}/>}/>
+                    <Route path="/addIngredient"
+                           render={() =>
+                               <AddIngredient
+                                   addIngredient={this.addIngredient}/>}/>
                     <Route path="/recipes/:recipeId"
                            component={(props) =>
                                <RecipeDetails
-                                   userType='REGULAR'
                                    {...props}/>}/>
+                    <Route path='/ingredients' exact
+                           component={(props) =>
+                               <Ingredients
+                                   {...props}/>}/>
+                    <Route path='/profile/:userType/:userId' exact
+                           component={(props) =>
+                               <Profile
+                                   {...props}/>}/>
+                   <Route path="/addRecipe"
+                           render={() =>
+                               <AddRecipe
+                                   addRecipe={this.addRecipe}/>}/>
 
                     <Route path='/home' component={HomePage}/>
                     <Route path="/login" exact component={LoginPage}/>
                     <Route path="/register" exact component={RegisterPage}/>
                     </Switch>
                 </Router>
-                <MainApp/>
+                {/*<MainApp/>*/}
             </div>
         )
     }

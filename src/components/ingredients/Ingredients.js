@@ -21,33 +21,33 @@ class Ingredients extends Component {
     constructor(props) {
         super(props);
         this.ingredientService = new IngredientService();
-        const userId = parseInt(props.match.params['userId']);
+        const obj = getFromStorage('project_april');
         this.state = {
-            ingredients: this.props.ingredients,
-            userId: userId,
-            user: {},
+            ingredients: [],
+            user: obj.user[0],
+            userId: obj.user[0]._id,
             updateIngredientName: '',
             updatedFieldVisibility: 'd-none'
-        }
+        };
         this.userServices = new UserServices();
     }
 
-    componentDidMount() {
+    componentWillMount() {
         document.title = "What's Cooking?";
         const obj = getFromStorage('project_april');
         if (obj && obj.token) {
             const { token } = obj;
             this.userServices.verifyUser(token).then(json => {
-                console.log(json);
                 if (json.success) {
-                    console.log(obj.user[0]._id);
                     this.ingredientService.findIngredientsByUser(obj.user[0]._id)
                         .then(ingredients => {
                             // alert("updated"+courses.length)
+                            console.log(ingredients);
                             this.setState({
                                 ingredients: ingredients,
                                 token,
-                                user: obj.user[0]
+                                user: obj.user[0],
+                                userId: obj.user[0]._id
                             })
                         });
                 }

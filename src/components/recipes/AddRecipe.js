@@ -2,9 +2,12 @@ import React from 'react';
 import './Recipe.css'
 import {BrowserRouter as Router, Link, Route} from "react-router-dom";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {getFromStorage} from "../../utils/storage";
 
-const AddRecipe = ({addRecipe, userId}) => {
+const AddRecipe = ({addRecipe}) => {
     let name, ingredients, steps;
+    const obj = getFromStorage('project_april');
+    const userId = obj.user[0]._id;
     return (
         <div>
             <div id="header">

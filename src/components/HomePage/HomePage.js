@@ -20,7 +20,6 @@ import IngredientServices from "../../services/IngredientServices";
 import RecipeServices from "../../services/RecipeServices";
 import RecipeDetails from "../recipes/RecipeDetails";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import MainApp from "../MainApp";
 
 class HomePage extends  Component {
     constructor(props){
@@ -56,6 +55,19 @@ class HomePage extends  Component {
         }
     }
 
+    // addIngredient = (ingredient) => {
+    //     this.ingredientService.addIngredient(ingredient)
+    //         .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
+    //         .then(ingredients =>
+    //             this.setState({
+    //                 ingredients: ingredients
+    //             }))
+    //         .then(() => {
+    //             alert('Ingredient Added Successfully!');
+    //             window.location.href = `/ingredients/${this.state.userId}`
+    //         })
+    // };
+
     addIngredient = (ingredient) => {
         this.ingredientService.addIngredient(ingredient)
             .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
@@ -65,9 +77,24 @@ class HomePage extends  Component {
                 }))
             .then(() => {
                 alert('Ingredient Added Successfully!');
-                window.location.href = `/ingredients/${this.state.userId}`
+                window.location.href = `/ingredients`
             })
     };
+
+    addRecipe = (recipe) => {
+        this.recipeService.addRecipe(recipe)
+            .then(() => {
+                alert('Recipe Added Successfully!')
+                window.location.href = `/user/${this.state.userId}/myrecipes`
+            })
+    };
+
+    deleteIngredient = (recipeId) => {
+        this.recipeService.deleteRecipe(recipeId)
+            .then(() => alert('Recipe Deleted Successfully!'))
+    };
+
+
 
 
     logOut = () => {
@@ -91,36 +118,37 @@ class HomePage extends  Component {
         return (
             <div id="home-page">
                 <Router>
-                    <Route path='/ingredients/:userId' exact
-                           component={(props) =>
-                               <Ingredients
-                                   ingredients={this.state.ingredients}
-                                   {...props}/>}/>
+                    {/*<Route path='/ingredients/:userId' exact*/}
+                           {/*component={(props) =>*/}
+                               {/*<Ingredients*/}
+                                   {/*ingredients={this.state.ingredients}*/}
+                                   {/*{...props}/>}/>*/}
 
                     <Route path="/addIngredient"
                            render={() =>
                                <AddIngredient
                                    addIngredient={this.addIngredient}/>}/>
-                    {/*<Route path="/addRecipe"*/}
-                    {/*render={() =>*/}
-                    {/*<AddRecipe*/}
-                    {/*addRecipe={this.addRecipe}*/}
-                    {/*userId={1}/>}/>*/}
-                    {/*<Route path="/recipes/:recipeId"*/}
-                    {/*component={(props) =>*/}
-                    {/*<RecipeDetails*/}
-                    {/*// Regular*/}
-                    {/*userId={`5cb94983e587896bea89fefd`}*/}
-                    {/*//Chef*/}
-                    {/*// userId={`5cbd7841e9ee3e368d4db140`}*/}
-                    {/*//Nutritionist*/}
-                    {/*// userId={`5cbd79efe9ee3e368d4db142`}*/}
-                    {/*userType='REGULAR'*/}
-                    {/*{...props}/>}/>*/}
-                    {/*<Route path='/profile/:userType/:userId' exact*/}
-                    {/*component={(props) =>*/}
-                    {/*<Profile*/}
-                    {/*{...props}/>}/>*/}
+                    {/*<Route path='/ingredients' exact*/}
+                           {/*component={(props) =>*/}
+                               {/*<Ingredients*/}
+                                   {/*ingredients={this.state.ingredients}*/}
+                                   {/*{...props}/>}/>*/}
+                    <Route path="/addIngredient"
+                           render={() =>
+                               <AddIngredient
+                                   addIngredient={this.addIngredient}
+                                   userId={this.state.user._id}/>}/>
+                    <Route path="/addRecipe"
+                           render={() =>
+                               <AddRecipe
+                                   addRecipe={this.addRecipe}
+                                   userId={this.state.userId}/>}/>
+                    <Route path="/recipes/:recipeId"
+                           component={(props) =>
+                               <RecipeDetails
+                                   userType={this.state.user.userType}
+                                   {...props}/>}/>
+
                 </Router>
                 <div id="header">
                         <HomePageNav user={this.state.user} logOut={this.logOut}/>
@@ -161,7 +189,6 @@ class HomePage extends  Component {
                         </div>
                     </div>
                 </section>
-                <MainApp/>
             </div>
         );
     }

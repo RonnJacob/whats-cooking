@@ -1,9 +1,7 @@
 import React from 'react'
 import '../../assets/css/main.css'
-import AddIngredient from "../MainApp";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import './HomePageNav.css'
-import MainApp from "../WhatsCooking";
 class HomePageNav extends React.Component{
     constructor(props){
         super(props);

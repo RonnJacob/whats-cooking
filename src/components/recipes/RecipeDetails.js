@@ -41,7 +41,7 @@ class RecipeDetails extends Component {
         const obj = getFromStorage('project_april');
         let defaultTooltip = '';
         let defaultButtonIcon = [];
-        if (this.props.userType === 'REGULAR') {
+        if (obj.user[0].userType === 'REGULAR') {
             defaultButtonIcon = ['far', 'heart'];
             defaultTooltip = 'Favorite this Recipe!'
         } else {

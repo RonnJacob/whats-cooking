@@ -56,45 +56,10 @@ class MainApp extends React.Component {
             })
     };
 
-    deleteIngredient = (recipeId) => {
-        this.recipeService.deleteRecipe(recipeId)
-            .then(() => alert('Recipe Deleted Successfully!'))
-    };
-    
+
 
     render() {
-        return (
-            <div>
-                <Router>
-                    <Route path='/ingredients' exact
-                           component={(props) =>
-                               <Ingredients
-                                   ingredients={this.state.ingredients}
-                                   {...props}/>}/>
-                    <Route path='/register' exact
-                           render={() =>
-                               <RegisterPage/>}/>
-                    <Route path="/addIngredient"
-                           render={() =>
-                               <AddIngredient
-                                   addIngredient={this.addIngredient}
-                                   userId={this.state.user.id}/>}/>
-                    <Route path="/addRecipe"
-                           render={() =>
-                               <AddRecipe
-                                   addRecipe={this.addRecipe}
-                                   userId={this.state.userId}/>}/>
-                    <Route path="/recipes/:recipeId"
-                           component={(props) =>
-                               <RecipeDetails
-                                   userType={this.state.user.userType}
-                                   {...props}/>}/>
-                    <Route path='/profile/:userType/:userId' exact
-                           component={(props) =>
-                               <Profile
-                                   {...props}/>}/>
-                </Router>
-            </div>
+        return (<h1>Almost Deleted</h1>
         )
     }
 }
