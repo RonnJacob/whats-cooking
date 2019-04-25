@@ -294,7 +294,7 @@ class Profile extends React.Component {
                                                                ref={node => link = node} className="form-control "
                                                                id="firstName"
                                                                placeholder="https://appointmentLink.com"
-                                                               value={this.state.link ? this.state.link : this.state.user.nutritionist ? this.state.user.nutritionist.appointmentLink : ''}/>}
+                                                               value={this.state.appointmentLink ? this.state.appointmentLink : this.state.user.nutritionist.appointmentLink}/>}
                                                     </td>
 
                                                 </tr>
@@ -361,8 +361,8 @@ class Profile extends React.Component {
                                                                 lastName: this.state.lastName !== "" ? this.state.lastName : this.state.user.lastName,
                                                                 userType: this.state.user.userType,
                                                                 nutritionist: {
-                                                                    endorsedRecipes: this.state.user.nutritionist.favoriteRecipes,
-                                                                    appointmentLink: this.state.link !== "" ? this.state.link : this.state.user.nutritionist.appointmentLink
+                                                                    endorsedRecipes: this.state.user.nutritionist.endorsedRecipes,
+                                                                    appointmentLink: this.state.appointmentLink !== "" ? this.state.appointmentLink : this.state.user.nutritionist.appointmentLink
                                                                 }
                                                             }
                                                         }
