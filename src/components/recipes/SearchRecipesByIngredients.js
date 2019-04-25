@@ -429,8 +429,10 @@ class SearchRecipesByIngredients extends React.Component {
 
 
                                 <div className="pagination">
-                                    <a href="#" className="prev-arrow"><i className="fa fa-long-arrow-left"
-                                                                          aria-hidden="true"></i></a>
+                                    <a href="#" className="prev-arrow">
+                                        <i className="fa fa-long-arrow-left"
+                                           aria-hidden="true"></i>
+                                    </a>
                                     <a href="#" className="active">1</a>
                                     <a href="#">2</a>
                                     <a href="#">3</a>

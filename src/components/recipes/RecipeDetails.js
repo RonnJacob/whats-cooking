@@ -26,6 +26,7 @@ import RegularUserServices from "../../services/RegularUserServices";
 import NutritionistServices from "../../services/NutritionistServices";
 import ChefServices from "../../services/ChefServices";
 import {getFromStorage} from "../../utils/storage";
+import MealDBServices from "../../services/MealDBServices";
 
 library.add(faPlus, faTimes, faPencilAlt, faCheck, emptyHeart, solidHeart, solidThumbsUp, emptyThumbsUp, faUtensils, faMedkit);
 
@@ -33,6 +34,7 @@ class RecipeDetails extends Component {
     constructor(props) {
         super(props);
         this.recipeService = new RecipeServices();
+        this.mealDbService = new MealDBServices();
         this.userServices = new UserServices();
         this.regularUserServices = new RegularUserServices();
         this.nutritionistServices = new NutritionistServices();
@@ -76,11 +78,11 @@ class RecipeDetails extends Component {
             this.userServices.verifyUser(token).then(json => {
                 console.log(json);
                 if (json.success) {
-                            // alert("updated"+courses.length)
-                            this.setState({
-                                token,
-                                user: obj.user[0]
-                            });
+                    // alert("updated"+courses.length)
+                    this.setState({
+                        token,
+                        user: obj.user[0]
+                    });
                 }
             });
         }
@@ -93,11 +95,36 @@ class RecipeDetails extends Component {
         let currentUserName = '';
         let endorsedByChef = [];
         let endorsedByNutritionist = [];
-        this.recipeService.findRecipeById(this.state.recipeId)
+        ((this.state.recipeId.length>5)?this.recipeService.findRecipeById(this.state.recipeId):this.mealDbService.findRecipeById(this.state.recipeId))
             .then(recipe => {
-                    let ingredients = recipe.ingredients.join(',');
-                    recipe.ingredients = ingredients;
-                    currentRecipe = recipe
+                let ingredientArray = '';
+                let ingredients;
+                recipe.ingredients ?
+                    (ingredients = recipe.ingredients.join(',')) :
+                    (ingredients = recipe.meals[0].strIngredient1 + ',' +
+                        recipe.meals[0].strIngredient2 + ',' +
+                        recipe.meals[0].strIngredient3 + ',' +
+                        recipe.meals[0].strIngredient4 + ',' +
+                        recipe.meals[0].strIngredient5);
+
+                if (this.state.recipeId.length > 5){
+                    currentRecipe = recipe;
+                    currentRecipe.ingredients = ingredients;
+                }
+
+
+
+                else {
+
+                currentRecipe.name = recipe.name ? recipe.name : recipe.meals[0].strMeal
+                currentRecipe.ingredients = ingredients;
+                currentRecipe.steps = recipe.steps ? recipe.steps : recipe.meals[0].strInstructions
+                currentRecipe.image = recipe.image ? recipe.image : recipe.meals[0].strMealThumb
+                currentRecipe.endorsedByChef = recipe.endorsedByChef
+                currentRecipe.endorsedByNutritionist = recipe.endorsedByNutritionist
+                currentRecipe.ownedBy = "Anonymous"
+                }
+
                 }
             )
             .then(() => {
@@ -124,12 +151,15 @@ class RecipeDetails extends Component {
                     })
                 }
             })
-            .then(() => this.userServices.findById(currentRecipe.ownedBy))
+            .then(() => {
+                if(currentRecipe.ownedBy!="Anonymous")
+                return this.userServices.findById(currentRecipe.ownedBy)
+                else return currentRecipe.ownedBy})
+
             .then(user => {
-                // alert('$$$$$' + user)
                 if (user) {
-                    currentUser = user;
-                    currentUserName = user.firstName
+                    currentUser = user?user:{};
+                    currentUserName = user.firstName?user.firstName:""
                 }
             })
             .then(() => {
@@ -289,50 +319,50 @@ class RecipeDetails extends Component {
                                         <tr>
                                             <th>Item</th>
                                             <th>Detail</th>
-                                            <th>Actions</th>
+                                            {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<th>Actions</th>}
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr>
                                             <td className="name-theader">Name</td>
                                             <td className="name-theader">{this.state.recipe.name}</td>
-                                            <td className="actions-theader"><span><a
+                                            {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) && <td className="actions-theader"><span><a
                                                 onClick={() => this.selectNameForUpdate(this.state.recipe.name)}>
                                                 <FontAwesomeIcon
                                                     icon="pencil-alt"
                                                     className="fas"/></a></span>
-                                            </td>
+                                            </td>}
                                         </tr>
                                         <tr>
                                             <td className="name-theader">Ingredients</td>
                                             <td className="name-theader">{this.state.recipe.ingredients}</td>
-                                            <td className="actions-theader"><span><a
+                                            {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<td className="actions-theader"><span><a
                                                 onClick={() =>
                                                     this.selectIngredientsForUpdate(this.state.recipe.ingredients)}>
                                                 <FontAwesomeIcon
                                                     icon="pencil-alt"
                                                     className="fas"/></a></span>
-                                            </td>
+                                            </td>}
                                         </tr>
                                         <tr>
                                             <td className="name-theader">Steps</td>
                                             <td className="name-theader">{this.state.recipe.steps}</td>
-                                            <td className="actions-theader"><span><a
+                                            {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<td className="actions-theader"><span><a
                                                 onClick={() => this.selectStepsForUpdate(this.state.recipe.steps)}>
                                                 <FontAwesomeIcon
                                                     icon="pencil-alt"
                                                     className="fas"/></a></span>
-                                            </td>
+                                            </td>}
                                         </tr>
                                         <tr>
                                             <td className="name-theader">Image</td>
                                             <td className="name-theader">{this.state.recipe.image}</td>
-                                            <td className="actions-theader"><span><a
+                                            {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<td className="actions-theader"><span><a
                                                 onClick={() => this.selectImageForUpdate(this.state.recipe.image)}>
                                                 <FontAwesomeIcon
                                                     icon="pencil-alt"
                                                     className="fas"/></a></span>
-                                            </td>
+                                            </td>}
                                         </tr>
 
                                         {this.state.ownerName &&
@@ -404,21 +434,21 @@ class RecipeDetails extends Component {
                                                     ></input>
                                                 </div>
                                             </td>
-                                            <td className="actions-theader ">
+                                            {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) && <td className="actions-theader ">
                                                 <div className={`${this.state.updatedFieldVisibility}`}><span>
                                                 <a className="text-red" onClick={this.updateIngredient}>
                                                 <FontAwesomeIcon
                                                     icon="check"
                                                     className="fas"/></a></span>
                                                 </div>
-                                            </td>
+                                            </td>}
                                         </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                             <div className="col-lg-4 home-about-right">
-                                {this.state.recipe.image !== '' && <img src={this.state.recipe.image} alt=""/>
+                                {this.state.recipe.image !== '' && <img width={"500px"} height={"400px"} src={this.state.recipe.image} alt=""/>
                                 ||
                                 <img src={require('./about-img.jpg')} alt=""/>}
 
@@ -448,3 +478,4 @@ class RecipeDetails extends Component {
 }
 
 export default RecipeDetails;
+

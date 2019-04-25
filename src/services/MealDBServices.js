@@ -19,6 +19,12 @@ export default class mealDBServices{
                 return response.json();
             });
     }
+    findRecipeById =(recipeId) =>{
+        return fetch('https://www.themealdb.com/api/json/v1/1/lookup.php?i='+recipeId)
+            .then(function(response){
+                return response.json();
+            });
+    }
 
     findRecipesByCategory =(category) =>{
         return fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c='+category)
