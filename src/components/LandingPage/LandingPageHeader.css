@@ -7,3 +7,19 @@
     border-bottom: none;
     border-top: none;
 }
+
+
+#transparent-navbar{
+    background-color: transparent;
+}
+
+.white-nav{
+    color:white;
+}
+
+#white-nav{
+    color:white;
+    font-size: medium;
+    font-weight: bolder;
+    background-color: transparent;
+}

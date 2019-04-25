@@ -4,16 +4,6 @@ import './GuestNav.css'
 const GuestNav = ({user, logOut}) =>
 
         <div>
-            {/*<div className="row align-items-center justify-content-center d-flex">*/}
-            {/*<nav id="nav-menu-container">*/}
-            {/*<ul className="nav-menu">*/}
-            {/*<li><a href="#">Home</a></li>*/}
-            {/*<li><a href="#">Groceries</a></li>*/}
-            {/*<li><a href="#">Add Recipe</a></li>*/}
-            {/*<li><a href="#">Saved Recipes</a></li>*/}
-            {/*</ul>*/}
-            {/*</nav>*/}
-            {/*</div>*/}
             {console.log(user)}
             <div className="navbar-explore">
             <Navbar id="navbar-explore"
