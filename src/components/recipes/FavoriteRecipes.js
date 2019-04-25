@@ -22,7 +22,8 @@ class FavoriteRecipes extends React.Component {
             sorted: 0,
             currentPage: 1,
             recipesPerPage: 6,
-            userId: userId
+            userId: userId,
+            fav: []
         };
 
     }
@@ -34,11 +35,16 @@ class FavoriteRecipes extends React.Component {
             .then(recipes => {
                 recipes.map(recipe => {
                         favorites = [...favorites, recipe];
+                        this.setState({
+                            fav: favorites
+                        });
                     }
                 )
-            }).then(() => this.regularUserServices.findFavoriteRecipeId(this.state.userId))
+            })
+            .then(() => this.regularUserServices.findFavoriteRecipeId(this.state.userId)
             .then(recipeIds => {
                 recipeIds.map(recipeId => {
+                    console.log()
                     if (recipeId.length === 5) {
                         this.mealDBServices.findRecipeById(recipeId)
                             .then(recipeFromAPI => {
@@ -72,7 +78,7 @@ class FavoriteRecipes extends React.Component {
                     }
                 })
 
-            })
+            }));
 
 
     }
@@ -87,9 +93,7 @@ class FavoriteRecipes extends React.Component {
         this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
-                        console.log("Inside the map Recipe = " + recipe.name)
                         favorites = [...favorites, recipe]
-                        console.log("Inside the map Array of recipes = " + favorites.length)
                     }
                 )
             }).then(() => this.regularUserServices.findFavoriteRecipeId(this.state.userId))
@@ -278,20 +282,19 @@ class FavoriteRecipes extends React.Component {
 
     render() {
         const {recipes, currentPage, recipesPerPage} = this.state;
-
+        const recipesF = this.state.fav;
         // Logic for displaying todos
         const indexOfLastRecipe = currentPage * recipesPerPage;
         const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-        const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
+        const currentRecipes = recipesF.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = currentRecipes.map(recipe => {
-            console.log(recipe);
             return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
         });
 
         // Logic for displaying page numbers
         const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(recipes.length / recipesPerPage); i++) {
+        for (let i = 1; i <= Math.ceil(recipesF.length / recipesPerPage); i++) {
             pageNumbers.push(i);
         }
 
@@ -378,7 +381,7 @@ class FavoriteRecipes extends React.Component {
 
                                 <div className="container">
                                     <div className="row">
-                                        {this.state.recipes && renderRecipes}
+                                        {this.state.fav && renderRecipes}
                                         {/*<ul id="page-numbers" className="page-numbers">*/}
                                             {/*{renderPageNumbers}*/}
                                         {/*</ul>*/}
