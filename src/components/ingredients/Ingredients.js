@@ -41,7 +41,10 @@ class Ingredients extends Component {
         if (obj && obj.token) {
             const { token } = obj;
             this.userServices.verifyUser(token).then(json => {
-                if (json.success) {
+                if(!json.success){
+                    window.location.href='/';
+                }
+                else if (json.success) {
                     this.ingredientService.findIngredientsByUser(obj.user[0]._id)
                         .then(ingredients => {
                             // alert("updated"+courses.length)
@@ -242,18 +245,7 @@ class Ingredients extends Component {
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                <footer className="footer-area">
-                    <div className="footer-bottom-wrap">
-                        <div className="container">
-                            <div className="row footer-bottom d-flex justify-content-between align-items-center">
-                                <p className="col-lg-8 col-mdcol-sm-6 -6 footer-text m-0">
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+
             </div>
         );
     }

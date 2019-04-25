@@ -39,8 +39,10 @@ class HomePage extends  Component {
         if (obj && obj.token) {
             const { token } = obj;
             this.userServices.verifyUser(token).then(json => {
-                    console.log(json);
-                    if (json.success) {
+                    if(!json.success){
+                        window.location.href='/';
+                    }
+                    else if (json.success) {
                         this.ingredientService.findIngredientsByUser(obj.user[0]._id)
                             .then(ingredients => {
                                 // alert("updated"+courses.length)
@@ -50,6 +52,9 @@ class HomePage extends  Component {
                                     user: obj.user[0]
                                 })
                             });
+                    }
+                    else{
+
                     }
                 });
         }

@@ -17,6 +17,19 @@ class AddIngredient extends React.Component{
         };
     }
 
+
+    componentWillMount() {
+        document.title = "What's Cooking?";
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.verifyUser(token).then(json => {
+                if(!json.success){
+                    window.location.href='/';
+                }
+            });
+        }
+    }
     addIngredient = (ingredient) => {
         if(ingredient.name.length < 1){
             this.setState({
@@ -133,18 +146,6 @@ class AddIngredient extends React.Component{
                         </Button>
                     </Modal.Footer>
                 </Modal>
-                <footer className="footer-area">
-                    <div className="footer-bottom-wrap">
-                        <div className="container">
-                            <div className="row footer-bottom d-flex justify-content-between align-items-center">
-                                <p className="col-lg-8 col-mdcol-sm-6 -6 footer-text m-0">
-                                    Copyright &copy;
-                                    <script>document.write(new Date().getFullYear());</script>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
         )
     }

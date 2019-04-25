@@ -9,6 +9,8 @@ import MealDBServices from "../../services/MealDBServices";
 import RecipeServices from "../../services/RecipeServices";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ReactTooltip from 'react-tooltip'
+import {getFromStorage} from "../../utils/storage";
+import UserServices from "../../services/UserServices";
 
 class MyRecipes extends React.Component {
     constructor(props) {
@@ -17,6 +19,7 @@ class MyRecipes extends React.Component {
         this.regularUserServices = new RegularUserServices();
         const userId = props.match.params['userId'];
         this.recipeServices = new RecipeServices();
+        this.userServices = new UserServices();
         this.state = {
             recipes: [],
             unsortedRecipes: [],
@@ -34,13 +37,25 @@ class MyRecipes extends React.Component {
 
     componentWillMount() {
         document.title = "My Recipes";
-        this.regularUserServices.findOwnRecipes(this.state.userId)
-            .then(recipes => {
-                this.setState
-                ({
-                    recipes: recipes.meals ? recipes.meals : recipes
-                })
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.verifyUser(token).then(json => {
+                if(!json.success){
+                    window.location.href='/';
+                }
+                else if(json.success){
+                    this.regularUserServices.findOwnRecipes(this.state.userId)
+                        .then(recipes => {
+                            this.setState
+                            ({
+                                recipes: recipes.meals ? recipes.meals : recipes
+                            })
+                        });
+                }
             });
+        }
+
 
 
     }

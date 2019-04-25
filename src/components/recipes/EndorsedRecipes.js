@@ -10,12 +10,15 @@ import HomePageNav from "../HomePageNav/HomePageNav";
 import MealDBServices from "../../services/MealDBServices";
 import {Link} from "react-router-dom";
 import ChefServices from "../../services/ChefServices";
+import {getFromStorage} from "../../utils/storage";
+import UserServices from "../../services/UserServices";
 
 class EndorsedRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
         this.chefServices = new ChefServices();
+        this.userServices = new UserServices();
         const userId = props.match.params['userId'];
         this.state = {
             recipes: [],
@@ -33,15 +36,26 @@ class EndorsedRecipes extends React.Component {
 
     componentWillMount() {
         document.title = "Endorsed Recipes";
-        this.chefServices.findEndorsedRecipes(this.state.userId)
-            .then(recipes => {
-                this.setState
-                ({
-                    recipes: recipes.meals?recipes.meals:recipes
-                })
+
+
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.verifyUser(token).then(json => {
+                if(!json.success){
+                    window.location.href='/';
+                }
+                else if(json.success){
+                    this.chefServices.findEndorsedRecipes(this.state.userId)
+                        .then(recipes => {
+                            this.setState
+                            ({
+                                recipes: recipes.meals?recipes.meals:recipes
+                            })
+                        });
+                }
             });
-
-
+        }
     }
 
     componentDidMount() {
