@@ -80,7 +80,7 @@ class RegisterPage extends React.Component{
             errorsReg.push('First name cannot be empty.');
         }
 
-        if(document.getElementById('register_password').value.length < 6){
+        if(document.getElementById('register_password').value.length < 5){
             errorsReg.push('Password must be greater than 6 characters');
         }
         else if(document.getElementById('register_verify_password').value

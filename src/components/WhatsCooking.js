@@ -71,7 +71,7 @@ class WhatsCooking extends Component{
                     <Route path="/register" exact component={RegisterPage}/>
                     </Switch>
                 </Router>
-                {/*<MainApp/>*/}
+                <MainApp/>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
+import '../../../node_modules/bootstrap/dist/js/bootstrap';
 import {Link, Route,Router} from 'react-router-dom'
 import {PopularRecipes} from "./PopularRecipes";
 import ExploreRecipes from "../Explore/ExploreRecipes";
@@ -7,8 +8,20 @@ import LandingPage from ".//LandingPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import LoginPage from "../LoginPage/LoginPage";
 import HomePageNav from "../HomePageNav/HomePageNav";
-import './LandingPageHeader.css'
-import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import styles from './LandingPageHeader.css'
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem } from 'reactstrap';
+
 
 
 export const LandingPageHeader = ({popularRecipes}) => {
@@ -27,7 +40,7 @@ export const LandingPageHeader = ({popularRecipes}) => {
                             </div>
                         </div>
                         <div className="col-lg-10">
-                            <div className="custom-navbar">
+                            {/*<div className="custom-navbar">
                                 <span></span>
                                 <span></span>
                                 <span></span>
@@ -55,7 +68,20 @@ export const LandingPageHeader = ({popularRecipes}) => {
                                     </li>
 
                                 </ul>
-                            </div>
+                            </div>*/}
+                            <Navbar className={styles["wbdv-navbar"]} light expand="md">
+                                <NavbarToggler/>
+                                <Collapse navbar>
+                                    <Nav className="ml-auto" navbar>
+                                        <NavItem className={styles["wbdv-navbar"]} style={{color: 'white'}} >
+                                            <NavLink href="/components/">Components</NavLink>
+                                        </NavItem>
+                                        <NavItem>
+                                            <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                                        </NavItem>
+                                    </Nav>
+                                </Collapse>
+                            </Navbar>
                         </div>
                     </div>
                 </div>

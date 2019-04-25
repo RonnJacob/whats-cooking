@@ -116,21 +116,18 @@ class SearchRecipesByIngredients extends React.Component {
 
     findRecipesByIngredient = (ingredients) => {
         var foundRecipes = []
-        console.log(this.state.recipes);
         ingredients.map(ingredient => {
             this.mealDBServices.findRecipesByIngredient(ingredient.name.toLowerCase()).then(
                 r => {
                     r.meals&&r.meals.map(recipe => {
-                            console.log("Inside the map Recipe = " + recipe.strMeal)
-                            foundRecipes = [...foundRecipes, recipe]
-                            console.log("Inside the map Array of recipes = " + foundRecipes.length)
+                            foundRecipes = [...foundRecipes, recipe];
                         }
                     )
 
                 return foundRecipes;
                 }
             ).then(recipes => {
-                alert(recipes.length)
+                alert(recipes.length);
                 this.setState({
                     recipes: recipes
                 })
