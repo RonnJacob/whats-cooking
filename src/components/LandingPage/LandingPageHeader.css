@@ -2,3 +2,8 @@
     color:white;
     font-weight: bolder;
 }
+
+#wbdv_main_menu{
+    border-bottom: none;
+    border-top: none;
+}
