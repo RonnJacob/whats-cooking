@@ -23,7 +23,7 @@ class Profile extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         document.title = "What's Cooking?";
         let currentUser = {};
         this.userServices.findById(this.state.userId)

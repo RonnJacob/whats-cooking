@@ -1,8 +1,8 @@
 
 import {getFromStorage} from "../utils/storage";
 
-// const FETCH_URL = 'http://localhost:4200/api/';
-const FETCH_URL = 'https://cs5610-backend.herokuapp.com/api/';
+const FETCH_URL = 'http://localhost:4200/api/';
+// const FETCH_URL = 'https://cs5610-backend.herokuapp.com/api/';
 export default class UserServices {
     checkUserNameValidity = (uname) => {
         return fetch(FETCH_URL + 'username/' + uname)
@@ -42,8 +42,10 @@ export default class UserServices {
             .then(res => res.json());
     }
 
-    findById = userID => fetch(FETCH_URL + 'user/' + userID)
-        .then(response => response.json());
+    findById = userID => {
+        return fetch(FETCH_URL + 'user/' + userID)
+            .then(response => response.json());
+    }
 
 
 

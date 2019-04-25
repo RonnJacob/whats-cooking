@@ -36,11 +36,12 @@ class FavoriteRecipes extends React.Component {
         var favorites=[];
         this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
+                console.log(favorites);
                 this.setState
                 ({
                     recipes: recipes.meals?recipes.meals:recipes
                 })
-            }).then(()=>alert(this.state.recipes));
+            });
         // this.regularUserServices.findFavoriteRecipes(this.state.userId)
         //     .then(recipes => {
         //         recipes.map(recipe => {
@@ -122,7 +123,7 @@ class FavoriteRecipes extends React.Component {
                 this.setState
                 ({filterCategory: filterCategory.meals})
             });
-        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
+        this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
                 this.setState
                 ({
@@ -160,7 +161,7 @@ class FavoriteRecipes extends React.Component {
         // ({
         //     unsortedRecipes: recipes
         // })
-        this.regularUserServices.findFavoriteRecipes('5cb93fa8d765b8de30a1ace2')
+        this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe=>{
                     if(recipe.strCategory?recipe.strCategory===category:(recipe.category===category))
