@@ -81,7 +81,7 @@ class RegisterPage extends React.Component{
         }
 
         if(document.getElementById('register_password').value.length < 5){
-            errorsReg.push('Password must be greater than 6 characters');
+            errorsReg.push('Password must be greater than 4 characters');
         }
         else if(document.getElementById('register_verify_password').value
             !== document.getElementById('register_password').value){
