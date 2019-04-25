@@ -22,15 +22,15 @@ class LoginPage extends Component {
 
 
     componentWillMount() {
-        const obj = getFromStorage('project_april');
-        if (obj && obj.token) {
-            const { token } = obj;
-            this.userServices.verifyUser(token).then(json => {
-                    if (json.success) {
-                        window.location.href='/home';
-                    }
-                });
-        }
+        // const obj = getFromStorage('project_april');
+        // if (obj && obj.token) {
+        //     const { token } = obj;
+        //     this.userServices.verifyUser(token).then(json => {
+        //             if (json.success) {
+        //                 window.location.href='/home';
+        //             }
+        //         });
+        // }
     }
 
     signIn = () => {
