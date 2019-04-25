@@ -289,7 +289,8 @@ class SearchRecipesByIngredients extends React.Component {
 
         const renderRecipes = this.state.recipes.map(recipe => {
             return <RecipeCard popularRecipe={recipe}
-                               deleteRecipe={this.deleteRecipe}/>
+                               deleteRecipe={this.deleteRecipe}
+                               loggedIn={true}/>
         });
 
         // Logic for displaying page numbers
