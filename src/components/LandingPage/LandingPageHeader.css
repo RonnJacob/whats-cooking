@@ -13,6 +13,10 @@
     background-color: transparent;
 }
 
+#transparent-navbar-guestnav{
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
 .white-nav{
     color:white;
 }

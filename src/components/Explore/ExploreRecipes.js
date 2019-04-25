@@ -10,6 +10,7 @@ import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
 import {NoResults} from "../LandingPage/NoResults";
 import {Link} from "react-router-dom";
+import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
@@ -348,15 +349,12 @@ class ExploreRecipes extends React.Component {
 
                 <section className="header">
                     <div className="row wrap">
-                        <div className="split fleft">
+                        <div className="col-4 d-xl-block d-lg-block d-md-block d-none">
                             <div className={"side-menu"}>
                                 <div className="">
-
                                     <div className="sidebar-categories">
                                         <div className="head">Filter up your TasteBuds</div>
                                         <ul className="main-categories">
-
-
                                             {this.state.filterCategory.map(category =>
                                                 <FilterRecipes category={category.strCategory}
                                                                findRecipesByCategory={this.findRecipesByCategory}
@@ -369,7 +367,7 @@ class ExploreRecipes extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="split fright">
+                        <div className="col-8">
                             {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
                             {/*<div className="sorting">*/}
 
