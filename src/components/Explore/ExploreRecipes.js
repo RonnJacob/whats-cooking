@@ -9,12 +9,14 @@ import './Explore.css'
 import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
 import {NoResults} from "../LandingPage/NoResults";
+import RecipeServices from "../../services/RecipeServices";
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
         super(props);
         this.mealDBServices = new MealDBServices();
-        const obj =  getFromStorage('project_april');
+        this.recipeServices = new RecipeServices();
+        const obj = getFromStorage('project_april');
 
 
         this.state = {
@@ -26,10 +28,10 @@ class ExploreRecipes extends React.Component {
             sorted: 0,
             currentPage: 1,
             loggedIn: false,
-            user: obj.user[0]?obj.user[0]:'',
-            userId: obj.user[0]._id?obj.user[0]._id:'',
+            user: obj.user[0] ? obj.user[0] : '',
+            userId: obj.user[0]._id ? obj.user[0]._id : '',
             recipesPerPage: 6,
-            searched:''
+            searched: ''
         };
         this.searchRecipe = this.searchRecipe.bind(this);
         this.userServices = new UserServices();
@@ -46,24 +48,55 @@ class ExploreRecipes extends React.Component {
                 })
             });
         if (obj && obj.token) {
-            const { token } = obj;
+            const {token} = obj;
             this.userServices.verifyUser(token).then(json => {
                 console.log(json);
                 if (json.success) {
+                    let allRecipes = [];
                     this.mealDBServices.findAllRecipes()
                         .then(recipes => {
-                            // alert("updated"+courses.length)
-                            console.log(recipes);
-                            this.setState({
-                                token,
-                                loggedIn: true,
-                                user: obj.user[0]
+                            recipes.meals.map(recipe => {
+                                    allRecipes = [...allRecipes, recipe];
+                                    console.log("After API count" + allRecipes.length)
+                                }
+                            )
+                        })
+                        .then(() => this.recipeServices.findAllRecipes()
+                            .then(recipeFromDb => {
+                                recipeFromDb.map(eachRecipeFromDb => {
+                                    let recipeFound = {};
+                                    recipeFound.idMeal = eachRecipeFromDb._id;
+
+                                    recipeFound.strMeal = eachRecipeFromDb.name
+                                    var ingr=[];
+                                    ingr=(recipeFromDb.ingredients&&recipeFromDb.ingredients.length>0)?recipeFromDb.ingredients.split(','):[]
+                                    if(ingr.length>0){
+                                        recipeFound.strIngredient1 = ingr[0]
+                                        ingr.length>1?recipeFound.strIngredient2= ingr[0]:recipeFound.strIngredient2=''
+                                        ingr.length>2?recipeFound.strIngredient3 = ingr[0]:recipeFound.strIngredient3=''
+                                        ingr.length>3?recipeFound.strIngredient4= ingr[0]:recipeFound.strIngredient4=''
+                                        ingr.length>4?recipeFound.strIngredient5 = ingr[0]:recipeFound.strIngredient5=''
+                                    }
+                                    recipeFound.strInstructions = eachRecipeFromDb.steps
+                                    recipeFound.strMealThumb = eachRecipeFromDb.image
+                                    recipeFound.endorsedByChef = eachRecipeFromDb.endorsedByChef
+                                    recipeFound.endorsedByNutritionist = eachRecipeFromDb.endorsedByNutritionist
+                                    recipeFound.ownedBy = eachRecipeFromDb.ownedBy
+                                    recipeFound.strCategory = "Miscellaneous"
+                                    allRecipes = [...allRecipes, recipeFound]
+                                    console.log("After db count" + allRecipes.length)
+                                })
+
+                            }).then(() => {
+                                this.setState({
+                                    recipes: allRecipes
+                                });
                             })
-                        });
-                }
-            });
+                        )}
+            })
         }
     }
+
 
     componentDidMount() {
         this.mealDBServices.findAllCategories()
@@ -71,14 +104,47 @@ class ExploreRecipes extends React.Component {
                 this.setState
                 ({filterCategory: filterCategory.meals})
             });
+        let allRecipes = [];
         this.mealDBServices.findAllRecipes()
             .then(recipes => {
-                this.setState
-                ({
+                recipes.meals.map(recipe => {
+                        allRecipes = [...allRecipes, recipe];
+                        console.log("After API count" + allRecipes.length)
+                    }
+                )
+            })
+            .then(() => this.recipeServices.findAllRecipes()
+                .then(recipeFromDb => {
+                    recipeFromDb.map(eachRecipeFromDb => {
+                        let recipeFound = {};
+                        recipeFound.idMeal = eachRecipeFromDb._id;
 
-                    unsortedRecipes: recipes.meals
+                        recipeFound.strMeal = eachRecipeFromDb.name
+                        var ingr=[];
+                        ingr=(recipeFromDb.ingredients&&recipeFromDb.ingredients.length>0)?recipeFromDb.ingredients.split(','):[]
+                        if(ingr.length>0){
+                            recipeFound.strIngredient1 = ingr[0]
+                            ingr.length>1?recipeFound.strIngredient2= ingr[0]:recipeFound.strIngredient2=''
+                            ingr.length>2?recipeFound.strIngredient3 = ingr[0]:recipeFound.strIngredient3=''
+                            ingr.length>3?recipeFound.strIngredient4= ingr[0]:recipeFound.strIngredient4=''
+                            ingr.length>4?recipeFound.strIngredient5 = ingr[0]:recipeFound.strIngredient5=''
+                        }
+                        recipeFound.strInstructions = eachRecipeFromDb.steps
+                        recipeFound.strMealThumb = eachRecipeFromDb.image
+                        recipeFound.endorsedByChef = eachRecipeFromDb.endorsedByChef
+                        recipeFound.endorsedByNutritionist = eachRecipeFromDb.endorsedByNutritionist
+                        recipeFound.ownedBy = eachRecipeFromDb.ownedBy
+                        recipeFound.strCategory = "Miscellaneous"
+                        allRecipes = [...allRecipes, recipeFound]
+                        console.log("After db count" + allRecipes.length)
+                    })
+
+                }).then(() => {
+                    this.setState({
+                        unSortedRecipes: allRecipes
+                    });
                 })
-            });
+            )
     }
 
     handleClick = event => {
@@ -104,14 +170,55 @@ class ExploreRecipes extends React.Component {
     }
 
     findRecipesByCategory = (category) => {
-        this.mealDBServices.findRecipesByCategory(category)
-            .then(recipes => {
+        if(category!=="Miscellaneous") {
+            this.mealDBServices.findRecipesByCategory(category)
+                .then(recipes => {
+                    this.setState
+                    ({
+                        recipes: recipes.meals,
+                        unsortedRecipes: recipes.meals
+                    })
+                })
+        }
+        if(category==="Miscellaneous"){
+            var allRecipes=[]
+            this.recipeServices.findAllRecipes()
+                .then(recipeFromDb => {
+                    recipeFromDb.map(eachRecipeFromDb => {
+                        let recipeFound = {};
+                        recipeFound.idMeal = eachRecipeFromDb._id;
+
+                        recipeFound.strMeal = eachRecipeFromDb.name
+                        var ingr=[];
+                        ingr=(recipeFromDb.ingredients&&recipeFromDb.ingredients.length>0)?recipeFromDb.ingredients.split(','):[]
+                        if(ingr.length>0){
+                            recipeFound.strIngredient1 = ingr[0]
+                            ingr.length>1?recipeFound.strIngredient2= ingr[0]:recipeFound.strIngredient2=''
+                            ingr.length>2?recipeFound.strIngredient3 = ingr[0]:recipeFound.strIngredient3=''
+                            ingr.length>3?recipeFound.strIngredient4= ingr[0]:recipeFound.strIngredient4=''
+                            ingr.length>4?recipeFound.strIngredient5 = ingr[0]:recipeFound.strIngredient5=''
+                        }
+                        recipeFound.strInstructions = eachRecipeFromDb.steps
+                        recipeFound.strMealThumb = eachRecipeFromDb.image
+                        recipeFound.endorsedByChef = eachRecipeFromDb.endorsedByChef
+                        recipeFound.endorsedByNutritionist = eachRecipeFromDb.endorsedByNutritionist
+                        recipeFound.ownedBy = eachRecipeFromDb.ownedBy
+                        recipeFound.strCategory = "Miscellaneous"
+                        allRecipes = [...allRecipes, recipeFound]
+                        console.log("After db count" + allRecipes.length)
+                    })
+
+
+                }).then(()=>
                 this.setState
                 ({
-                    recipes: recipes.meals,
-                    unsortedRecipes: recipes.meals
-                })
-            });
+                    recipes: allRecipes
+
+                }))
+               // allRecipes.map(eachRecipe=>{
+
+            //})
+        }
     }
 
     findRecipesByCuisine = (cuisine) => {
@@ -125,33 +232,59 @@ class ExploreRecipes extends React.Component {
 
     searchRecipe = (recipe) => {
 
-        this.mealDBServices.findRecipeByName(recipe).then(recipes => {
+        // this.mealDBServices.findRecipeByName(recipe).then(recipes => {
+        //
+        //     this.setState
+        //     ({
+        //         recipes: recipes.meals,
+        //         searched: recipe
+        //     })
+        //
+        // });
 
-            this.setState
-            ({recipes: recipes.meals,
-                    searched: recipe})
-            // if (recipes.meals == null) {
-            //     document.getElementById("food-area").innerHTML =
-            //         " <div class=\"no-results\">" +
-            //         "<h3>We searched all over but didn't " +
-            //         "find a recipe for '" + `${recipe}` + "'</h3>" +
-            //
-            //         "<div class=\"no-results-suggestion\">" +
-            //         "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/check_spelling.svg\">" +
-            //         "<span>Check Spelling</span></div><div class=\"no-results-suggestion\">" +
-            //         "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/different_keywords.svg\">" +
-            //         "<span>Different Keywords</span></div><div class=\"no-results-suggestion\">" +
-            //         "<img src=\"https://x.yummlystatic.com/s/e3ccfc5a7/img/simplify_search.svg\">" +
-            //         "<span>Simplify Search</span></div></div>" +
-            //         "" +
-            //         " </PopularRecipes popularRecipes={" + this.state.popularRecipes + "}>"
-            //
-            //
-            // } else{
-            //     this.setState
-            //     ({recipes: recipes.meals})
-            // }
-        });
+        let allRecipes = [];
+        let updatedSearch = recipe.replace(" ", "&");
+        this.mealDBServices.findRecipeByName(updatedSearch)
+            .then(recipes => {
+                recipes.meals && recipes.meals.map(recipe => {
+                        allRecipes = [...allRecipes, recipe];
+                        console.log("After API count" + allRecipes.length)
+                    }
+                )
+            })
+            .then(() => this.recipeServices.searchRecipeByName(recipe)
+                .then(recipeFromDb => {
+                    recipeFromDb.map(eachRecipeFromDb => {
+                        let recipeFound = {};
+                        recipeFound.idMeal = eachRecipeFromDb._id;
+
+                        recipeFound.strMeal = eachRecipeFromDb.name
+                        var ingr=[];
+                        ingr=(recipeFromDb.ingredients&&recipeFromDb.ingredients.length>0)?recipeFromDb.ingredients.split(','):[]
+                        if(ingr.length>0){
+                            recipeFound.strIngredient1 = ingr[0]
+                            ingr.length>1?recipeFound.strIngredient2= ingr[0]:recipeFound.strIngredient2=''
+                            ingr.length>2?recipeFound.strIngredient3 = ingr[0]:recipeFound.strIngredient3=''
+                            ingr.length>3?recipeFound.strIngredient4= ingr[0]:recipeFound.strIngredient4=''
+                            ingr.length>4?recipeFound.strIngredient5 = ingr[0]:recipeFound.strIngredient5=''
+                        }
+                        recipeFound.strInstructions = eachRecipeFromDb.steps
+                        recipeFound.strMealThumb = eachRecipeFromDb.image
+                        recipeFound.endorsedByChef = eachRecipeFromDb.endorsedByChef
+                        recipeFound.endorsedByNutritionist = eachRecipeFromDb.endorsedByNutritionist
+                        recipeFound.ownedBy = eachRecipeFromDb.ownedBy
+                        recipeFound.strCategory = "Miscellaneous"
+                        allRecipes = [...allRecipes, recipeFound]
+                        console.log("After db count" + allRecipes.length)
+                    })
+
+                }).then(() => {
+                    this.setState({
+                        recipes: allRecipes,
+                        searched: recipe
+                    });
+                })
+            )
 
 
     }
@@ -231,7 +364,7 @@ class ExploreRecipes extends React.Component {
     logOut = () => {
         const obj = getFromStorage('project_april');
         if (obj && obj.token) {
-            const { token } = obj;
+            const {token} = obj;
             this.userServices.logOutUser(token)
                 .then(json => {
                     console.log(json);
@@ -245,14 +378,47 @@ class ExploreRecipes extends React.Component {
     };
 
     resetSort = () => {
-        const unsortedRecipes = this.state.unsortedRecipes;
-        if (this.state.sorted === 1) {
-            this.setState({
-                recipes: unsortedRecipes,
-                unsortedRecipes: unsortedRecipes,
-                sorted: 0
+        let allRecipes = [];
+        this.mealDBServices.findAllRecipes()
+            .then(recipes => {
+                recipes.meals.map(recipe => {
+                        allRecipes = [...allRecipes, recipe];
+                        console.log("After API count" + allRecipes.length)
+                    }
+                )
             })
-        }
+            .then(() => this.recipeServices.findAllRecipes()
+                .then(recipeFromDb => {
+                    recipeFromDb.map(eachRecipeFromDb => {
+                        let recipeFound = {};
+                        recipeFound.idMeal = eachRecipeFromDb._id;
+
+                        recipeFound.strMeal = eachRecipeFromDb.name
+                        var ingr=[];
+                        ingr=(recipeFromDb.ingredients&&recipeFromDb.ingredients.length>0)?recipeFromDb.ingredients.split(','):[]
+                        if(ingr.length>0){
+                            recipeFound.strIngredient1 = ingr[0]
+                            ingr.length>1?recipeFound.strIngredient2= ingr[0]:recipeFound.strIngredient2=''
+                            ingr.length>2?recipeFound.strIngredient3 = ingr[0]:recipeFound.strIngredient3=''
+                            ingr.length>3?recipeFound.strIngredient4= ingr[0]:recipeFound.strIngredient4=''
+                            ingr.length>4?recipeFound.strIngredient5 = ingr[0]:recipeFound.strIngredient5=''
+                        }
+                        recipeFound.strInstructions = eachRecipeFromDb.steps
+                        recipeFound.strMealThumb = eachRecipeFromDb.image
+                        recipeFound.endorsedByChef = eachRecipeFromDb.endorsedByChef
+                        recipeFound.endorsedByNutritionist = eachRecipeFromDb.endorsedByNutritionist
+                        recipeFound.ownedBy = eachRecipeFromDb.ownedBy
+                        recipeFound.strCategory = "Miscellaneous"
+                        allRecipes = [...allRecipes, recipeFound]
+                        console.log("After db count" + allRecipes.length)
+                    })
+
+                }).then(() => {
+                    this.setState({
+                        recipes: allRecipes
+                    });
+                })
+            )
 
     }
 
@@ -299,7 +465,7 @@ class ExploreRecipes extends React.Component {
             <div>
                 {/*<LandingPageHeader/>*/}
                 <div id="header">
-                    <GuestNav user = {this.state.user} logOut = {this.logOut}/>
+                    <GuestNav user={this.state.user} logOut={this.logOut}/>
                 </div>
                 <div>
                     <section className="table-area section-padding">
@@ -326,7 +492,8 @@ class ExploreRecipes extends React.Component {
 
                                         <div className="table-btn text-center">
                                             <button href="#" className="template-btn template-btn2 mt-4"
-                                               onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</button>
+                                                    onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -392,10 +559,12 @@ class ExploreRecipes extends React.Component {
 
 
                                 <div className="pagination">
-                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i className="fa fa-sort-alpha-asc"
-                                                                                                         aria-hidden="true"></i></a>
-                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i className="fa fa-sort-alpha-desc"
-                                                                                                          aria-hidden="true"></i></a>
+                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
+                                        className="fa fa-sort-alpha-asc"
+                                        aria-hidden="true"></i></a>
+                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
+                                        className="fa fa-sort-alpha-desc"
+                                        aria-hidden="true"></i></a>
 
                                     <a href="#" onClick={this.resetSort}>reset</a>
                                 </div>
@@ -407,12 +576,13 @@ class ExploreRecipes extends React.Component {
                                 <div className="container">
                                     <div className="row">
 
-                                        {!(this.state.recipes)&&<NoResults recipe={this.state.searched}/>}
+                                        {(this.state.recipes.length===0) && <NoResults recipe={this.state.searched}/>}
                                         {
 
                                             (this.state.recipes)
-                                                &&(this.state.recipes.map(recipe =>
-                                                <RecipeCard popularRecipe={recipe} loggedIn={this.state.userId?true:false}/>)
+                                            && (this.state.recipes.map(recipe =>
+                                                    <RecipeCard popularRecipe={recipe}
+                                                                loggedIn={this.state.userId ? true : false}/>)
 
 
                                             )
