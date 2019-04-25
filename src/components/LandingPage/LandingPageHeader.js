@@ -2,25 +2,8 @@ import React from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../../node_modules/bootstrap/dist/js/bootstrap';
 import {Link, Route,Router} from 'react-router-dom'
-import {PopularRecipes} from "./PopularRecipes";
 import ExploreRecipes from "../Explore/ExploreRecipes";
-import LandingPage from ".//LandingPage";
-import RegisterPage from "../RegisterPage/RegisterPage";
-import LoginPage from "../LoginPage/LoginPage";
-import HomePageNav from "../HomePageNav/HomePageNav";
-import styles from './LandingPageHeader.css'
-import {
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem } from 'reactstrap';
+
 
 
 
