@@ -382,7 +382,7 @@ class FavoriteRecipes extends React.Component {
 
                                             (this.state.recipes)
                                             &&(this.state.recipes.map(recipe =>
-                                                    <RecipeCard popularRecipe={recipe}/>)
+                                                    <RecipeCard popularRecipe={recipe} loggedIn={!!this.state.userId}/>)
 
 
                                             )
