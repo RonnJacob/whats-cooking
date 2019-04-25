@@ -319,7 +319,7 @@ class EndorsedRecipes extends React.Component {
         const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
+            return <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"} loggedIn={true}/>
         });
 
         // Logic for displaying page numbers

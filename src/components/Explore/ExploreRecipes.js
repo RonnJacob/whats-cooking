@@ -590,7 +590,7 @@ class ExploreRecipes extends React.Component {
 
                                             (this.state.recipes)
                                             && (this.state.recipes.map(recipe =>
-                                                    <RecipeCard popularRecipe={recipe}
+                                                    <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"}
                                                                 loggedIn={this.state.userId ? true : false}/>)
 
 

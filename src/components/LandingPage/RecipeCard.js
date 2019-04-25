@@ -3,14 +3,18 @@ import {Link, Route} from 'react-router-dom'
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../../../node_modules/bootstrap/dist/js/bootstrap'
 import {Modal,Button} from 'react-bootstrap'
+import {getFromStorage} from "../../utils/storage";
 
 export default class RecipeCard extends React.Component{
     constructor(props){
         super(props);
+        const obj = getFromStorage('project_april');
         // this.handleShow = this.handleShow.bind(this);
         // this.handleClose = this.handleClose.bind(this);
 
         this.state = {
+            loggedInUser: obj.user[0],
+            loggedInUserId: obj.user[0]._id,
             show: false,
             showRecipeDetail: false
         };
@@ -69,7 +73,7 @@ export default class RecipeCard extends React.Component{
                 </div>
             </a>
 
-            <div>
+            {this.props.recipeOwner===this.state.loggedInUserId && <div>
                 {<div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog"
                      aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
@@ -85,9 +89,11 @@ export default class RecipeCard extends React.Component{
                             </div>
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button"
-                                        onClick={()=>this.props.deleteRecipe(this.props.popularRecipe._id)}
-                                        className="btn btn-danger">Delete</button>
+
+
+                                 <button type="button"
+                                                    onClick={()=>this.props.deleteRecipe(this.props.popularRecipe._id)}
+                                                    className="btn btn-danger">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -101,7 +107,7 @@ export default class RecipeCard extends React.Component{
                     <Modal.Header closeButton>
                         <Modal.Title>Delete Recipe</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Are you sure you want to delete this awesome recipe?</Modal.Body>
+                    <Modal.Body>Are you sure you want to delete this yummy recipe?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
                             Close
@@ -125,7 +131,7 @@ export default class RecipeCard extends React.Component{
                     </Modal.Footer>
                 </Modal>
 
-            </div>
+            </div>}
         </div>
         );
     }
