@@ -1,9 +1,8 @@
-const FETCH_URL = 'http://localhost:4200/api';
-// const FETCH_URL = 'https://cs5610-backend.herokuapp.com/api';
+import {FETCH_URL} from "../utils/constants";
 
 export default class RecipeServices {
 
-    addRecipe = recipe => fetch(FETCH_URL + '/recipes', {
+    addRecipe = recipe => fetch(FETCH_URL + 'recipes', {
         method: 'post',
         body: JSON.stringify(recipe),
         headers: {
@@ -11,14 +10,14 @@ export default class RecipeServices {
         }
     }).then(response => response.json());
 
-    deleteRecipe = recipeId => fetch(FETCH_URL + '/recipes/' + recipeId, {
+    deleteRecipe = recipeId => fetch(FETCH_URL + 'recipes/' + recipeId, {
         method: 'delete',
         headers: {
             'content-type': 'application/json'
         }
     })
 
-    updateRecipe = (recipeId, recipe) => fetch(FETCH_URL + '/recipes/' + recipeId, {
+    updateRecipe = (recipeId, recipe) => fetch(FETCH_URL + 'recipes/' + recipeId, {
         method: 'put',
         body: JSON.stringify(recipe),
         headers: {
@@ -27,11 +26,11 @@ export default class RecipeServices {
     });
 
     findRecipeById = recipeId =>
-        fetch(FETCH_URL + '/recipes/' + recipeId).then(response => response.json());
+        fetch(FETCH_URL + 'recipes/' + recipeId).then(response => response.json());
 
     findAllRecipes = () =>
-        fetch(FETCH_URL + '/recipes/').then(response => response.json());
+        fetch(FETCH_URL + 'recipes/').then(response => response.json());
 
     findRecipesByIngredients=(ingredient)=>
-        fetch(FETCH_URL + '/ingredients/' + ingredient+'/recipes').then(response => response.json());
+        fetch(FETCH_URL + 'ingredients/' + ingredient+'/recipes').then(response => response.json());
 }
