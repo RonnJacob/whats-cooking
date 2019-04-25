@@ -31,6 +31,8 @@ export default class RecipeCard extends React.Component{
 
     handleShowLoggedOut = () => {
         if(this.props.loggedIn){
+            console.log(this.props.popularRecipe);
+            // console.log(this.props.popularRecipe._id);
             window.location.href
                 =`/recipes/${this.props.popularRecipe.idMeal?this.props.popularRecipe.idMeal:this.props.popularRecipe._id}`;
         }

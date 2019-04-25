@@ -45,7 +45,7 @@ class RecipeDetails extends Component {
         let defaultButtonIcon = [];
         if (obj.user[0].userType === 'REGULAR') {
             defaultButtonIcon = ['far', 'heart'];
-            defaultTooltip = 'Favorite this Recipe!'
+            defaultTooltip = '  Favorite this Recipe!'
         } else {
             defaultButtonIcon = ['far', 'thumbs-up'];
             defaultTooltip = 'Endorse this Recipe!'
