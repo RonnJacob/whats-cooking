@@ -8,14 +8,15 @@ import './Ingredients.css'
 import AddIngredient from './AddIngredient'
 import IngredientService from '../../services/IngredientServices'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlus, faTimes, faPencilAlt, faCheck} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faTimes, faPencilAlt, faCheck, faExclamation} from "@fortawesome/free-solid-svg-icons";
 import {library} from "../../../node_modules/@fortawesome/fontawesome-svg-core";
 import {BrowserRouter as Router, Link, Route, Redirect} from "react-router-dom";
 import HomePageNav from '../HomePageNav/HomePageNav'
 import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
+import {Button, Modal} from "react-bootstrap";
 
-library.add(faPlus, faTimes, faPencilAlt, faCheck);
+library.add(faPlus, faTimes, faPencilAlt, faCheck, faExclamation);
 
 class Ingredients extends Component {
     constructor(props) {
@@ -27,7 +28,9 @@ class Ingredients extends Component {
             user: obj.user[0],
             userId: obj.user[0]._id,
             updateIngredientName: '',
-            updatedFieldVisibility: 'd-none'
+            updatedFieldVisibility: 'd-none',
+            message: '',
+            messageBox: false
         };
         this.userServices = new UserServices();
     }
@@ -94,9 +97,11 @@ class Ingredients extends Component {
                     updatedFieldVisibility: 'd-none'
                 }))
             .then(() => {
-                alert('Ingredient Updated Successfully!');
-                window.location.href = `/ingredients`;
-            })
+                this.setState({
+                    message: 'Ingredient Updated Successfully!',
+                    messageBox: true});
+
+            });
     }
 
     selectForUpdate = (ingredient) => {
@@ -104,7 +109,15 @@ class Ingredients extends Component {
             updateIngredientName: ingredient.name,
             updateIngredientId: ingredient._id,
             updatedFieldVisibility: 'd-block'
-        })
+        });
+    };
+
+    handleCloseMessageBox = () => {
+        this.setState({
+            message: '',
+            messageBox: false});
+
+        window.location.href = `/ingredients`
     };
 
     deleteIngredient = (ingredientId) => {
@@ -115,8 +128,11 @@ class Ingredients extends Component {
                     ingredients: ingredients
                 }))
             .then(() => {
-                alert('Ingredient Deleted Successfully!');
-                window.location.href = `/ingredients`;
+                // alert('Ingredient Deleted Successfully!');
+                // window.location.href = `/ingredients`;
+                this.setState({
+                    message: 'Ingredient Deleted Successfully!',
+                    messageBox: true});
             });
     }
 
@@ -215,6 +231,17 @@ class Ingredients extends Component {
                         </div>
                     </div>
                 </section>
+                <Modal show={this.state.messageBox} onHide={this.handleCloseMessageBox}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Yay!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{this.state.message}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.handleCloseMessageBox}>
+                            Ok
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 <footer className="footer-area">
                     <div className="footer-bottom-wrap">
                         <div className="container">

@@ -27,6 +27,7 @@ import NutritionistServices from "../../services/NutritionistServices";
 import ChefServices from "../../services/ChefServices";
 import {getFromStorage} from "../../utils/storage";
 import MealDBServices from "../../services/MealDBServices";
+import {Button, Modal} from "react-bootstrap";
 
 library.add(faPlus, faTimes, faPencilAlt, faCheck, emptyHeart, solidHeart, solidThumbsUp, emptyThumbsUp, faUtensils, faMedkit);
 
@@ -65,7 +66,9 @@ class RecipeDetails extends Component {
             updatedFieldVisibility: 'd-none',
             defaultButtonIcon: defaultButtonIcon,
             defaultActionTooltip: defaultTooltip,
-            isActioned: false
+            isActioned: false,
+            message: '',
+            messageBox: false
         }
     }
 
@@ -257,8 +260,19 @@ class RecipeDetails extends Component {
             recipe[`${this.state.detail}`] = this.state.updateValue;
         this.recipeService.updateRecipe(this.state.recipeId, recipe)
             .then(() => this.renderAllFields('', '', 'd-none'))
-            .then(() => alert('Recipe Updated Successfully!'))
-    }
+            .then(() => {
+                this.setState({
+                    message: 'Recipe updated successfully',
+                    messageBox: true
+                })
+            })
+    };
+
+    handleCloseMessageBox = () => {
+        this.setState({
+            message: '',
+            messageBox: false});
+    };
 
     selectNameForUpdate = (recipeName) => this.renderAllFields(recipeName, 'name', 'd-block')
 
@@ -457,6 +471,17 @@ class RecipeDetails extends Component {
                         </div>
                     </div>
                 </section>
+                <Modal show={this.state.messageBox} onHide={this.handleCloseMessageBox}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Yay!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{this.state.message}</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={this.handleCloseMessageBox}>
+                            Ok
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 <footer className="footer-area">
                     <div className="footer-bottom-wrap">
                         <div className="container">
