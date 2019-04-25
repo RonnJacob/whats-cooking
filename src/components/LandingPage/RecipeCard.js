@@ -115,13 +115,10 @@ export default class RecipeCard extends React.Component{
 
                 <Modal show={this.state.showRecipeDetail} onHide={this.handleCloseRecipeModal}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Sorry</Modal.Title>
+                        <Modal.Title>Yikes!</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Yikes! You have to register or be logged in to view the recipe details.</Modal.Body>
+                    <Modal.Body>You have to be registered or logged in to view the recipe.</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleCloseRecipeModal}>
-                            Close
-                        </Button>
                         <Button variant="danger" onClick={this.handleCloseRecipeModal}>
                             Got it
                         </Button>
