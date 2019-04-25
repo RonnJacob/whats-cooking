@@ -3130,9 +3130,33 @@ h6 {
     background: transparent;
     border: 1px solid #ffb606
 }
+.template-btn123 {
+    color: #131230;
+    background: #ffb606;
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 12px 30px !important;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all 0.5s
+}
+.template-btn123:hover {
+    color: #131230;
+
+    border: 1px solid #ffb606
+}
 
 .template-btn2:hover {
     color: #ffb606
+}
+
+.template-btn22:hover {
+    color: black
 }
 
 .template-btn3 {

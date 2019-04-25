@@ -33,6 +33,19 @@ export default class NutritionistServices {
         })
     };
 
+    updateProfile = (nutritionist,_id) =>
+        fetch(FETCH_URL+"nutritionist/"+_id, {
+            method : 'put',
+            body : JSON.stringify(nutritionist),
+            headers : {
+                'content-type' : 'application/json'
+            }
+
+        }).then(response=> {
+            return response.json()
+        })
+
+
     findEndorsedRecipes = (userID) => {
         return fetch(FETCH_URL + 'nutritionist/' + userID+'/recipes')
             .then(function(response){

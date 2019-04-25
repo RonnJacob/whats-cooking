@@ -415,32 +415,21 @@ class SearchRecipesByIngredients extends React.Component {
                                 </div>
                                 <div className="sorting mr-auto">
                                     <div className="pagination">
-                                        <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
-                                            className="fa fa-sort-alpha-asc"
-                                            aria-hidden="true"></i></a>
-                                        <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
-                                            className="fa fa-sort-alpha-desc"
-                                            aria-hidden="true"></i></a>
 
-                                        <a href="#" onClick={this.resetSort}>reset</a>
 
                                     </div>
                                 </div>
 
 
                                 <div className="pagination">
-                                    <a href="#" className="prev-arrow">
-                                        <i className="fa fa-long-arrow-left"
-                                           aria-hidden="true"></i>
-                                    </a>
-                                    <a href="#" className="active">1</a>
-                                    <a href="#">2</a>
-                                    <a href="#">3</a>
-                                    <a href="#" className="dot-dot"><i className="fa fa-ellipsis-h"
-                                                                       aria-hidden="true"></i></a>
-                                    <a href="#">6</a>
-                                    <a href="#" className="next-arrow"><i className="fa fa-long-arrow-right"
-                                                                          aria-hidden="true"></i></a>
+                                    <a href="#" className="prev-arrow head" onClick={this.sortAscend}><i
+                                        className="fa fa-sort-alpha-asc"
+                                        aria-hidden="true"></i></a>
+                                    <a href="#" className="next-arrow head" onClick={this.sortDescend}><i
+                                        className="fa fa-sort-alpha-desc"
+                                        aria-hidden="true"></i></a>
+
+                                    <a href="#" onClick={this.resetSort}>reset</a>
                                 </div>
                             </div>
 
@@ -451,7 +440,7 @@ class SearchRecipesByIngredients extends React.Component {
                                     <div className="row">
                                         {this.state.recipes && renderRecipes}
                                         <ul id="page-numbers" className="page-numbers">
-                                            {renderPageNumbers}
+                                            {/*{renderPageNumbers}*/}
                                         </ul>
                                     </div>
                                 </div>

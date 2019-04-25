@@ -6,10 +6,14 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import RegularUserServices from "../services/RegularUserServices";
 import ChefServices from "../services/ChefServices";
 import NutritionistServices from "../services/NutritionistServices";
+import {getFromStorage} from "../utils/storage";
 
 class Profile extends React.Component {
     constructor(props) {
         super(props);
+        const obj =  getFromStorage('project_april');
+
+
         this.userServices = new UserServices();
         this.regularUserServices = new RegularUserServices();
         this.chefServices = new ChefServices();
@@ -17,10 +21,24 @@ class Profile extends React.Component {
         const userId = props.match.params['userId'];
         const userType = props.match.params['userType'];
         this.state = {
+            loggedInUser: obj.user[0],
+            loggedInUserId: obj.user[0]._id,
             userId: userId,
             user: {regularUser: {}, chef: {}, nutritionist: {}},
-            userType: userType
+            userType: userType,
+            firstName:'',
+            lastName:'',
+            username:'',
+            password:'',
+            blogPost:'',
+            appointmentLink:''
         }
+        this.firstNameChanged= this.firstNameChanged.bind(this);
+        this.lastNameChanged= this.lastNameChanged.bind(this);
+        this.usernameChanged= this.usernameChanged.bind(this);
+        this.passwordChanged= this.passwordChanged.bind(this);
+        this.blogPostChanged= this.blogPostChanged.bind(this);
+        this.linkChanged= this.linkChanged.bind(this);
     }
 
     componentWillMount() {
@@ -56,8 +74,106 @@ class Profile extends React.Component {
             })
     }
 
+    firstNameChanged = (event) => {
+        this.setState(
+            {
+                firstName: event
+            });
+
+    }
+    lastNameChanged = (event) => {
+        this.setState(
+            {
+                lastName: event
+            });
+
+    }
+    usernameChanged = (event) => {
+        this.setState(
+            {
+                username: event
+            });
+
+    }
+    passwordChanged = (event) => {
+        this.setState(
+            {
+                password: event
+            });
+
+    }
+    blogPostChanged = (event) => {
+        this.setState(
+            {
+                blogPost: event
+            });
+
+    }
+    linkChanged = (event) => {
+        this.setState(
+            {
+                appointmentLink: event
+            });
+
+    }
+
+    updateProfile = (user) =>{
+
+        if(user.userType.toLowerCase()==="regularuser"){
+            this.userServices.updateProfile(user).then(
+                ()=>this.userServices.findById(user._id)
+                    .then(updatedUser=>
+                    {
+                        this.setState({
+                            user:updatedUser
+                        })
+                    }))
+        }
+        else if(user.userType.toLowerCase()==="chef") {
+            this.chefServices.updateProfile(user.chef, user._id)
+                .then(
+                    this.userServices.updateProfile(user).then(
+                        () => this.userServices.findById(user._id)
+                            .then(updatedUser => {
+                                this.setState({
+                                    user: updatedUser
+                                })
+                            }))
+                )
+        }
+        else if(user.userType.toLowerCase()==="nutritionist") {
+            this.nutritionistServices.updateProfile(user.nutritionist, user._id)
+                .then(
+                    this.userServices.updateProfile(user).then(
+                        () => this.userServices.findById(user._id)
+                            .then(updatedUser => {
+                                this.setState({
+                                    user: updatedUser
+                                })
+                            }))
+                )
+        }
+    }
+
+    resetForm = () =>{
+
+                    this.setState({
+                        firstName:'',
+                        lastName:'',
+                        username:'',
+                        password:'',
+                        blogPost:'',
+                        appointmentLink:''
+                    })
+
+    }
     render() {
-        let updatedName;
+        let firstName;
+        let lastName;
+        let username;
+        let password;
+        let blogPost;
+        let link;
         return (
             <div>
                 <div>
@@ -95,18 +211,63 @@ class Profile extends React.Component {
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td className="name-theader">Name</td>
-                                                <td className="actions-theader">{this.state.user.firstName}
+                                            {this.state.user._id===this.state.loggedInUserId && <tr>
+                                                <td className="name-theader">Username</td>
+                                                <td className="actions-theader">
+                                                    {/*{this.state.user.username}*/}
+                                                    <input onChange={e => this.usernameChanged(e.target.value)}  ref={node => username = node} className="form-control " id="firstName"
+                                                           placeholder="alice"
+                                                           value={this.state.username?this.state.username:this.state.user.username} disabled/>
+                                                </td>
+                                            </tr>}
+                                            {this.state.user._id===this.state.loggedInUserId && <tr>
+                                                <td className="name-theader">Password</td>
+                                                <td className="actions-theader">
+                                                    {/*{this.state.user.password}*/}
+                                                    <input onChange={e => this.passwordChanged(e.target.value)}  ref={node => password = node} className="form-control " id="firstName"
+                                                           placeholder="D7h!k9"
+                                                           value={this.state.password?this.state.password:this.state.user.password}/>
+                                                </td>
+                                            </tr>}
+                                             <tr className={"form-group"}>
+                                                <td className="name-theader">First Name</td>
+                                                <td className="actions-theader">
+
+                                                    {this.state.user._id!==this.state.loggedInUserId && this.state.user.firstName}
+                                                    {this.state.user._id===this.state.loggedInUserId && <input onChange={e => this.firstNameChanged(e.target.value)}  ref={node => firstName = node} className="form-control " id="firstName"
+                                                           placeholder="Alice"
+                                                           value={this.state.firstName?this.state.firstName:this.state.user.firstName}/>}
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td className="name-theader">Last Name</td>
+                                                <td className="actions-theader">
+                                                    {this.state.user._id!==this.state.loggedInUserId && this.state.user.lastName}
+                                                    {this.state.user._id===this.state.loggedInUserId && <input onChange={e => this.lastNameChanged(e.target.value)}  ref={node => lastName = node} className="form-control " id="firstName"
+                                                           placeholder="Wonder"
+                                                           value={this.state.lastName?this.state.lastName:this.state.user.lastName}/>}
+                                                </td>
+                                            </tr>
+                                            {this.state.user._id===this.state.loggedInUserId && <tr>
+                                                <td className="name-theader">Privilege</td>
+                                                <td className="actions-theader"><input className="form-control"
+                                                                                       id="username" value={this.state.user.userType}
+                                                                                       disabled/>
+                                                </td>
+                                            </tr>}
                                             {
                                                 this.state.userType === 'CHEF' &&
                                                 <tr>
                                                     <td className="name-theader">Blogpost</td>
-                                                    <td className="actions-theader"><a
+                                                    <td className="actions-theader">
+                                                        {this.state.user._id===this.state.loggedInUserId &&  <input onChange={e => this.blogPostChanged(e.target.value)}  ref={node => blogPost = node} className="form-control " id="firstName"
+                                                               placeholder="https://blogpost.com"
+                                                               value={this.state.blogPost?this.state.blogPost:this.state.user.chef.blogPost}/>}
+                                                        {this.state.user._id!==this.state.loggedInUserId &&  <a
                                                         href={this.state.user.chef.blogPost}>
-                                                        {this.state.user.chef.blogPost}</a>
+                                                        {/*{this.state.user.chef.blogPost}*/}
+
+                                                    </a>}
                                                     </td>
                                                 </tr>
                                                 ||
@@ -114,12 +275,97 @@ class Profile extends React.Component {
                                                 <tr>
                                                     <td className="name-theader">AppointmentLink</td>
                                                     <td className="actions-theader">
-                                                        <a href={this.state.user.nutritionist.appointmentLink}>
-                                                            {this.state.user.nutritionist.appointmentLink}</a>
+                                                        {this.state.user._id!==this.state.loggedInUserId && <a href={this.state.user.nutritionist.appointmentLink}>
+                                                            {this.state.user.nutritionist.appointmentLink}</a>}
+
+                                                        {this.state.user._id===this.state.loggedInUserId && <input onChange={e => this.linkChanged(e.target.value)}  ref={node => link = node} className="form-control " id="firstName"
+                                                               placeholder="https://appointmentLink.com"
+                                                               value={this.state.link?this.state.link:this.state.user.nutritionist?this.state.user.nutritionist.appointmentLink:''}/>}
                                                     </td>
+
                                                 </tr>
+
                                             }
+                                            {this.state.user._id===this.state.loggedInUserId && <tr>
+
+
+   <td className="table-btn text-center" style={{border:"0px solid black"}}>
+            {/*<button href="#" className="template-btn template-btn2 mt-4"*/}
+            {/*onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</button>*/}
+       <a href="#" className="template-btn123 template-btn22 mt-4" id="login_user"
+               style={{color: 'black',background:'lightgrey'}} onClick={() => {
+
+                this.resetForm();
+
+            }
+
+            }>Reset
+            </a>
+
+        </td>
+    <td   className="table-btn text-center" style={{border:"0px solid black"}}>
+
+        <a className="primary-btn text-uppercase mt-20" id="login_user"
+           style={{color: 'white'}} onClick={() => {
+            let u = {}
+            if(this.state.user.userType.toLowerCase()==="regularuser") {
+
+                u = {
+                    _id: this.state.user._id,
+                    password: this.state.password != "" ? this.state.password : this.state.user.password,
+                    username: this.state.user.username,
+                    firstName: this.state.firstName != "" ? this.state.firstName : this.state.user.firstName,
+                    lastName: this.state.lastName != "" ? this.state.lastName : this.state.user.lastName,
+                    userType: this.state.user.userType,
+                    regularUser: {
+                        favoriteRecipes: this.state.user.regularUser.favoriteRecipes,
+                        ownedRecipes: this.state.user.regularUser.ownedRecipes,
+                        ingredients: this.state.user.regularUser.ingredients
+                    }
+                }
+            }
+            else if(this.state.user.userType.toLowerCase()==="chef") {
+                u = {
+                    _id: this.state.user._id,
+                    password: this.state.password != "" ? this.state.password : this.state.user.password,
+                    username: this.state.user.username,
+                    firstName: this.state.firstName != "" ? this.state.firstName : this.state.user.firstName,
+                    lastName: this.state.lastName != "" ? this.state.lastName : this.state.user.lastName,
+                    userType: this.state.user.userType,
+                    chef: {
+                        endorsedRecipes: this.state.user.chef.favoriteRecipes,
+                        ownedRecipes: this.state.user.chef.ownedRecipes,
+                        blogPost: this.state.blogPost != "" ? this.state.blogPost : this.state.user.chef.blogPost
+                    }
+                }
+            }
+            else if(this.state.user.userType.toLowerCase()==="nutritionist") {
+                u = {
+                    _id: this.state.user._id,
+                    password: this.state.password !== "" ? this.state.password : this.state.user.password,
+                    username: this.state.user.username,
+                    firstName: this.state.firstName !== "" ? this.state.firstName : this.state.user.firstName,
+                    lastName: this.state.lastName !== "" ? this.state.lastName : this.state.user.lastName,
+                    userType: this.state.user.userType,
+                    nutritionist: {
+                        endorsedRecipes: this.state.user.nutritionist.favoriteRecipes,
+                        appointmentLink: this.state.link !== "" ? this.state.link : this.state.user.nutritionist.appointmentLink
+                    }
+                }
+            }
+
+            this.updateProfile(u);
+
+        }
+
+        }>Update
+        </a>
+    </td>
+
+
+</tr>}
                                             </tbody>
+
                                         </table>
                                     </div>
                                 </div>

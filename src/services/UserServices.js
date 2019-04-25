@@ -21,6 +21,18 @@ export default class UserServices {
             );
     };
 
+    updateProfile = (user) =>
+        fetch(FETCH_URL+"user/"+user._id, {
+            method : 'put',
+            body : JSON.stringify(user),
+            headers : {
+                'content-type' : 'application/json'
+            }
+
+        }).then(response=> {
+                return response.json()
+        })
+
     loginUser = (username, password) => {
         return fetch(FETCH_URL + 'login', {
             method: 'POST',

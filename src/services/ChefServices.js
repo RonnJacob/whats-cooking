@@ -13,6 +13,18 @@ export default class ChefServices {
         }).then(res => console.log(res));
     };
 
+    updateProfile = (chef,_id) =>
+        fetch(FETCH_URL+"chef/"+_id, {
+            method : 'put',
+            body : JSON.stringify(chef),
+            headers : {
+                'content-type' : 'application/json'
+            }
+
+        }).then(response=> {
+            return response.json()
+        })
+
     findById = userID => fetch(FETCH_URL + 'chef/' + userID)
         .then(response => response.json());
 
@@ -28,6 +40,8 @@ export default class ChefServices {
                 return response.json();
             });
     }
+
+
     endorseRecipe = (userId, recipeId) => {
         return fetch(FETCH_URL + 'chef/' + userId + '/recipes/' + recipeId, {
             method: 'POST',

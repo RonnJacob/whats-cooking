@@ -3942,4 +3942,15 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #f47d41;
 }
 
+
+#outer
+{
+  width:100%;
+  text-align: center !important;
+}
+.inner
+{
+  display: inline-block !important;
+}
+
 /*# sourceMappingURL=main.css.map */
