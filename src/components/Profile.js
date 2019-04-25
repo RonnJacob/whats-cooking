@@ -385,18 +385,6 @@ class Profile extends React.Component {
                             </div>
                         </div>
                     </section>
-                    <footer className="footer-area">
-                        <div className="footer-bottom-wrap">
-                            <div className="container">
-                                <div className="row footer-bottom d-flex justify-content-between align-items-center">
-                                    <p className="col-lg-8 col-mdcol-sm-6 -6 footer-text m-0">
-                                        Copyright &copy;
-                                        <script>document.write(new Date().getFullYear());</script>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </footer>
                 </div>
             </div>
         );

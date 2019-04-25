@@ -6,6 +6,7 @@ import '../../assets/landingpage/css/sidebar.css'
 import '../Explore/Explore.css'
 import MealDBServices from "../../services/MealDBServices";
 import RecipeServices from "../../services/RecipeServices";
+import {getFromStorage} from "../../utils/storage";
 
 class SearchRecipesByIngredients extends React.Component {
     constructor(props) {
@@ -24,14 +25,24 @@ class SearchRecipesByIngredients extends React.Component {
 
     componentWillMount() {
         document.title = "Find Recipes";
-        this.regularUserServices.findOwnIngredients(this.state.userId)
-            .then(ingredients => {
-                this.setState
-                ({
-                    ingredients: ingredients
-                })
+        const obj = getFromStorage('project_april');
+        if (obj && obj.token) {
+            const { token } = obj;
+            this.userServices.verifyUser(token).then(json => {
+                if(!json.success){
+                    window.location.href='/';
+                }
+                else if(json.success){
+                    this.regularUserServices.findOwnIngredients(this.state.userId)
+                        .then(ingredients => {
+                            this.setState
+                            ({
+                                ingredients: ingredients
+                            })
+                        });
+                }
             });
-        console.log("Ingredientsssssss" + this.state.ingredients)
+        }
     }
 
     componentDidMount() {
@@ -127,7 +138,6 @@ class SearchRecipesByIngredients extends React.Component {
                 return foundRecipes;
                 }
             ).then(recipes => {
-                alert(recipes.length);
                 this.setState({
                     recipes: recipes
                 })

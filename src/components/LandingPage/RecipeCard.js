@@ -12,12 +12,18 @@ export default class RecipeCard extends React.Component{
 
         this.state = {
             show: false,
+            showRecipeDetail: false
         };
     }
 
     handleClose=()=> {
         this.setState({ show: false });
     };
+
+    handleCloseRecipeModal=()=> {
+        this.setState({ showRecipeDetail: false });
+    };
+
 
     handleCloseDelete=()=> {
         this.setState({ show: false });
@@ -31,13 +37,15 @@ export default class RecipeCard extends React.Component{
 
     handleShowLoggedOut = () => {
         if(this.props.loggedIn){
+            console.log(this.props.popularRecipe);
+            // console.log(this.props.popularRecipe._id);
             window.location.href
                 =`/recipes/${this.props.popularRecipe.idMeal?this.props.popularRecipe.idMeal:this.props.popularRecipe._id}`;
         }
         else{
             // window.location.href
             //     =`/recipes/${this.props.popularRecipe.idMeal?this.props.popularRecipe.idMeal:this.props.popularRecipe._id}`;
-            alert('Please register or login to view recipe details');
+            this.setState({showRecipeDetail: true});
         }
     };
 
@@ -104,20 +112,19 @@ export default class RecipeCard extends React.Component{
                     </Modal.Footer>
                 </Modal>
 
-                {/*<Modal show={this.state.show && !this.props.loggedIn} onHide={this.handleClose}>*/}
-                    {/*<Modal.Header closeButton>*/}
-                        {/*<Modal.Title>You are not logged in!</Modal.Title>*/}
-                    {/*</Modal.Header>*/}
-                    {/*<Modal.Body>Login Fool</Modal.Body>*/}
-                    {/*<Modal.Footer>*/}
-                        {/*<Button variant="secondary" onClick={this.handleClose}>*/}
-                            {/*Close*/}
-                        {/*</Button>*/}
-                        {/*<Button variant="danger" onClick={this.handleCloseDelete}>*/}
-                            {/*Login*/}
-                        {/*</Button>*/}
-                    {/*</Modal.Footer>*/}
-                {/*</Modal>*/}
+
+                <Modal show={this.state.showRecipeDetail} onHide={this.handleCloseRecipeModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Yikes!</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>You have to be registered or logged in to view the recipe.</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="danger" onClick={this.handleCloseRecipeModal}>
+                            Got it
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
             </div>
         </div>
         );

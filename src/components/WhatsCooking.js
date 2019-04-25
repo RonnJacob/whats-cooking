@@ -18,7 +18,12 @@ import AddIngredient from "./ingredients/AddIngredient";
 import Ingredients from "./ingredients/Ingredients";
 import Profile from "./Profile";
 import AddRecipe from "./recipes/AddRecipe";
+
 import EndorsedRecipesNutritionist from "./recipes/EndorsedRecipesNutritionist";
+
+import RecipeServices from "../services/RecipeServices";
+import {getFromStorage} from "../utils/storage";
+
 
 
 class WhatsCooking extends Component{
@@ -26,6 +31,7 @@ class WhatsCooking extends Component{
         super(props);
         this.mealDBServices = new MealDBServices();
         this.ingredientService = new IngredientServices();
+        this.recipeService = new RecipeServices();
         this.state = {
             popularRecipes: []
         };
@@ -48,7 +54,6 @@ class WhatsCooking extends Component{
                     ingredients: ingredients
                 }))
             .then(() => {
-                alert('Ingredient Added Successfully!');
                 window.location.href = `/ingredients`
             })
     };
@@ -56,8 +61,9 @@ class WhatsCooking extends Component{
     addRecipe = (recipe) => {
         this.recipeService.addRecipe(recipe)
             .then(() => {
-                alert('Recipe Added Successfully!')
-                window.location.href = `/user/${this.state.userId}/myrecipes`
+                // alert('Recipe Added Successfully!');
+                const obj = getFromStorage('project_april');
+                window.location.href = `/user/${obj.user[0]._id}/myrecipes`
             })
     };
 

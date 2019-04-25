@@ -39,8 +39,10 @@ class HomePage extends  Component {
         if (obj && obj.token) {
             const { token } = obj;
             this.userServices.verifyUser(token).then(json => {
-                    console.log(json);
-                    if (json.success) {
+                    if(!json.success){
+                        window.location.href='/';
+                    }
+                    else if (json.success) {
                         this.ingredientService.findIngredientsByUser(obj.user[0]._id)
                             .then(ingredients => {
                                 // alert("updated"+courses.length)
@@ -51,48 +53,12 @@ class HomePage extends  Component {
                                 })
                             });
                     }
+                    else{
+
+                    }
                 });
         }
     }
-
-    // addIngredient = (ingredient) => {
-    //     this.ingredientService.addIngredient(ingredient)
-    //         .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
-    //         .then(ingredients =>
-    //             this.setState({
-    //                 ingredients: ingredients
-    //             }))
-    //         .then(() => {
-    //             alert('Ingredient Added Successfully!');
-    //             window.location.href = `/ingredients/${this.state.userId}`
-    //         })
-    // };
-
-    addIngredient = (ingredient) => {
-        this.ingredientService.addIngredient(ingredient)
-            .then(() => this.ingredientService.findIngredientsByUser(this.state.userId))
-            .then(ingredients =>
-                this.setState({
-                    ingredients: ingredients
-                }))
-            .then(() => {
-                alert('Ingredient Added Successfully!');
-                window.location.href = `/ingredients`
-            })
-    };
-
-    addRecipe = (recipe) => {
-        this.recipeService.addRecipe(recipe)
-            .then(() => {
-                alert('Recipe Added Successfully!')
-                window.location.href = `/user/${this.state.userId}/myrecipes`
-            })
-    };
-
-    deleteIngredient = (recipeId) => {
-        this.recipeService.deleteRecipe(recipeId)
-            .then(() => alert('Recipe Deleted Successfully!'))
-    };
 
 
 
@@ -117,39 +83,6 @@ class HomePage extends  Component {
     render(){
         return (
             <div id="home-page">
-                <Router>
-                    {/*<Route path='/ingredients/:userId' exact*/}
-                           {/*component={(props) =>*/}
-                               {/*<Ingredients*/}
-                                   {/*ingredients={this.state.ingredients}*/}
-                                   {/*{...props}/>}/>*/}
-
-                    <Route path="/addIngredient"
-                           render={() =>
-                               <AddIngredient
-                                   addIngredient={this.addIngredient}/>}/>
-                    {/*<Route path='/ingredients' exact*/}
-                           {/*component={(props) =>*/}
-                               {/*<Ingredients*/}
-                                   {/*ingredients={this.state.ingredients}*/}
-                                   {/*{...props}/>}/>*/}
-                    <Route path="/addIngredient"
-                           render={() =>
-                               <AddIngredient
-                                   addIngredient={this.addIngredient}
-                                   userId={this.state.user._id}/>}/>
-                    <Route path="/addRecipe"
-                           render={() =>
-                               <AddRecipe
-                                   addRecipe={this.addRecipe}
-                                   userId={this.state.userId}/>}/>
-                    <Route path="/recipes/:recipeId"
-                           component={(props) =>
-                               <RecipeDetails
-                                   userType={this.state.user.userType}
-                                   {...props}/>}/>
-
-                </Router>
                 <div id="header">
                         <HomePageNav user={this.state.user} logOut={this.logOut}/>
                 </div>
