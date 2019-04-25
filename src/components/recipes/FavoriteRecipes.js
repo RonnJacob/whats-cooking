@@ -6,6 +6,7 @@ import '../../assets/landingpage/css/sidebar.css'
 import '../Explore/Explore.css'
 import MealDBServices from "../../services/MealDBServices";
 import {Link} from "react-router-dom";
+import {NoResults} from "../LandingPage/NoResults";
 
 class FavoriteRecipes extends React.Component {
     constructor(props) {
@@ -286,33 +287,33 @@ class FavoriteRecipes extends React.Component {
     };
 
     render() {
-        const {recipes, currentPage, recipesPerPage} = this.state;
-        const recipesF = this.state.fav;
-        // Logic for displaying todos
-        const indexOfLastRecipe = currentPage * recipesPerPage;
-        const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-        const currentRecipes = recipesF.slice(indexOfFirstRecipe, indexOfLastRecipe);
-
-        const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
-        });
-
-        // Logic for displaying page numbers
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(recipesF.length / recipesPerPage); i++) {
-            pageNumbers.push(i);
-        }
-
-        const renderPageNumbers = pageNumbers.map(number => {
-            return (
-                <li className='horizontal-li'
-                    key={number}
-                    id={number}
-                    onClick={this.handleClick}>
-                    &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
-                </li>
-            );
-        });
+        // const {recipes, currentPage, recipesPerPage} = this.state;
+        // const recipesF = this.state.fav;
+        // // Logic for displaying todos
+        // const indexOfLastRecipe = currentPage * recipesPerPage;
+        // const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
+        // const currentRecipes = recipesF.slice(indexOfFirstRecipe, indexOfLastRecipe);
+        //
+        // const renderRecipes = currentRecipes.map(recipe => {
+        //     return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
+        // });
+        //
+        // // Logic for displaying page numbers
+        // const pageNumbers = [];
+        // for (let i = 1; i <= Math.ceil(recipesF.length / recipesPerPage); i++) {
+        //     pageNumbers.push(i);
+        // }
+        //
+        // const renderPageNumbers = pageNumbers.map(number => {
+        //     return (
+        //         <li className='horizontal-li'
+        //             key={number}
+        //             id={number}
+        //             onClick={this.handleClick}>
+        //             &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
+        //         </li>
+        //     );
+        // });
 
         return (
 
@@ -375,10 +376,17 @@ class FavoriteRecipes extends React.Component {
 
                                 <div className="container">
                                     <div className="row">
-                                        {this.state.fav && renderRecipes}
-                                        {/*<ul id="page-numbers" className="page-numbers">*/}
-                                            {/*{renderPageNumbers}*/}
-                                        {/*</ul>*/}
+
+
+                                        {
+
+                                            (this.state.recipes)
+                                            &&(this.state.recipes.map(recipe =>
+                                                    <RecipeCard popularRecipe={recipe}/>)
+
+
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
