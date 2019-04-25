@@ -127,7 +127,6 @@ class SearchRecipesByIngredients extends React.Component {
                 return foundRecipes;
                 }
             ).then(recipes => {
-                alert(recipes.length);
                 this.setState({
                     recipes: recipes
                 })
