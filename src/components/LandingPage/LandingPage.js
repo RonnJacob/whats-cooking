@@ -156,7 +156,7 @@ class LandingPage extends Component {
                             {
                                 this.state.popularRecipes.meals &&
                                 this.state.popularRecipes.meals.map(recipe =>
-                                    <RecipeCard popularRecipe={recipe} loggedIn={false}/>
+                                    <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"} loggedIn={false}/>
                                 )
                             }
                         </div>

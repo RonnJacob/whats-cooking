@@ -278,7 +278,7 @@ class MyRecipes extends React.Component {
         const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = currentRecipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe}
+            return <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"}
                                deleteRecipe={this.deleteRecipe} loggedIn={true}/>
         });
 
@@ -294,7 +294,7 @@ class MyRecipes extends React.Component {
                     key={number}
                     id={number}
                     onClick={this.handleClick}>
-                    &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
+                    &nbsp;&nbsp;&nbsp;<label className='hover-underline'></label>
                 </li>
             );
         });
@@ -424,10 +424,16 @@ class MyRecipes extends React.Component {
                                     </div>
                                 </div>
                                 <Link to="/addRecipe" id="addRecipe"> <span
-                                    className="fa-stack wd-bottom-right hand-cursor"> <FontAwesomeIcon
-                                    icon="plus"
-                                    className="fas fa-2x hand-cursor" data-tip='Add Recipe'/>
-			</span></Link>
+                                    className="fa-stack wd-bottom-right hand-cursor"> <i title="Add Recipe" className="fa fa-plus-circle fa-4x"
+                                                                                         aria-hidden="true"/>
+
+                                                                                         {/*<FontAwesomeIcon*/}
+                                    {/*icon="plus"*/}
+                                    {/*className="fas fa-2x hand-cursor" data-tip='Add Recipe'/>*/}
+			                    </span></Link>
+
+
+
                             </div>
                         </div>
                     </div>

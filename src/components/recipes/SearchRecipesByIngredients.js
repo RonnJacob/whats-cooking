@@ -298,7 +298,7 @@ class SearchRecipesByIngredients extends React.Component {
         const currentRecipes = recipes.slice(indexOfFirstRecipe, indexOfLastRecipe);
 
         const renderRecipes = this.state.recipes.map(recipe => {
-            return <RecipeCard popularRecipe={recipe}
+            return <RecipeCard recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"} popularRecipe={recipe}
                                deleteRecipe={this.deleteRecipe}
                                loggedIn={true}/>
         });

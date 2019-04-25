@@ -28,7 +28,7 @@ export const PopularRecipes = ({popularRecipes}) => {
                         {
                             popularRecipes &&
                             popularRecipes.map(recipe =>
-                                <RecipeCard popularRecipe={recipe} loggedIn={false}/>
+                                <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"} loggedIn={false}/>
                             )
 
                         }
