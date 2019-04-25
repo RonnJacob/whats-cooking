@@ -65,10 +65,9 @@ class FavoriteRecipes extends React.Component {
 
 
                             }).then(() => {
-                            //alert(finalFavorites.length)
                             this.setState({
                                 recipes: favorites
-                            })
+                            });
                         });
                     }
                 })
@@ -100,6 +99,8 @@ class FavoriteRecipes extends React.Component {
                         this.mealDBServices.findRecipeById(recipeId)
                             .then(recipeFromAPI => {
                                 let recipeFound = {};
+                                recipeFound._id=recipeFromAPI.meals[0].idMeal;
+                                recipeFound.id=recipeFromAPI.meals[0].idMeal;
                                 recipeFound.name = recipeFromAPI.meals[0].strMeal
                                 recipeFound.ingredients = recipeFromAPI.meals[0].strIngredient1 + ',' +
                                     recipeFromAPI.meals[0].strIngredient2 + ',' +
@@ -234,6 +235,8 @@ class FavoriteRecipes extends React.Component {
                         this.mealDBServices.findRecipeById(recipeId)
                             .then(recipeFromAPI => {
                                 let recipeFound = {};
+                                recipeFound._id=recipeFromAPI.meals[0].idMeal;
+                                recipeFound.id=recipeFromAPI.meals[0].idMeal;
                                 recipeFound.name = recipeFromAPI.meals[0].strMeal
                                 recipeFound.ingredients = recipeFromAPI.meals[0].strIngredient1 + ',' +
                                     recipeFromAPI.meals[0].strIngredient2 + ',' +
