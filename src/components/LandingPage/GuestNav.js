@@ -1,7 +1,7 @@
 import React from 'react'
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap'
 import './GuestNav.css'
-const GuestNav = ({user, logOut}) =>
+const GuestNav = ({user, loggedIn, logOut}) =>
 
         <div>
             {/*<Navbar id="transparent-navbar"*/}
@@ -41,15 +41,15 @@ const GuestNav = ({user, logOut}) =>
 
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
-                         {user.firstName ?
+                         {loggedIn ?
                             <Nav.Link style={{color:'white', fontWeight: 'bold'}} href="/home">Home</Nav.Link>:
                             <Nav.Link style={{color:'white', fontWeight: 'bold'}} href="/">Home</Nav.Link>}
                     </Nav>
                     <Nav>
                         <Nav.Link style={{color:'white', fontWeight: 'bold'}} eventKey={2} href="/login">
-                        {user.firstName ? user.firstName:'Log in'}
+                        {loggedIn ? user.firstName:'Log in'}
                         </Nav.Link>
-                        {user.firstName ?
+                        {loggedIn ?
                         <Nav.Link style={{color:'white', fontWeight: 'bold'}} href="/" onClick={logOut}>Sign Out</Nav.Link>:
                         <Nav.Link style={{color:'white', fontWeight: 'bold'}} href="/register">Sign up</Nav.Link>}
                     </Nav>

@@ -25,7 +25,6 @@ import RecipeServices from "../services/RecipeServices";
 import {getFromStorage} from "../utils/storage";
 
 
-
 class WhatsCooking extends Component{
     constructor(props){
         super(props);

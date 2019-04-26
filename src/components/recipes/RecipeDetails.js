@@ -68,7 +68,8 @@ class RecipeDetails extends Component {
             defaultActionTooltip: defaultTooltip,
             isActioned: '',
             message: '',
-            messageBox: false
+            messageBox: false,
+            loggedIn: false
         }
     }
 
@@ -84,7 +85,8 @@ class RecipeDetails extends Component {
                     // alert("updated"+courses.length)
                     this.setState({
                         token,
-                        user: obj.user[0]
+                        user: obj.user[0],
+                        loggedIn: true
                     });
                 }
             }).then(()=>this.updateButtonStatus());
@@ -367,7 +369,6 @@ class RecipeDetails extends Component {
         return (
             <div>
                 <div id="header">
-                    {/*<HomePageNav/>*/}
                 </div>
                 <section className="about-banner relative">
                     <div className="overlay overlay-bg"></div>
@@ -377,13 +378,12 @@ class RecipeDetails extends Component {
                                 <h1 className="text-white">
                                     My Recipes
                                 </h1>
-                                <p className="text-white link-nav"><a href='/home'>Home </a>
-                                    <span className="lnr lnr-arrow-right">
-                                    </span>
+                                <p className="text-white link-nav"><a href='/home'></a>
                                     {/*TODO need to change the hyper link to my recipes*/}
-                                    <a href={`/user/${this.state.userId}/myrecipes`}>My Recipes</a>
+                                    {/*<a href={`/user/${this.state.userId}/myrecipes`}>My Recipes</a>*/}
+                                    <a onClick={()=>this.props.history.goBack()}>Back</a>
                                     <span
-                                        className="lnr lnr-arrow-right">
+                                        className="lnr lnr-arrow-left">
                                     </span>
                                     <a href={`/recipes/${this.state.recipeId}`}>Recipe Details</a>
                                 </p>
@@ -396,11 +396,13 @@ class RecipeDetails extends Component {
                         <h1 className="mb-5 text-center">Recipe Details
                             <span>&nbsp;&nbsp;<a className='hand-cursor'
                                                  onClick={this.toggleAction} data-tip={this.state.defaultActionTooltip}>
-                                {this.state.userType === 'REGULAR' && <FontAwesomeIcon
+                                {
+                                    this.state.loggedIn &&
+                                    (this.state.userType === 'REGULAR' && <FontAwesomeIcon
                                     icon={this.state.defaultButtonIcon}/>
                                 || (this.state.userType === 'CHEF' || this.state.userType === 'NUTRITIONIST') &&
                                 <FontAwesomeIcon
-                                    icon={this.state.defaultButtonIcon}/>
+                                    icon={this.state.defaultButtonIcon}/>)
                                 }</a></span>
                         </h1>
                         <div className="row">

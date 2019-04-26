@@ -366,9 +366,9 @@ class EndorsedRecipes extends React.Component {
                 </div>
 
                 <section className="header">
-                    <div className="row wrap">
+                    <div className="row">
 
-                        <div className="container">
+                        <div className="container-fluid">
                             <div className="filter-bar d-flex flex-wrap align-items-center">
                                 <div className="sorting">
 

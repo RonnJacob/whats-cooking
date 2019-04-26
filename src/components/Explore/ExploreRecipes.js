@@ -3,7 +3,6 @@ import React from 'react'
 import MealDBServices from "../../services/MealDBServices";
 import RecipeCard from "../LandingPage/RecipeCard";
 import GuestNav from "../LandingPage/GuestNav";
-import '../../assets/landingpage/css/sidebar.css'
 import FilterRecipes from "./FilterRecipes";
 import './Explore.css'
 import {getFromStorage} from "../../utils/storage";
@@ -12,6 +11,7 @@ import {NoResults} from "../LandingPage/NoResults";
 import {Link} from "react-router-dom";
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import RecipeServices from "../../services/RecipeServices";
+import '../../assets/landingpage/css/sidebar.css'
 
 class ExploreRecipes extends React.Component {
     constructor(props) {
@@ -55,6 +55,9 @@ class ExploreRecipes extends React.Component {
                 console.log(json);
                 if (json.success) {
                     let allRecipes = [];
+                    this.setState({
+                        loggedIn: true
+                    })
                     this.mealDBServices.findAllRecipes()
                         .then(recipes => {
                             recipes.meals.map(recipe => {
@@ -467,7 +470,7 @@ class ExploreRecipes extends React.Component {
             <div>
                 {/*<LandingPageHeader/>*/}
                 <div id="header">
-                    <GuestNav user={this.state.user} logOut={this.logOut}/>
+                    <GuestNav user={this.state.user} loggedIn={this.state.loggedIn} logOut={this.logOut}/>
                 </div>
                 <div>
                     <section className="table-area section-padding">
@@ -515,7 +518,7 @@ class ExploreRecipes extends React.Component {
                 </div>
 
                 <section className="header">
-                    <div className="row wrap">
+                    <div className="row">
                         <div className="col-4 d-xl-block d-lg-block d-md-block d-none">
                             <div className={"side-menu"}>
                                 <div className="">

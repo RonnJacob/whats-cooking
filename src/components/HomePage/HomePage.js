@@ -41,6 +41,7 @@ class HomePage extends  Component {
             this.userServices.verifyUser(token).then(json => {
                     if(!json.success){
                         window.location.href='/';
+                        console.log('loggedin');
                     }
                     else if (json.success) {
                         this.ingredientService.findIngredientsByUser(obj.user[0]._id)
