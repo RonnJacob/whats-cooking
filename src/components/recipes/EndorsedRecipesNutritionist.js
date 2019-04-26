@@ -45,9 +45,7 @@ class EndorsedRecipes extends React.Component {
         this.nutritionistServices.findEndorsedRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
-                        console.log("Inside the map Recipe = " + recipe.name)
                         endorsed = [...endorsed, recipe]
-                        console.log("Inside the map Array of recipes = " + endorsed.length)
                     }
                 )
             }).then(() => this.nutritionistServices.findEndorsedRecipeId(this.state.userId))
@@ -84,6 +82,11 @@ class EndorsedRecipes extends React.Component {
                             })
                         });
                     }
+                    else{
+                        this.setState({
+                            recipes: endorsed
+                        })
+                    }
                 })
 
             })
@@ -97,9 +100,9 @@ class EndorsedRecipes extends React.Component {
         this.nutritionistServices.findEndorsedRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
-                        console.log("Inside the map Recipe = " + recipe.name)
+                        // console.log("Inside the map Recipe = " + recipe.name)
                         endorsed = [...endorsed, recipe]
-                        console.log("Inside the map Array of recipes = " + endorsed.length)
+                        // console.log("Inside the map Array of recipes = " + endorsed.length)
                     }
                 )
             }).then(() => this.nutritionistServices.findEndorsedRecipeId(this.state.userId))
@@ -329,9 +332,9 @@ class EndorsedRecipes extends React.Component {
                 </div>
 
                 <section className="header">
-                    <div className="row wrap">
+                    <div className="row">
 
-                        <div className="container">
+                        <div className="container-fluid">
                             <div className="filter-bar d-flex flex-wrap align-items-center">
                                 <div className="sorting">
 
@@ -354,7 +357,7 @@ class EndorsedRecipes extends React.Component {
 
                             <div className="food-area " id={"food-area"}>
 
-                                <div className="container">
+                                <div className="container-fluid">
                                     <div className="row">
                                         {this.state.recipes && renderRecipes}
                                         <ul id="page-numbers" className="page-numbers">
