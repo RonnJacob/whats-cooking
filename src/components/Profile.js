@@ -5,6 +5,7 @@ import ChefServices from "../services/ChefServices";
 import NutritionistServices from "../services/NutritionistServices";
 import {getFromStorage} from "../utils/storage";
 import {Link} from "react-router-dom";
+import {Button, Modal} from "react-bootstrap";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -24,6 +25,8 @@ class Profile extends React.Component {
             userId: userId,
             user: {regularUser: {}, chef: {}, nutritionist: {}},
             userType: userType,
+            message: '',
+            messageBox: false,
             firstName: '',
             lastName: '',
             username: '',
@@ -122,7 +125,9 @@ class Profile extends React.Component {
                 () => this.userServices.findById(user._id)
                     .then(updatedUser => {
                         this.setState({
-                            user: updatedUser
+                            user: updatedUser,
+                            message: 'Profile has been updated.',
+                            messageBox: true
                         })
                     }))
         } else if (user.userType.toLowerCase() === "chef") {
@@ -132,7 +137,9 @@ class Profile extends React.Component {
                         () => this.userServices.findById(user._id)
                             .then(updatedUser => {
                                 this.setState({
-                                    user: updatedUser
+                                    user: updatedUser,
+                                    message: 'Profile has been updated.',
+                                    messageBox: true
                                 })
                             }))
                 )
@@ -143,7 +150,9 @@ class Profile extends React.Component {
                         () => this.userServices.findById(user._id)
                             .then(updatedUser => {
                                 this.setState({
-                                    user: updatedUser
+                                    user: updatedUser,
+                                    message: 'Profile has been updated.',
+                                    messageBox: true
                                 })
                             }))
                 )
@@ -161,7 +170,14 @@ class Profile extends React.Component {
             appointmentLink: ''
         })
 
-    }
+    };
+
+    handleCloseMessageBox = () => {
+        this.setState({
+            message: '',
+            messageBox: false
+        });
+    };
 
     render() {
         let firstName;
@@ -176,6 +192,17 @@ class Profile extends React.Component {
                     <div id="header">
                         {/*<HomePageNav/>*/}
                     </div>
+                    <Modal show={this.state.messageBox} onHide={this.handleCloseMessageBox}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Yay!</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>{this.state.message}</Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="primary" onClick={this.handleCloseMessageBox}>
+                                Ok
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
                     <section className="about-banner relative">
                         <div className="overlay overlay-bg"></div>
                         <div className="container">
