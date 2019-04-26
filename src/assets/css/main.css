@@ -2856,7 +2856,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .about-banner {
-  background: url(../img/top-banner.jpg) no-repeat bottom right/cover;
+  background: url(../../assets/landingpage/images/reservation-bg.jpg) no-repeat bottom right/cover;
   background-size: cover;
 }
 .about-banner .overlay-bg {

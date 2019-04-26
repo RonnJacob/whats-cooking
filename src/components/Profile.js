@@ -4,6 +4,7 @@ import RegularUserServices from "../services/RegularUserServices";
 import ChefServices from "../services/ChefServices";
 import NutritionistServices from "../services/NutritionistServices";
 import {getFromStorage} from "../utils/storage";
+import {Link} from "react-router-dom";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -180,12 +181,13 @@ class Profile extends React.Component {
                         <div className="container">
                             <div className="row d-flex align-items-center justify-content-center">
                                 <div className="about-content col-lg-12">
-                                    <h1 className="text-white">
-                                        Profile
-                                    </h1>
-                                    <p className="text-white link-nav"><a href="/home">Home </a> <span
-                                        className="lnr lnr-arrow-right"></span>
-                                        <a href="#">Profile</a></p>
+                                    <div className="section-top2 text-center">
+                                        <h3 style={{color:"white"}}>My <span>Profile</span></h3>
+                                        <p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Home </Link> <span
+                                            className="lnr lnr-arrow-right"></span>
+                                            <Link className="text-white link-nav" to={`/user/${this.state.user}/myrecipes`}>My Recipes</Link>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>

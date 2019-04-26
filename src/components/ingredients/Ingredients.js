@@ -151,16 +151,17 @@ class Ingredients extends Component {
                     <div className="container">
                         <div className="row d-flex align-items-center justify-content-center">
                             <div className="about-content col-lg-12">
-                                <h1 className="text-white">
-                                    Groceries
-                                </h1>
-                                <p className="text-white link-nav">
-                                    {/*<Link to="/home">Home </Link> */}
-                                    <a href="/home">Home </a>
-                                    <span className="lnr lnr-arrow-right">
-
-                                    </span>
-                                    <a href="/ingredients">Ingredients</a></p>
+                                <div className="row">
+                                    <div className="col-lg-12">
+                                        <div className="section-top2 text-center">
+                                            <h3 style={{color:"white"}}>My <span>Groceries</span></h3>
+                                            <p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Home </Link> <span
+                                                className="lnr lnr-arrow-right"></span>
+                                                <Link className="text-white link-nav" to={`/ingredients`}>Ingredients</Link>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,12 +224,12 @@ class Ingredients extends Component {
                                     <div className='row'>
                                         <Link to='/addIngredient'
                                               className='middle-div primary-btn text-uppercase mt-20'>
-                                            Add Ingredient</Link>
+                                            Add More</Link>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-lg-6 home-about-right">
-                                <img src={require('./about-img.jpg')} alt=""/>
+                                <img width="500px" src={require('../../assets/img/pexels-photo-1327211.jpeg')} alt=""/>
                             </div>
 
                         </div>
