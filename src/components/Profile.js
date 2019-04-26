@@ -48,7 +48,7 @@ class Profile extends React.Component {
                 if (this.state.userType === 'REGULAR')
                     this.regularUserServices.findById(this.state.userId)
                         .then(user => {
-                            currentUser.regularUser = user[0];
+                            currentUser.regularUser = user;
                             this.setState({
                                 user: currentUser
                             })
@@ -185,7 +185,7 @@ class Profile extends React.Component {
                                         <h3 style={{color:"white"}}>My <span>Profile</span></h3>
                                         <p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Home </Link> <span
                                             className="lnr lnr-arrow-right"></span>
-                                            <Link className="text-white link-nav" to={`/user/${this.state.user}/myrecipes`}>My Recipes</Link>
+                                            <Link className="text-white link-nav" to={`/profile/${this.state.user.userType}/${this.state.user.userId}`}>{this.state.user.username}</Link>
                                         </p>
                                     </div>
                                 </div>
