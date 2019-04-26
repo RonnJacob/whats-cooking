@@ -8,6 +8,8 @@ import MealDBServices from "../../services/MealDBServices";
 import RecipeServices from "../../services/RecipeServices";
 import {getFromStorage} from "../../utils/storage";
 import UserServices from "../../services/UserServices";
+import {Link} from "react-router-dom";
+import {NoResults} from "../LandingPage/NoResults";
 
 class SearchRecipesByIngredients extends React.Component {
     constructor(props) {
@@ -19,8 +21,10 @@ class SearchRecipesByIngredients extends React.Component {
         this.state = {
             ingredients: [],
             userId: this.props.match.params.userId,
-            recipes: []
+            recipes: [],
+            searchAttempted:false
         };
+
         //this.searchRecipe = this.searchRecipe.bind(this);
 
     }
@@ -141,11 +145,17 @@ class SearchRecipesByIngredients extends React.Component {
                 }
             ).then(recipes => {
                 this.setState({
-                    recipes: recipes
+                    recipes: recipes,
+                    searchAttempted:true
                 })
             })
         })
-        
+
+                this.setState({
+
+                    searchAttempted:true
+                })
+
     }
 
     findAllCuisines = () => {
@@ -336,7 +346,11 @@ class SearchRecipesByIngredients extends React.Component {
                                 <div className="col-lg-12">
                                     <div className="section-top2 text-center">
                                         <h3>Find <span>Recipes</span></h3>
-                                        <p><i>Time to get into a yummilicious world.</i></p>
+                                        <p><i>Time to get into a yummilicious world. <span>Click</span> on the <span>button</span> below to find recipes matching you grocery stock!</i></p>
+                                        <p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Home </Link> <span
+                                            className="lnr lnr-arrow-right"></span>
+                                            <Link className="text-white link-nav" to={`/user/${this.state.user}/findrecipes`}>Let's Cook</Link>
+                                        </p>
                                     </div>
                                     <div className="table-btn text-center">
                                         <a href="#" className="template-btn template-btn2 mt-4"
@@ -447,7 +461,21 @@ class SearchRecipesByIngredients extends React.Component {
 
 
                             <div className="food-area " id={"food-area"}>
-
+                                {this.state.recipes.length==0 && this.state.searchAttempted &&<div className="no-results">
+                                    <img width={"100px"}  src="https://cdn4.iconfinder.com/data/icons/emojis-flat-pixel-perfect/64/emoji-56-512.png"/>
+                                    <h3>Ouch!! Get a bag of groceries to find a new world of super tasty recipes!</h3>
+                                    <div className="no-results-suggestion">
+                                        <img width={"100px"} src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Home_icon_black.png"/>
+                                        <span>Go back Home</span>
+                                    </div>
+                                    <div className="no-results-suggestion">
+                                        <img width={"100px"}  src="http://www.iconarchive.com/download/i87956/icons8/ios7/Ecommerce-Shopping-Cart-Loaded.ico"/>
+                                        <span>Add Ingredients</span></div>
+                                    <div className="no-results-suggestion">
+                                        <img width={"100px"}src="https://static.thenounproject.com/png/1467471-200.png"/>
+                                        <span>We'll be ready with your recipes</span></div>
+                                    {/*</PopularRecipes popularRecipes={this.state.popularRecipes}>*/}
+                                </div>}
                                 <div className="container">
                                     <div className="row">
                                         {this.state.recipes && renderRecipes}

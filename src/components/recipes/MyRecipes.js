@@ -393,9 +393,16 @@ class MyRecipes extends React.Component {
 
                                 </div>
                                 <div className="sorting mr-auto">
-                                    <div className="pagination">
+                                    <div className="">
+
+                                        <Link to="/addRecipe" id="addRecipe">  <FontAwesomeIcon
+                                            icon="plus"
+                                            className="fas fa-1x hand-cursor" style={{color:"black"}} data-tip='Add Recipe'/><a style={{color:"white",backgound:"orange",fontSize :"20px", fontFamily:"roboto"}} title="Add Recipe" className=""
+
+                                                                                  aria-hidden="true">recipes</a>
 
 
+			                    </Link>
                                     </div>
                                 </div>
 

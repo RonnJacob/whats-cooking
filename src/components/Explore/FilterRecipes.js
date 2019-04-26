@@ -10,7 +10,7 @@ const FilterRecipes = ({category,findRecipesByCategory,findRecipesByCuisine}) =>
 
 
                         <li className="main-nav-list child"><a href="#" onClick={() => findRecipesByCategory(category)} tabindex="1">{category}<span
-                            className="number">(13)</span></a></li>
+                            className="number"></span></a></li>
 
 
 

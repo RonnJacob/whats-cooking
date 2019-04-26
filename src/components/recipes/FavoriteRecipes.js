@@ -6,7 +6,7 @@ import '../../assets/landingpage/css/sidebar.css'
 import '../Explore/Explore.css'
 import MealDBServices from "../../services/MealDBServices";
 import {Link} from "react-router-dom";
-import {NoResults} from "../LandingPage/NoResults";
+
 
 class FavoriteRecipes extends React.Component {
     constructor(props) {
@@ -26,7 +26,6 @@ class FavoriteRecipes extends React.Component {
             userId: userId,
             fav: []
         };
-
     }
 
     componentWillMount() {
@@ -36,7 +35,6 @@ class FavoriteRecipes extends React.Component {
             .then(recipes => {
                 recipes.map(recipe => {
                         favorites = [...favorites, recipe];
-
                     }
                 )
             })
@@ -49,7 +47,6 @@ class FavoriteRecipes extends React.Component {
                             .then(recipeFromAPI => {
                                 let recipeFound = {};
                                 recipeFound._id=recipeFromAPI.meals[0].idMeal;
-
                                 recipeFound.name = recipeFromAPI.meals[0].strMeal
                                 recipeFound.ingredients = recipeFromAPI.meals[0].strIngredient1 + ',' +
                                     recipeFromAPI.meals[0].strIngredient2 + ',' +
@@ -63,12 +60,9 @@ class FavoriteRecipes extends React.Component {
                                 recipeFound.ownedBy = "Anonymous"
                                 recipeFound.category = "Miscellaneous"
                                 favorites = [...favorites, recipeFound]
-
                                 favorites = favorites.filter(function (a) {
                                     return !this[a._id] && (this[a._id] = true);
                                 }, Object.create(null));
-
-
                             }).then(() => {
                             this.setState({
                                 recipes: favorites
@@ -76,10 +70,7 @@ class FavoriteRecipes extends React.Component {
                         });
                     }
                 })
-
             }));
-
-
     }
 
 
@@ -141,11 +132,6 @@ class FavoriteRecipes extends React.Component {
 
     }
 
-    handleClick = event => {
-        return this.setState({
-            currentPage: Number(event.target.id)
-        })
-    }
 
 
 
@@ -279,42 +265,7 @@ class FavoriteRecipes extends React.Component {
     }
 
 
-    searchChanged = (event) => {
-        this.setState(
-            {
-                searchRecipe: event.target.value
-            });
-    };
-
     render() {
-        // const {recipes, currentPage, recipesPerPage} = this.state;
-        // const recipesF = this.state.fav;
-        // // Logic for displaying todos
-        // const indexOfLastRecipe = currentPage * recipesPerPage;
-        // const indexOfFirstRecipe = indexOfLastRecipe - recipesPerPage;
-        // const currentRecipes = recipesF.slice(indexOfFirstRecipe, indexOfLastRecipe);
-        //
-        // const renderRecipes = currentRecipes.map(recipe => {
-        //     return <RecipeCard popularRecipe={recipe} loggedIn={true}/>
-        // });
-        //
-        // // Logic for displaying page numbers
-        // const pageNumbers = [];
-        // for (let i = 1; i <= Math.ceil(recipesF.length / recipesPerPage); i++) {
-        //     pageNumbers.push(i);
-        // }
-        //
-        // const renderPageNumbers = pageNumbers.map(number => {
-        //     return (
-        //         <li className='horizontal-li'
-        //             key={number}
-        //             id={number}
-        //             onClick={this.handleClick}>
-        //             &nbsp;&nbsp;&nbsp;<label className='hover-underline'>{number}</label>
-        //         </li>
-        //     );
-        // });
-
         return (
 
             <div>
@@ -335,7 +286,7 @@ class FavoriteRecipes extends React.Component {
 
                                             className="lnr lnr-arrow-right"></span>
                                             <Link className="text-white link-nav"
-                                                  to={`/user/${this.state.user}/myrecipes`}>My Recipes</Link>
+                                                  to={`/user/${this.state.user}/favorites`}>Favorite Recipes</Link>
 
                                         </p>
                                     </div>
@@ -348,7 +299,7 @@ class FavoriteRecipes extends React.Component {
                 <section className="header">
                     <div className="row wrap">
 
-                        <div className="container">
+                        <div className="container-fluid">
                             <div className="filter-bar d-flex flex-wrap align-items-center">
                                 <div className="sorting">
 
@@ -366,25 +317,14 @@ class FavoriteRecipes extends React.Component {
 
                                     </div>
                                 </div>
-
-
-
                             </div>
-
-
                             <div className="food-area " id={"food-area"}>
-
                                 <div className="container">
                                     <div className="row">
-
-
                                         {
-
                                             (this.state.recipes)
                                             &&(this.state.recipes.map(recipe =>
                                                     <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"} loggedIn={!!this.state.userId}/>)
-
-
                                             )
                                         }
                                     </div>
