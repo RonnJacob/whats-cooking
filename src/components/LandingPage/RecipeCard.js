@@ -103,35 +103,36 @@ export default class RecipeCard extends React.Component{
                     Delete
                 </Button>}
 
-                <Modal show={this.state.show && this.props.loggedIn} onHide={this.handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Delete Recipe</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>Are you sure you want to delete this yummy recipe?</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleClose}>
-                            Close
-                        </Button>
-                        <Button variant="danger" onClick={this.handleCloseDelete}>
-                            Delete
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
 
-
-                <Modal show={this.state.showRecipeDetail} onHide={this.handleCloseRecipeModal}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Yikes!</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>You have to be registered or logged in to view the recipe.</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="danger" onClick={this.handleCloseRecipeModal}>
-                            Got it
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
 
             </div>}
+            <Modal show={this.state.show && this.props.loggedIn} onHide={this.handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Delete Recipe</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Are you sure you want to delete this yummy recipe?</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={this.handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="danger" onClick={this.handleCloseDelete}>
+                        Delete
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+
+            <Modal show={this.state.showRecipeDetail} onHide={this.handleCloseRecipeModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Yikes!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>You have to be registered or logged in to view the recipe.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={this.handleCloseRecipeModal}>
+                        Got it
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
         );
     }

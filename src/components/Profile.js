@@ -314,9 +314,9 @@ class Profile extends React.Component {
                                                 <tr>
                                                     <td className="name-theader">AppointmentLink</td>
                                                     <td className="actions-theader">
-                                                        {this.state.user._id !== this.state.loggedInUserId &&
-                                                        <a href={this.state.user.nutritionist.appointmentLink}>
-                                                            {this.state.user.nutritionist.appointmentLink}</a>}
+                                                        {/*{this.state.user._id !== this.state.loggedInUserId &&*/}
+                                                        {/*<a href={this.state.user.nutritionist.appointmentLink}>*/}
+                                                            {/*{this.state.user.nutritionist.appointmentLink}</a>}*/}
 
                                                         {this.state.user._id === this.state.loggedInUserId &&
                                                         <input onChange={e => this.linkChanged(e.target.value)}
@@ -328,6 +328,7 @@ class Profile extends React.Component {
                                                         {this.state.user._id !== this.state.loggedInUserId && <a
                                                             href={this.state.user.nutritionist.appointmentLink}>
                                                             {this.state.user.nutritionist.appointmentLink}
+
 
                                                         </a>}
                                                     </td>
