@@ -99,17 +99,13 @@ class HomePage extends  Component {
                                     h
                                     and.<br/>
                                     What's Cooking? makes your life easier by helping you decide what to cook based on
-                                    the time and
-                                    ingredients in hand.
+                                    the ingredients you have in hand.
                                     You no longer have to surf various websites to find the "perfect" recipe.
                                 </p>
-                                <h5 className="text-white">Get results in just three easy steps!</h5>
+                                <h5 className="text-white">Get results in just two easy steps!</h5>
                                 <br/>
                                 <p className="text-white">Step 1: Add the Ingredients</p>
-                                <p className="text-white">Step 2: Enter the time in hand</p>
-                                <p className="text-white">Step 3: Well! Everything is done, just click see results
-                                    button to find out your
-                                    recipes</p>
+                                <p className="text-white">Step 2: Well! Everything is done, just get recipes in a single click</p>
 
                                 {this.state.user.userType==='REGULAR' &&
                                 <button type="button"

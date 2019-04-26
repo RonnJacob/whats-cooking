@@ -54,7 +54,7 @@ class LandingPage extends Component {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-12">
-                                <h1 className='text-white'><i>Our Menu</i></h1>
+                                <h1 className='text-white'><i>We're live!!</i></h1>
                                 <p className="pt-2"><i>What's Cooking is your smart cooking sidekick!!
                                     From healthy and yummy recipes to handy tools and helpful tips from great chefs, We
                                     have everything you need to improve life in the kitchen.</i></p>
@@ -69,45 +69,26 @@ class LandingPage extends Component {
                         <div className="row">
                             <div className="col-md-6 col-sm-12">
                                 <h2 className="text-center">Sort &amp; Filter</h2>
-                                    <p className="wbdv-app-info">Yummly’s unique search filters allow you to narrow down your search by cook time, course,
-                                        cuisine, occasion, diet, allergy, nutrition and more! Yummly’s unique search filters
-                                        allow you to narrow down your search by cook time, course, cuisine, occasion, diet,
-                                        allergy, nutrition and more! Yummly’s unique search filters allow you to narrow down
-                                        your search by cook time, course, cuisine, occasion, diet, allergy, nutrition and
-                                        more! Yummly’s unique search filters allow you to narrow down your search by cook
-                                        time, course, cuisine, occasion, diet, allergy, nutrition and more!
+                                    <p className="wbdv-app-info">Our unique search filters allow you to narrow down your search by your diet,
+                                        cuisine, occasion, allergy, nutrition and more!
                                     </p>
                             </div>
                             <div className="col-md-6 col-sm-12">
-                                <h2 className="text-center">Diet &amp; Allergy</h2>
-                                    <p className="wbdv-app-info">Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
-                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
-                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
-                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
-                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
-                                        you. Tell Yummly your diet needs and allergies, and you’ll only see recipes that work for
-                                        you.</p>
+                                <h2 className="text-center">Your Signature Recipes</h2>
+                                    <p className="wbdv-app-info">Eant to make the world know the taste of your recipe? We let you add your signature recipes
+                                    and get feedback from other fellow foodies, chefs and nutritionists!</p>
                             </div>
                             <div className="row">
                                 <div className="col-md-6 col-sm-12">
                                 <h2 className="text-center">Collect Your Favorites</h2>
-                                    <p className="wbdv-app-info">Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.</p>
+                                    <p className="wbdv-app-info">Want to try cooking a lot of varieties? We bring to your reach a million recipes
+                                    from fellow foodies, chefs and nutritionists!! Favorite the recipes of your choice and save time with this quick guide!! </p>
                                 </div>
                                 <div className="col-md-6 col-sm-12">
                                 <h2 className="text-center">
                                     Browse for Inspiration
                                 </h2>
-                                    <p className="wbdv-app-info">Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.
-                                        Use the Yum button to save and organize recipes in your personal recipe box.</p>
+                                    <p className="wbdv-app-info">Not just that!! You can reach to a lot more popular recipes of world's most loved cuisines, ingredients and the best chefs.</p>
                                 </div>
                             </div>
                                     <p className="features-section-description p2-text browse-description"><p
@@ -129,8 +110,8 @@ class LandingPage extends Component {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-top2 text-center">
-                                    <h3>Find <span>our popular</span> recipes down below</h3>
-                                    <p><i>Time to get into a yummilicious world.</i></p>
+                                    <h3>Just <span>for</span> you</h3>
+                                    <p><i>Here we show you some of our most popular recipes!! Time to get into a yummilicious world.</i></p>
                                 </div>
                             </div>
                         </div>

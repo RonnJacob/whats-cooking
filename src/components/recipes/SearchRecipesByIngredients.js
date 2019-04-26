@@ -51,79 +51,6 @@ class SearchRecipesByIngredients extends React.Component {
         }
     }
 
-    componentDidMount() {
-
-        // findAllRecipes = () => {
-        //     this.mealDBServices.findAllCategories()
-        //         .then(categories => {
-        //             categories.meals.map(c => {
-        //                 this.mealDBServices.findRecipesByCategory(c.strCategory)
-        //                     .then(r => {
-        //                         console.log("hello: "+r.meals)
-        //                         alert('found? ' + r.meals.length)
-        //                         this.setState({
-        //                             recipes: [...this.state.recipes, r.meals]
-        //                         })
-        //                     })
-        //             })
-        //         })
-        //
-        //
-        // }
-
-        // var foundRecipes=[]
-        // console.log(this.state.recipes);
-        // this.state.ingredients.map(ingredient=>{
-        //     this.recipeServices.findRecipesByIngredients(ingredient.name.toLowerCase()).then(
-        //         r=>{
-        //
-        //             foundRecipes.push(r);
-        //             console.log("hello: "+foundRecipes.length)
-        //             // this.setState({
-        //             //     recipes: [...this.state.recipes, r]
-        //             // })
-        //         }
-        //
-        //     )
-        // })
-        // this.setState({
-        //     recipe:foundRecipes
-        // })
-
-
-        // var foundRecipes=[]
-        // console.log(this.state.recipes);
-        // this.state.ingredients.map(ingredient=>{
-        //     this.mealDBServices.findRecipesByIngredient(ingredient.name.toLowerCase()).then(
-        //         r=>{r.meals.map(recipe=> {
-        //                 console.log("Inside the map Recipe = "+recipe.strMeal)
-        //                 foundRecipes = [...foundRecipes, recipe]
-        //             console.log("Inside the map Array of recipes = "+foundRecipes.length)
-        //             }
-        //
-        //         )
-        //         }
-        //     )
-        // })
-
-        // this.regularUserServices.findOwnIngredients(this.state.userId)
-        //     .then(ingredients => {
-        //         this.setState
-        //         ({
-        //             ingredients: ingredients
-        //         })
-        //     });
-    }
-
-    // componentDidMount() {
-    //     this.regularUserServices.findOwnIngredients(this.state.userId)
-    //         .then(ingredients => {
-    //             this.setState
-    //             ({
-    //                 ingredients: ingredients
-    //             })
-    //         });
-    // }
 
     handleClick = event => {
         return this.setState({
@@ -272,13 +199,15 @@ class SearchRecipesByIngredients extends React.Component {
     };
 
     resetSort = () => {
-        this.regularUserServices.findOwnRecipes(this.state.userId)
-            .then(recipes => {
-                this.setState
-                ({
-                    recipes: recipes.meals ? recipes.meals : recipes
-                })
-            });
+        if(this.state.searchAttempted)
+            this.findRecipesByIngredient(this.state.ingredients)
+        else{
+            this.setState({
+                    searchAttempted: false
+                }
+            )
+        }
+
     }
 
     deleteRecipe = (recipeId) => {
@@ -358,25 +287,6 @@ class SearchRecipesByIngredients extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {/*<div className="row">*/}
-                            {/*<div className="col-lg-8 offset-lg-2">*/}
-                            {/*<form action="#">*/}
-
-
-                            {/*<div className="form-group has-search">*/}
-                            {/*<span className="fa fa-search form-control-feedback"></span>*/}
-                            {/*<input type="text" className="form-control"*/}
-                            {/*placeholder="search a million recipes & more"*/}
-                            {/*onChange={this.searchChanged}/>*/}
-                            {/*</div>*/}
-
-                            {/*<div className="table-btn text-center">*/}
-                            {/*<a href="#" className="template-btn template-btn2 mt-4"*/}
-                            {/*onClick={() => this.searchRecipe(this.state.searchRecipe)}>Go</a>*/}
-                            {/*</div>*/}
-                            {/*</form>*/}
-                            {/*</div>*/}
-                            {/*</div>*/}
                         </div>
                     </section>
                 </div>
@@ -384,14 +294,6 @@ class SearchRecipesByIngredients extends React.Component {
                 <section className="header">
                     <div className="row wrap">
                         <div className="split fleft">
-                            {/*<div className="ingredients">*/}
-                            {/*<h4 className="text-center mt-2">Available Groceries</h4>*/}
-                            {/*<ol className="list--alt" id="grocery_list">*/}
-                            {/**/}
-
-                            {/*</ol>*/}
-                            {/**/}
-                            {/*</div>*/}
                             <div className={"side-menu"}>
                                 <div className="">
 
@@ -414,26 +316,6 @@ class SearchRecipesByIngredients extends React.Component {
                             </div>
                         </div>
                         <div className="split fright">
-
-                            {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
-                            {/*<div className="sorting">*/}
-
-                            {/*</div>*/}
-                            {/*<div className="sorting mr-auto">*/}
-
-                            {/*</div>*/}
-                            {/*<div className="pagination">*/}
-                            {/*<a href="#" className="prev-arrow head" onClick={this.sortAscend}><i*/}
-                            {/*className="fa fa-sort-alpha-asc"*/}
-                            {/*aria-hidden="true"></i></a>*/}
-                            {/*<a href="#" className="next-arrow head" onClick={this.sortDescend}><i*/}
-                            {/*className="fa fa-sort-alpha-desc"*/}
-                            {/*aria-hidden="true"></i></a>*/}
-
-                            {/*<a href="#" onClick={this.resetSort}>reset</a>*/}
-
-                            {/*</div>*/}
-                            {/*</div>*/}
 
                             <div className="filter-bar d-flex flex-wrap align-items-center">
                                 <div className="sorting">
@@ -463,7 +345,7 @@ class SearchRecipesByIngredients extends React.Component {
                             <div className="food-area " id={"food-area"}>
                                 {this.state.recipes.length==0 && this.state.searchAttempted &&<div className="no-results">
                                     <img width={"100px"}  src="https://cdn4.iconfinder.com/data/icons/emojis-flat-pixel-perfect/64/emoji-56-512.png"/>
-                                    <h3>Ouch!! Get a bag of groceries to find a new world of super tasty recipes!</h3>
+                                    <h3>Ouch!! Add more to your bag of groceries to find a new world of super tasty recipes!</h3>
                                     <div className="no-results-suggestion">
                                         <img width={"100px"} src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Home_icon_black.png"/>
                                         <span>Go back Home</span>

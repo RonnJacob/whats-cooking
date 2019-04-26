@@ -375,18 +375,12 @@ class RecipeDetails extends Component {
                     <div className="container">
                         <div className="row d-flex align-items-center justify-content-center">
                             <div className="about-content col-lg-12">
-                                <h1 className="text-white">
-                                    My Recipes
-                                </h1>
-                                <p className="text-white link-nav"><a href='/home'></a>
-                                    {/*TODO need to change the hyper link to my recipes*/}
-                                    {/*<a href={`/user/${this.state.userId}/myrecipes`}>My Recipes</a>*/}
-                                    <a onClick={()=>this.props.history.goBack()}>Back</a>
-                                    <span
-                                        className="lnr lnr-arrow-left">
-                                    </span>
-                                    <a href={`/recipes/${this.state.recipeId}`}>Recipe Details</a>
-                                </p>
+                                <div className="section-top2 text-center">
+                                    <h3 style={{color:"white"}}> <span>Recipe</span>Details</h3>
+                                    <p className="text-white link-nav"><Link className="text-white link-nav" to='/home'>Back Home </Link>
+
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -408,8 +402,9 @@ class RecipeDetails extends Component {
                         <div className="row">
                             <div className="col-lg-7 home-about-left">
                                 <div className="table-responsive">
+
                                     <table className="groceries table table-bordered table-hover"
-                                           id="grocery_table">
+                                           id="grocery_table" style={{tableLayout: "",borderCollapse:"collapse"}}>
                                         <thead>
                                         <tr>
                                             <th>Item</th>
@@ -420,7 +415,7 @@ class RecipeDetails extends Component {
                                         <tbody>
                                         <tr>
                                             <td className="name-theader">Name</td>
-                                            <td className="name-theader">{this.state.recipe.name}</td>
+                                            <td style={{wordWrap:"breakWord"}}className="name-theader">{this.state.recipe.name}</td>
                                             {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) && <td className="actions-theader"><span><a
                                                 onClick={() => this.selectNameForUpdate(this.state.recipe.name)}>
                                                 <FontAwesomeIcon
@@ -430,7 +425,7 @@ class RecipeDetails extends Component {
                                         </tr>
                                         <tr>
                                             <td className="name-theader">Ingredients</td>
-                                            <td className="name-theader">{this.state.recipe.ingredients}</td>
+                                            <td style={{wordWrap:"breakWord"}} className="name-theader">{this.state.recipe.ingredients}</td>
                                             {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<td className="actions-theader"><span><a
                                                 onClick={() =>
                                                     this.selectIngredientsForUpdate(this.state.recipe.ingredients)}>
@@ -441,7 +436,7 @@ class RecipeDetails extends Component {
                                         </tr>
                                         <tr>
                                             <td className="name-theader">Steps</td>
-                                            <td className="name-theader">{this.state.recipe.steps}</td>
+                                            <td style={{wordWrap:"breakWord"}} className="name-theader">{this.state.recipe.steps}</td>
                                             {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<td className="actions-theader"><span><a
                                                 onClick={() => this.selectStepsForUpdate(this.state.recipe.steps)}>
                                                 <FontAwesomeIcon
@@ -451,7 +446,7 @@ class RecipeDetails extends Component {
                                         </tr>
                                         <tr>
                                             <td className="name-theader">Image</td>
-                                            <td className="name-theader">{this.state.recipe.image}</td>
+                                            <td style={{wordWrap:"breakWord",width:"100px"}} className="name-theader">{this.state.recipe.image}</td>
                                             {(this.state.ownerName.length>0&&this.state.owner._id===this.state.userId) &&<td className="actions-theader"><span><a
                                                 onClick={() => this.selectImageForUpdate(this.state.recipe.image)}>
                                                 <FontAwesomeIcon
