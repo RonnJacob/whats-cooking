@@ -26,7 +26,7 @@ const GuestNav = ({user, loggedIn, logOut}) =>
                 {/*</Navbar.Collapse>*/}
             {/*</Navbar>*/}
             <Navbar id="transparent-navbar-guestnav" collapseOnSelect expand="lg" variant="dark" fixed={'top'}>
-                <Navbar.Brand href="/">What's Cookin!</Navbar.Brand>
+                <Navbar.Brand>What's Cookin!</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 {/*<Navbar.Collapse id="responsive-navbar-nav">*/}
                     {/*<Nav className="mr-auto">*/}
