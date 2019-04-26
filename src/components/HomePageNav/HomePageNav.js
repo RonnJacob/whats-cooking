@@ -55,7 +55,7 @@ class HomePageNav extends React.Component{
                                 <a href={`/profile/${this.props.user.userType}/${this.props.user._id}`}>
                                     {this.props.user['username']}
                                 </a>
-                   œ         </li>
+                           </li>
                             <li><a href="/" onClick={this.props.logOut}>Log Out</a></li>
                         </ul>
                     </nav>

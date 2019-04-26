@@ -198,8 +198,6 @@ class RecipeDetails extends Component {
     toggleAction = () => {
         if (this.state.userType === 'REGULAR') {
             if (!this.state.isActioned) {
-                console.log(this.state.userId);
-                console.log(this.state.recipeId);
                 this.regularUserServices.favoriteRecipe(this.state.userId, this.state.recipeId)
                     .then(() => this.setState({
                         defaultButtonIcon: ['fas', 'heart'],

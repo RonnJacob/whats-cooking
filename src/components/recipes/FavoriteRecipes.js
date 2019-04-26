@@ -49,7 +49,6 @@ class FavoriteRecipes extends React.Component {
                             .then(recipeFromAPI => {
                                 let recipeFound = {};
                                 recipeFound._id=recipeFromAPI.meals[0].idMeal;
-
                                 recipeFound.name = recipeFromAPI.meals[0].strMeal
                                 recipeFound.ingredients = recipeFromAPI.meals[0].strIngredient1 + ',' +
                                     recipeFromAPI.meals[0].strIngredient2 + ',' +
@@ -67,8 +66,6 @@ class FavoriteRecipes extends React.Component {
                                 favorites = favorites.filter(function (a) {
                                     return !this[a._id] && (this[a._id] = true);
                                 }, Object.create(null));
-
-
                             }).then(() => {
                             this.setState({
                                 recipes: favorites
@@ -96,7 +93,7 @@ class FavoriteRecipes extends React.Component {
             .then(recipes => {
                 recipes.map(recipe => {
                         favorites = [...favorites, recipe]
-                    }
+                 }
                 )
             }).then(() => this.regularUserServices.findFavoriteRecipeId(this.state.userId))
             .then(recipeIds => {
@@ -223,11 +220,11 @@ class FavoriteRecipes extends React.Component {
     resetSort = () => {
 
         var favorites = [];
-        this.mealDBServices.findAllCategories()
-            .then(filterCategory => {
-                this.setState
-                ({filterCategory: filterCategory.meals})
-            });
+        // this.mealDBServices.findAllCategories()
+        //     .then(filterCategory => {
+        //         this.setState
+        //         ({filterCategory: filterCategory.meals})
+        //     });
         this.regularUserServices.findFavoriteRecipes(this.state.userId)
             .then(recipes => {
                 recipes.map(recipe => {
@@ -324,7 +321,7 @@ class FavoriteRecipes extends React.Component {
                 </div>
                 <div>
                     <section className="table-area section-padding">
-                        <div className="container">
+                        <div className="container-fluid">
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="section-top2 text-center">
@@ -346,9 +343,9 @@ class FavoriteRecipes extends React.Component {
                 </div>
 
                 <section className="header">
-                    <div className="row wrap">
+                    <div className="row">
 
-                        <div className="container">
+                        <div className="container-fluid">
                             <div className="filter-bar d-flex flex-wrap align-items-center">
                                 <div className="sorting">
 
@@ -376,10 +373,7 @@ class FavoriteRecipes extends React.Component {
 
                                 <div className="container">
                                     <div className="row">
-
-
                                         {
-
                                             (this.state.recipes)
                                             &&(this.state.recipes.map(recipe =>
                                                     <RecipeCard popularRecipe={recipe} recipeOwner={recipe.ownedBy?recipe.ownedBy:"Anonymous"} loggedIn={!!this.state.userId}/>)
