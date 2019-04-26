@@ -26,7 +26,10 @@ const GuestNav = ({user, loggedIn, logOut}) =>
                 {/*</Navbar.Collapse>*/}
             {/*</Navbar>*/}
             <Navbar id="transparent-navbar-guestnav" collapseOnSelect expand="lg" variant="dark" fixed={'top'}>
-                <Navbar.Brand>What's Cookin!</Navbar.Brand>
+                <div className="logo-area">
+                        <img src={require("../../../src/assets/landingpage/images/logo/newlogo.png")}
+                             alt="logo"/>
+                </div>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 {/*<Navbar.Collapse id="responsive-navbar-nav">*/}
                     {/*<Nav className="mr-auto">*/}

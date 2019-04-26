@@ -18,12 +18,7 @@ export const LandingPageHeader = ({popularRecipes}) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-2 col-sm-9 col-8">
-                            <div className="logo-area">
-                                <a href="/">
-                                    <img src={require("../../../src/assets/landingpage/images/logo/newlogo.png")}
-                                         alt="logo"/>
-                                </a>
-                            </div>
+
                         </div>
                         <div className="col-lg-10 col-sm-3 col-4">
                             {/*<div className="custom-navbar">*/}
