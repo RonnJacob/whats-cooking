@@ -277,7 +277,7 @@ class Profile extends React.Component {
                                                                value={this.state.blogPost ? this.state.blogPost : this.state.user.chef.blogPost}/>}
                                                         {this.state.user._id !== this.state.loggedInUserId && <a
                                                             href={this.state.user.chef.blogPost}>
-                                                            {/*{this.state.user.chef.blogPost}*/}
+                                                            {this.state.user.chef.blogPost}
 
                                                         </a>}
                                                     </td>
@@ -297,6 +297,12 @@ class Profile extends React.Component {
                                                                id="firstName"
                                                                placeholder="https://appointmentLink.com"
                                                                value={this.state.appointmentLink ? this.state.appointmentLink : this.state.user.nutritionist.appointmentLink}/>}
+
+                                                        {this.state.user._id !== this.state.loggedInUserId && <a
+                                                            href={this.state.user.nutritionist.appointmentLink}>
+                                                            {this.state.user.nutritionist.appointmentLink}
+
+                                                        </a>}
                                                     </td>
 
                                                 </tr>

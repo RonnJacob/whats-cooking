@@ -147,7 +147,7 @@ class RecipeDetails extends Component {
                             })
                     })
                 }
-                else if (currentRecipe.endorsedByNutritionist) {
+                if (currentRecipe.endorsedByNutritionist) {
                     let nutritionistNames = [];
                     currentRecipe.endorsedByNutritionist.map(e => {
                         this.userServices.findById(e)
@@ -303,7 +303,7 @@ class RecipeDetails extends Component {
                             }
                         })
 
-            } else if (this.state.userType === 'CHEF') {
+            } else if (this.state.userType === 'NUTRITIONIST') {
                 console.log(this.state.userId);
                 console.log(this.state.recipeId);
                 this.nutritionistServices.findEndorsedRecipeId(this.state.userId)
@@ -459,8 +459,8 @@ class RecipeDetails extends Component {
                                         <tr>
                                             <td className="name-theader">Owned By</td>
                                             <td className="name-theader">{this.state.ownerName}</td>
-                                            <td className="actions-theader">
-                                            </td>
+
+
                                         </tr>
                                         }
                                         {(this.state.endorsedByChef.length != 0
@@ -506,8 +506,7 @@ class RecipeDetails extends Component {
                                                 </div>
                                                 }
                                             </td>
-                                            <td className="actions-theader">
-                                            </td>
+                                           
                                         </tr>
                                         }
 
