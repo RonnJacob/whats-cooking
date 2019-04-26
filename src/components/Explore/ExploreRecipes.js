@@ -519,7 +519,7 @@ class ExploreRecipes extends React.Component {
 
                 <section className="header">
                     <div className="row">
-                        <div className="col-4 d-xl-block d-lg-block d-md-block d-none">
+                        <div className="col-xl-4 col-lg-4 col-md-4 d-xl-block d-lg-block d-md-block d-none">
                             <div className={"side-menu"}>
                                 <div className="">
                                     <div className="sidebar-categories">
@@ -537,7 +537,7 @@ class ExploreRecipes extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-8">
+                        <div className="col-12 col-xl-8 col-lg-8 col-md-8">
                             {/*<div className="filter-bar d-flex flex-wrap align-items-center">*/}
                             {/*<div className="sorting">*/}
 
