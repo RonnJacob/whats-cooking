@@ -116,7 +116,7 @@ class Profile extends React.Component {
 
     updateProfile = (user) => {
 
-        if (user.userType.toLowerCase() === "regularuser") {
+        if (user.userType.toLowerCase() === "regular") {
             this.userServices.updateProfile(user).then(
                 () => this.userServices.findById(user._id)
                     .then(updatedUser => {
@@ -323,7 +323,7 @@ class Profile extends React.Component {
                                                     <a className="primary-btn text-uppercase mt-20" id="login_user"
                                                        style={{color: 'white'}} onClick={() => {
                                                         let u = {}
-                                                        if (this.state.user.userType.toLowerCase() === "regularuser") {
+                                                        if (this.state.user.userType.toLowerCase() === "regular") {
 
                                                             u = {
                                                                 _id: this.state.user._id,

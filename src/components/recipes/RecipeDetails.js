@@ -44,7 +44,7 @@ class RecipeDetails extends Component {
         const obj = getFromStorage('project_april');
         let defaultTooltip = '';
         let defaultButtonIcon = [];
-        if (obj.user[0].userType === 'REGULAR') {
+        if ((obj &&obj.user[0])?obj.user[0].userType === 'REGULAR':'') {
             defaultButtonIcon = ['far', 'heart'];
             defaultTooltip = '  Favorite this Recipe!'
         } else {
@@ -53,8 +53,8 @@ class RecipeDetails extends Component {
         }
 
         this.state = {
-            userId: obj.user[0]._id,
-            userType: obj.user[0].userType,
+            userId: (obj &&obj.user[0])?obj.user[0]._id:'',
+            userType: obj &&obj.user[0]?obj.user[0].userType:'',
             recipeId: recipeId,
             recipe: {},
             updateValue: '',
@@ -66,13 +66,13 @@ class RecipeDetails extends Component {
             updatedFieldVisibility: 'd-none',
             defaultButtonIcon: defaultButtonIcon,
             defaultActionTooltip: defaultTooltip,
-            isActioned: false,
+            isActioned: '',
             message: '',
             messageBox: false
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         document.title = "What's Cooking?";
         this.renderAllFields('', '', 'd-none');
         const obj = getFromStorage('project_april');
@@ -87,7 +87,7 @@ class RecipeDetails extends Component {
                         user: obj.user[0]
                     });
                 }
-            });
+            }).then(()=>this.updateButtonStatus());
         }
 
     }
@@ -139,10 +139,13 @@ class RecipeDetails extends Component {
                                 // this.state.chefIds.push(user._id)
                                 // this.state.endorsedByChef.push(user.firstName)
                                 this.state.endorsedByChef.push(user)
+                                if(user._id===this.state.userId){
+                                    this.updateButtonStatus();
+                                }
                             })
                     })
                 }
-                if (currentRecipe.endorsedByNutritionist) {
+                else if (currentRecipe.endorsedByNutritionist) {
                     let nutritionistNames = [];
                     currentRecipe.endorsedByNutritionist.map(e => {
                         this.userServices.findById(e)
@@ -150,6 +153,9 @@ class RecipeDetails extends Component {
                                 // this.state.nutritionistIds.push(user._id)
                                 // this.state.endorsedByNutritionist.push(user.firstName)
                                 this.state.endorsedByNutritionist.push(user)
+                                if(user._id===this.state.userId){
+                                    this.updateButtonStatus();
+                                }
                             })
                     })
                 }
@@ -247,6 +253,79 @@ class RecipeDetails extends Component {
         }
 
     }
+
+
+    updateButtonStatus() {
+        let r=this.state.recipeId;
+
+            if (this.state.userType === 'REGULAR') {
+
+                    console.log(this.state.userId);
+                    console.log(this.state.recipeId);
+                    this.regularUserServices.findFavoriteRecipeId(this.state.userId)
+                        .then((recipeIds) => {
+
+                            if(recipeIds.indexOf(r)!==-1) {
+                                this.setState({
+                                    defaultButtonIcon: ['fas', 'heart'],
+                                    isActioned: true
+                                })
+                            } else {
+                                this.setState({
+                                    defaultButtonIcon: ['far', 'heart'],
+                                    isActioned: false
+                                })
+                            }
+                            }
+
+                            )
+
+
+
+            } else if (this.state.userType === 'CHEF') {
+                console.log(this.state.userId);
+                console.log(this.state.recipeId);
+                this.chefServices.findEndorsedRecipeId(this.state.userId)
+                    .then((recipeIds) => {
+
+                            if(recipeIds.indexOf(this.state.recipeId)!==-1) {
+                                this.setState({
+                                    defaultButtonIcon: ['fas', 'thumbs-up'],
+                                    isActioned: true
+                                })
+                            } else {
+                                this.setState({
+                                    defaultButtonIcon: ['far', 'thumbs-up'],
+                                    isActioned: false
+                                })
+                            }
+                        })
+
+            } else if (this.state.userType === 'CHEF') {
+                console.log(this.state.userId);
+                console.log(this.state.recipeId);
+                this.nutritionistServices.findEndorsedRecipeId(this.state.userId)
+                    .then((recipeIds) => {
+
+                        if(recipeIds.indexOf(this.state.recipeId)!==-1) {
+                            this.setState({
+                                defaultButtonIcon: ['fas', 'thumbs-up'],
+                                isActioned: true
+                            })
+                        } else {
+                            this.setState({
+                                defaultButtonIcon: ['far', 'thumbs-up'],
+                                isActioned: false
+                            })
+                        }
+                    })
+
+            }
+
+        }
+
+
+
 
     updateIngredient = () => {
         let recipe = JSON.parse(JSON.stringify(this.state.recipe));
@@ -486,6 +565,7 @@ class RecipeDetails extends Component {
             </div>
         );
     }
+
 
 
 }
