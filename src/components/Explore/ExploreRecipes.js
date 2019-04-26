@@ -28,8 +28,8 @@ class ExploreRecipes extends React.Component {
             sorted: 0,
             currentPage: 1,
             loggedIn: false,
-            user: obj.user[0] ? obj.user[0] : '',
-            userId: obj.user[0]._id ? obj.user[0]._id : '',
+            user: obj &&obj.user[0] ? obj.user[0] : '',
+            userId: obj&&obj.user[0]._id ? obj.user[0]._id : '',
             recipesPerPage: 6,
             searched: ''
         };

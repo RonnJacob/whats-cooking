@@ -13,8 +13,8 @@ export default class RecipeCard extends React.Component{
         // this.handleClose = this.handleClose.bind(this);
 
         this.state = {
-            loggedInUser: obj.user[0],
-            loggedInUserId: obj.user[0]._id,
+            loggedInUser: obj &&obj.user[0]?obj.user[0]:'',
+            loggedInUserId: obj &&obj.user[0]?obj.user[0]._id:'',
             show: false,
             showRecipeDetail: false
         };

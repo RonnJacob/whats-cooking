@@ -7,6 +7,7 @@ import '../Explore/Explore.css'
 import MealDBServices from "../../services/MealDBServices";
 import RecipeServices from "../../services/RecipeServices";
 import {getFromStorage} from "../../utils/storage";
+import UserServices from "../../services/UserServices";
 
 class SearchRecipesByIngredients extends React.Component {
     constructor(props) {
@@ -14,6 +15,7 @@ class SearchRecipesByIngredients extends React.Component {
         this.mealDBServices = new MealDBServices();
         this.regularUserServices = new RegularUserServices();
         this.recipeServices = new RecipeServices();
+        this.userServices=new UserServices()
         this.state = {
             ingredients: [],
             userId: this.props.match.params.userId,
