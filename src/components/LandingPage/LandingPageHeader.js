@@ -3,7 +3,7 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../../../node_modules/bootstrap/dist/js/bootstrap';
 import {Link, Route,Router} from 'react-router-dom'
 import ExploreRecipes from "../Explore/ExploreRecipes";
-import {Navbar, Collapse, Nav, NavDropdown} from "react-bootstrap";
+import {Navbar, Collapse, Nav, NavDropdown, NavbarBrand} from "react-bootstrap";
 import './LandingPageHeader.css'
 
 
@@ -18,7 +18,10 @@ export const LandingPageHeader = ({popularRecipes}) => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-2 col-sm-9 col-8">
-
+                                <div className="logo-area">
+                                    <img src={require("../../../src/assets/landingpage/images/logo/newlogo.png")}
+                                         alt="logo"/>
+                                </div>
                         </div>
                         <div className="col-lg-10 col-sm-3 col-4">
                             {/*<div className="custom-navbar">*/}
@@ -52,6 +55,7 @@ export const LandingPageHeader = ({popularRecipes}) => {
                             {/*</div>*/}
                             <Navbar id="transparent-navbar" collapseOnSelect expand="lg" variant="dark">
                                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
                                 <Navbar.Collapse id="responsive-navbar-nav">
                                     <Nav className="mr-auto">
                                     </Nav>

@@ -85,7 +85,7 @@ class HomePage extends  Component {
         return (
             <div id="home-page">
                 <div id="header">
-                        <HomePageNav user={this.state.user} logOut={this.logOut}/>
+                    <HomePageNav user={this.state.user} logOut={this.logOut}/>
                 </div>
                 <section className="banner-area home-page">
                     <div className="container">
@@ -94,18 +94,26 @@ class HomePage extends  Component {
                                 <h1 className="text-white">Hi {this.state.user ?
                                     this.state.user.firstName: this.props.location.state.user.firstName}!
                                     What's Cooking?</h1>
-                                <p className="text-white">
+                                {this.state.user.userType==='REGULAR' && <p className="text-white">
                                     Here is your one stop solution to find recipes that best match the ingredients in
                                     h
                                     and.<br/>
                                     What's Cooking? makes your life easier by helping you decide what to cook based on
                                     the ingredients you have in hand.
                                     You no longer have to surf various websites to find the "perfect" recipe.
-                                </p>
-                                <h5 className="text-white">Get results in just two easy steps!</h5>
+                                </p>}
+                                {this.state.user.userType==='CHEF' && <p className="text-white">
+                                    Thank you for joining us!<br/> Explore on our recipes and endorse the one's you find the best tasty!<br/>
+                                    All your followers would love to learn and experiment a lot of your signature recipes. Go ahead and help them lead a tasty life.
+                                </p>}
+                                {this.state.user.userType==='NUTRITIONIST' && <p className="text-white">
+                                    Thank you for joining us!<br/> Explore on our recipes and endorse the one's you find the best tasty!<br/>
+                                    All your followers would love to lead a healthy and hence happy life!! Go ahead and help them lead a healthier life with your endorsements.
+                                </p>}
+                                {this.state.user.userType==='REGULAR' && <h5 className="text-white">Get results in just two easy steps!</h5>}
                                 <br/>
-                                <p className="text-white">Step 1: Add the Ingredients</p>
-                                <p className="text-white">Step 2: Well! Everything is done, just get recipes in a single click</p>
+                                {this.state.user.userType==='REGULAR' && <p className="text-white">Step 1: Add the Ingredients</p>}
+                                {this.state.user.userType==='REGULAR' && <p className="text-white">Step 2: Well! Everything is done, just get recipes in a single click</p>}
 
                                 {this.state.user.userType==='REGULAR' &&
                                 <button type="button"
@@ -113,7 +121,7 @@ class HomePage extends  Component {
                                         onClick={()=>window.location.href=`/user/${this.state.userId}/findRecipes`}
                                         id="prepare"
                                         style={{marginBottom:'20px'}}>
-                                        Let's Cook!
+                                    Let's Cook!
                                 </button>}
                             </div>
                         </div>
