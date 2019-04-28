@@ -6,6 +6,7 @@ import '../../assets/css/animate.min.css'
 import '../../assets/css/main.css'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import ReactTooltip from 'react-tooltip'
+
 import {
     faPlus,
     faTimes,
@@ -506,7 +507,7 @@ class RecipeDetails extends Component {
                                                 </div>
                                                 }
                                             </td>
-                                           
+
                                         </tr>
                                         }
 
